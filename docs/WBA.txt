@@ -3,30 +3,32 @@
 
 Lucus Choy - 31859461
         Assigned Task:
-* Sequence Diagram x1
-* Main UML Diagram (collaborative)
-   * REQ3
-   * REQ4
-* Reviewing Connor’s diagram (Saturday 09/04/2022)
-Date deliverable: 
-                Friday 08/04/22
+		* Sequence Diagram x1
+		* Main UML Diagram (collaborative)
+		   * REQ3
+		   * REQ4
+		* Reviewing Connor’s diagram (Saturday 09/04/2022)
+	Date deliverable: 
+		        Friday 08/04/22
 Connor Gibson 32549393
         Assigned Task:
-* Sequence Diagram x1
-* Main UML Diagram (collaborative)
-   * REQ5 
-   * REQ6
-* Reviewing Sean’s diagrams (Saturday 09/04/2022)
-* Document describing class functionality
+		* Sequence Diagram x1
+		* Main UML Diagram (collaborative)
+		   * REQ5 
+		   * REQ6
+		* Reviewing Sean’s diagrams (Saturday 09/04/2022)
+		* Document describing class functionality
         Date deliverable: 
                 Friday 08/04/22
 Shang-Fu Tsou 32444583
         Assigned Task:
-* Sequence Diagram x1
-* Main UML Diagram (Collaborative)
-   * REQ1 
-   * REQ2
-   * REQ7
-* Reviewing Lucus’s diagrams (Saturday 09/04/2022)
+		* Sequence Diagram x1
+		* Main UML Diagram (Collaborative)
+		   * REQ1 
+		   * REQ2
+		   * REQ7
+		* Reviewing Lucus’s diagrams (Saturday 09/04/2022)
         Date deliverable:
                 Friday 08/04/2022
+ 
+ I accept this WBA - Connor Gibson
