@@ -52,6 +52,13 @@ items Toad has a pontential to carry when the player interacts with him in order
 Koopa would have an association with Super Mushroom as when the shell of a Koopa is destroyed, a
 Super Mushroom is dropped.
 
+A class called FlattenAction would create the functionality where whenever, the player character moves
+to higher ground, instead of a JumpAction, the target position would be flattened and become dirt. This class
+would have an association with the abstract class Ground as it would turn Ground objects (Sapling, Sprout, Tree, Wall)
+into Dirt.
+
+FlattenAction would also inherit attributes of the abstract class Action as it is an action the player
+can make after using a Power Star item.
 
 
 
