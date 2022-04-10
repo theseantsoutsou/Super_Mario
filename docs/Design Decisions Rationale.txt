@@ -26,9 +26,34 @@ Actor method hasCapabilities() to check if the Player has the Status TALL. Since
 dependency on Actor, this method does not add more dependencies.
 
 
+
 //////REQ3//////
+Goomba and Koopa would inherit certain aspects of the Actor class as they both contain attributes that are
+shared amongst other characters such as health and the ability to move around (with the exception of Toad).
+As a result, they would have an inheritance relationship with the Actor class. Additionally, Goomba and Koopa
+have relationships with Sprout and Tree where a Sprout or a Tree have the chance to spawn a Goomba or
+Koopa respectively.
+
+Koopa would have an association with Super Mushroom as when the shell of a Koopa is destroyed, a
+Super Mushroom is dropped.
+
+Futhermore, Goomba and Koopa would implement the Behaviour interface which allows them to have their own
+'objectives' such as killing the player.
+
+
 
 //////REQ4//////
+Both Super Mushroom and Power Star are objects that the player can use to gain a benefit/advantage in the game,
+as a result, they would inherit aspects of the Item class.
+
+Super Mushroom and Power Star would implement the TradableItem interface which would list them as
+items Toad has a pontential to carry when the player interacts with him in order to trade.
+
+Koopa would have an association with Super Mushroom as when the shell of a Koopa is destroyed, a
+Super Mushroom is dropped.
+
+
+
 
 //////REQ5//////
 
