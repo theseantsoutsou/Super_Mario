@@ -1,0 +1,37 @@
+//////REQ1//////
+While Sprout, Sapling, and Mature are stages of a tree, they have unique spawning abilities. To obey the Single-Responsibility
+Principle, it was decided to make them separate classes that inherit the Ground Class.
+As Sprout can spawn a Goomba, it implied that it would have a dependency, that is, a method to potentially
+spawn a Goomba when conditions are met.
+Similarly, a Sapling can drop coins every turn, which implies that Sapling knows about Coin, and therefore has
+a dependency on the Coin Class.
+Lastly, a Tree can spawn a Koopa, which is responsible for its dependency on the Koopa Class.
+
+As Sprout grows into Sapling, Sapling grows into Tree, and Tree can spawn Sprouts or become Dirt, Sprout has a
+dependency on Sapling, Sapling has a dependency on Tree, and Tree has dependencies on Sprout and Dirt.
+
+
+//////REQ2//////
+The JumpAction is implemented similarly to the existing class AttackAction. It also inherits from the base
+class Action. It has an attribute target of class Ground which forms its association with the Ground class.
+This is done to obey the Liskov Substitution Principle. In reality, JumpAction will only target Wall, Sprout,
+Sapling, and Tree which all inherit from the Ground class. Success rates and fall damages will be added as
+attributes to the relevant Ground subclasses as they have unique values. These values will then be retrieved
+when JumpAction.execute() is called. As JumpAction already has an association with the Ground class,
+this design does not add on to the dependencies between classes, and therefore follows the idea of
+reducing dependencies (ReD).
+
+To further implement the ReD principle, JumpAction will check the consumption of SuperMushroom via the
+Actor method hasCapabilities() to check if the Player has the Status TALL. Since Action has an existing
+dependency on Actor, this method does not add more dependencies.
+
+
+//////REQ3//////
+
+//////REQ4//////
+
+//////REQ5//////
+
+//////REQ6//////
+
+//////REQ7//////
