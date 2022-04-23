@@ -7,6 +7,7 @@ import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.actions.DoNothingAction;
 import edu.monash.fit2099.engine.positions.GameMap;
+import edu.monash.fit2099.engine.weapons.IntrinsicWeapon;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -20,7 +21,7 @@ public class Goomba extends Actor {
 	 * Constructor.
 	 */
 	public Goomba() {
-		super("Goomba", 'g', 50);
+		super("Goomba", 'g', 20);
 		this.behaviours.put(10, new WanderBehaviour());
 	}
 
@@ -40,6 +41,15 @@ public class Goomba extends Actor {
 		if(otherActor.hasCapability(Status.HOSTILE_TO_ENEMY)) {
 			actions.add(new AttackAction(this,direction));
 		}
+
+		//Implementation of attack action (goomba -> player)
+		if(otherActor.hasCapability(Status.HOSTILE_TO_ENEMY)){
+			IntrinsicWeapon kick = new IntrinsicWeapon(10, "kicks");
+			actions.add(new AttackAction(otherActor,direction));
+
+
+		}
+
 		return actions;
 	}
 
@@ -49,12 +59,17 @@ public class Goomba extends Actor {
 	 */
 	@Override
 	public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
+		//dice roll for suicide?
+
 		for(Behaviour Behaviour : behaviours.values()) {
 			Action action = Behaviour.getAction(this, map);
 			if (action != null)
 				return action;
 		}
+
 		return new DoNothingAction();
 	}
+
+
 
 }
