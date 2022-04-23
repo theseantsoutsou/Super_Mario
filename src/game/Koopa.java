@@ -8,6 +8,7 @@ import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.actions.DoNothingAction;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.weapons.IntrinsicWeapon;
+import edu.monash.fit2099.engine.items.Item;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -23,6 +24,8 @@ public class Koopa extends Actor {
     public Koopa() {
         super("Koopa", 'K', 100);
         this.behaviours.put(10, new WanderBehaviour());
+//        this.behaviours.put(10, new AttackBehaviour());
+
     }
 
 
@@ -43,17 +46,19 @@ public class Koopa extends Actor {
             //dormant when 'killed'
             if (!this.isConscious()){
                 setDisplayChar('D');
-                otherActor.capabilitiesList().remove(Status.HOSTILE_TO_ENEMY); //note: should this.capabilities be cleared? or does player lose hostile_to_enemy?
+                this.resetMaxHp(50);
+                this.capabilitiesList().clear();
+//                otherActor.capabilitiesList().remove(Status.HOSTILE_TO_ENEMY); //note: should this.capabilities be cleared? or does player lose hostile_to_enemy?
                 //check if hostile_to_enemy is actor specific
             }
 
-        //Implementation of attack action (goomba -> player)
-        if(otherActor.hasCapability(Status.HOSTILE_TO_ENEMY)){
-            IntrinsicWeapon punch = new IntrinsicWeapon(30, "punches");
-            actions.add(new AttackAction(otherActor,direction));
-
-
-        }
+//        //Implementation of attack action (goomba -> player)
+//        if(otherActor.hasCapability(Status.HOSTILE_TO_ENEMY)){
+//            IntrinsicWeapon punch = new IntrinsicWeapon(30, "punches");
+//            actions.add(new AttackAction(otherActor,direction));
+//
+//
+//        }
 
         //wrench for complete destruction
         if (this.getDisplayChar() == 'D'){
@@ -62,7 +67,11 @@ public class Koopa extends Actor {
                 wrenchCheck = true;
             }else {wrenchCheck = false;}
             if (wrenchCheck){
-                otherActor.capabilitiesList().add(Status.HOSTILE_TO_ENEMY);
+                actions.add(new AttackAction(this, direction));
+            }
+            if (!this.isConscious()){
+                SuperMushroom mush = new SuperMushroom();
+                mush.getDropAction(this);
             }
 
         }

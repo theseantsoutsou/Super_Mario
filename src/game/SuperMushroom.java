@@ -39,10 +39,14 @@ public class SuperMushroom extends Item {
         return super.getPickUpAction(actor);
     }
 
+    /**
+     * Allows Koopa to drop when shell is obliterated
+     * @param actor
+     * @return
+     */
     @Override
     public DropItemAction getDropAction(Actor actor) {
         return super.getDropAction(actor);
     }
-
 
 }

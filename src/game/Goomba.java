@@ -17,12 +17,20 @@ import java.util.Map;
 public class Goomba extends Actor {
 	private final Map<Integer, Behaviour> behaviours = new HashMap<>(); // priority, behaviour
 
+	public Actor getPlayer() {
+		return player;
+	}
+
+	public final Actor player = getPlayer();
+
 	/**
 	 * Constructor.
 	 */
 	public Goomba() {
 		super("Goomba", 'g', 20);
 		this.behaviours.put(10, new WanderBehaviour());
+		this.behaviours.put(10, new AttackBehaviour(player));
+
 	}
 
 	/**
@@ -42,14 +50,6 @@ public class Goomba extends Actor {
 			actions.add(new AttackAction(this,direction));
 		}
 
-		//Implementation of attack action (goomba -> player)
-		if(otherActor.hasCapability(Status.HOSTILE_TO_ENEMY)){
-			IntrinsicWeapon kick = new IntrinsicWeapon(10, "kicks");
-			actions.add(new AttackAction(otherActor,direction));
-
-
-		}
-
 		return actions;
 	}
 
@@ -65,10 +65,17 @@ public class Goomba extends Actor {
 			Action action = Behaviour.getAction(this, map);
 			if (action != null)
 				return action;
+
+
 		}
 
 		return new DoNothingAction();
 	}
+
+
+	@Override
+	public IntrinsicWeapon getIntrinsicWeapon() {return new IntrinsicWeapon(10, "Kicks" );}
+
 
 
 
