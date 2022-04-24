@@ -20,16 +20,16 @@ public class AttackBehaviour implements Behaviour{
     @Override
     public Action getAction(Actor actor, GameMap map) {
 
-
+    /**
         ActionList actions = new ActionList();
         Location targetLoc = map.locationOf(target);
         String there = String.valueOf(targetLoc);
 
         if (map.contains(target)){
         //Implementation of attack action (goomba -> player)
-//            if(target.hasCapability(Status.HOSTILE_TO_ENEMY)){
-//                IntrinsicWeapon punch = new IntrinsicWeapon(10, "punches");
-                actions.add(new AttackAction(target, there));
+            //if(target.hasCapability(Status.HOSTILE_TO_ENEMY)){
+                //IntrinsicWeapon punch = new IntrinsicWeapon(10, "punches");
+                //actions.add(new AttackAction(target, there));
 
 
 
@@ -38,6 +38,8 @@ public class AttackBehaviour implements Behaviour{
 
 
         return actions.get(0);
+     */
+    return null;
     }
 
 

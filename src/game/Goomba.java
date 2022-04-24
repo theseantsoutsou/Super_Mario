@@ -29,7 +29,7 @@ public class Goomba extends Actor {
 	public Goomba() {
 		super("Goomba", 'g', 20);
 		this.behaviours.put(10, new WanderBehaviour());
-		this.behaviours.put(10, new AttackBehaviour(player));
+		//this.behaviours.put(10, new AttackBehaviour(player));
 
 	}
 
