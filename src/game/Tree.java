@@ -1,15 +1,19 @@
 package game;
 
+import edu.monash.fit2099.engine.actions.ActionList;
+import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.positions.Ground;
 import edu.monash.fit2099.engine.positions.Location;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Tree extends Ground {
+public class Tree extends Ground implements Jumpable{
 
     //Private Attributes
     private int age;
+    private static final int JUMP_SUCCESS_RATE = 70;
+    private static final int FALL_DAMAGE = 30;
 
     /**
      * Constructor.
@@ -18,6 +22,14 @@ public class Tree extends Ground {
     public Tree() {
         super('T');
         this.age = 0;
+    }
+
+    public int getSuccessRate() {
+        return JUMP_SUCCESS_RATE;
+    }
+
+    public int getFallDamage() {
+        return FALL_DAMAGE;
     }
 
     /**
@@ -36,11 +48,15 @@ public class Tree extends Ground {
         }
     }
 
-    public void spawn(Location location) {
+    public Boolean spawn(Location location) {
         Random r = new Random();
+        Boolean spawned = false;
+
         if (r.nextInt(100) <= 15 && !location.containsAnActor()) {
             location.addActor(new Koopa());
+            spawned = true;
         }
+        return spawned;
     }
 
     public void growSprout(Location location) {
@@ -58,7 +74,7 @@ public class Tree extends Ground {
                 int x = location.x() + adjacency[idx][0];
                 int y = location.y() + adjacency[idx][1];
 
-                if (x != -1 && x != 80 && y != -1 && y != 19 && location.map().at(x,y).getGround() instanceof Dirt) {
+                if (location.map().getXRange().contains(x) && location.map().getYRange().contains(y) && location.map().at(x,y).getGround() instanceof Dirt) {
                     location.map().at(x,y).setGround(new Sprout());
                     grown = true;
                 }
@@ -74,5 +90,16 @@ public class Tree extends Ground {
             dead = true;
         }
         return dead;
+    }
+
+    @Override
+    public ActionList allowableActions(Actor actor, Location location, String direction){
+        ActionList actions = new ActionList();
+        Boolean spawned = this.spawn(location);
+        if(actor.hasCapability(Status.HOSTILE_TO_ENEMY) && !spawned) {
+            actions.add(new JumpAction(this,direction));
+        }
+
+        return actions;
     }
 }

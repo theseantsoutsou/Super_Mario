@@ -1,14 +1,18 @@
 package game;
 
+import edu.monash.fit2099.engine.actions.ActionList;
+import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.positions.Ground;
 import edu.monash.fit2099.engine.positions.Location;
 
 import java.util.Random;
 
-public class Sapling extends Ground {
+public class Sapling extends Ground implements Jumpable{
 
     //Private Attributes
     private int age;
+    private static final int JUMP_SUCCESS_RATE = 80;
+    private static final int FALL_DAMAGE = 20;
 
     /**
      * Constructor.
@@ -17,6 +21,14 @@ public class Sapling extends Ground {
     public Sapling() {
         super('t');
         this.age = 0;
+    }
+
+    public int getSuccessRate() {
+        return JUMP_SUCCESS_RATE;
+    }
+
+    public int getFallDamage() {
+        return FALL_DAMAGE;
     }
 
     /**
@@ -41,4 +53,14 @@ public class Sapling extends Ground {
         }
     }
 
+    @Override
+    public ActionList allowableActions(Actor actor, Location location, String direction){
+        ActionList actions = new ActionList();
+
+        if(actor.hasCapability(Status.HOSTILE_TO_ENEMY)) {
+            actions.add(new JumpAction(this,direction));
+        }
+
+        return actions;
+    }
 }

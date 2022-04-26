@@ -1,15 +1,19 @@
 package game;
 
+import edu.monash.fit2099.engine.actions.ActionList;
+import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.positions.Ground;
 import edu.monash.fit2099.engine.positions.Location;
 
 import java.util.Random;
 
 
-public class Sprout extends Ground {
+public class Sprout extends Ground implements Jumpable{
 
     //Private Attributes
     private int age;
+    private static final int JUMP_SUCCESS_RATE = 90;
+    private static final int FALL_DAMAGE = 10;
 
     /**
      * Constructor.
@@ -18,6 +22,14 @@ public class Sprout extends Ground {
     public Sprout() {
         super('+');
         this.age = 0;
+    }
+
+    public int getSuccessRate() {
+        return JUMP_SUCCESS_RATE;
+    }
+
+    public int getFallDamage() {
+        return FALL_DAMAGE;
     }
 
     /**
@@ -39,11 +51,26 @@ public class Sprout extends Ground {
      * Each sprout has a 10% chance of spawning a Goomba on its location if an actor is not on it.
      * @param location The location of the Sprout
      */
-    public void spawn(Location location) {
+    public Boolean spawn(Location location) {
+        Boolean spawned = false;
         Random r = new Random();
         if (r.nextInt(100) <= 10 && !location.containsAnActor()) {
             location.addActor(new Goomba());
+            spawned = true;
         }
+        return spawned;
     }
 
+    @Override
+    public ActionList allowableActions(Actor actor, Location location, String direction){
+        ActionList actions = new ActionList();
+
+        Boolean sameGround = location.map().locationOf(actor).equals(location);
+
+        if(actor.hasCapability(Status.HOSTILE_TO_ENEMY) && !this.spawn(location) && !sameGround) {
+            actions.add(new JumpAction(this, direction));
+        }
+
+        return actions;
+    }
 }
