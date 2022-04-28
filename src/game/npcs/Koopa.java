@@ -6,12 +6,15 @@ import edu.monash.fit2099.engine.actions.ActionList;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.actions.DoNothingAction;
+import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.Exit;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Location;
 import edu.monash.fit2099.engine.weapons.IntrinsicWeapon;
 import game.*;
 import game.actions.AttackAction;
+import game.actions.BreakAction;
+import game.actions.EmptyAction;
 import game.behaviours.AttackBehaviour;
 import game.behaviours.Behaviour;
 import game.behaviours.FollowBehaviour;
@@ -25,6 +28,7 @@ import java.util.Map;
  */
 public class Koopa extends Actor {
     private final Map<Integer, Behaviour> behaviours = new HashMap<>(); // priority, behaviour
+    private Boolean dormant = false;
 
     /**
      * Constructor.
@@ -33,7 +37,12 @@ public class Koopa extends Actor {
         super("Koopa", 'K', 100);
         this.behaviours.put(10, new WanderBehaviour());
         this.behaviours.put(20, new AttackBehaviour());
+        this.addItemToInventory(new SuperMushroom());
 
+    }
+
+    public Boolean isDormant() {
+        return dormant;
     }
 
     /**
@@ -46,27 +55,18 @@ public class Koopa extends Actor {
     public ActionList allowableActions(Actor otherActor, String direction, GameMap map) {
 
         ActionList actions = new ActionList();
-        // it can be attacked only by the HOSTILE opponent, and this action will not attack the HOSTILE enemy back.
-        if(otherActor.hasCapability(Status.HOSTILE_TO_ENEMY)) {
-            actions.add(new AttackAction(this,direction));
-
-        //wrench for complete destruction
-        if (this.getDisplayChar() == 'D'){
-            boolean wrenchCheck;
-            if (otherActor.getInventory().contains("Wrench")){
-                wrenchCheck = true;
-            }else {wrenchCheck = false;}
-            if (wrenchCheck){
-                actions.add(new AttackAction(this, direction));
+        if (otherActor.hasCapability(Status.HOSTILE_TO_ENEMY)) {
+            if (!this.isDormant()) {
+                actions.add(new BreakAction(this, direction));
+            } else {
+                for (Item item : otherActor.getInventory()) {
+                    if (item.hasCapability(Status.BREAK_SHELL)) {
+                        actions.add(new BreakAction(this, direction));
+                    }
+                }
             }
-            if (!this.isConscious()){
-                SuperMushroom mush = new SuperMushroom();
-                mush.getDropAction(this);
-            }
-
         }
 
-        }
         return actions;
     }
 
@@ -77,12 +77,13 @@ public class Koopa extends Actor {
     @Override
     public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
         if (!this.isConscious()) {
-            setDisplayChar('D');
+            this.dormant = true;
+            this.setDisplayChar('D');
             this.resetMaxHp(50);
             this.behaviours.clear();
-        }
+            return new EmptyAction();
 
-        if (lastAction instanceof AttackAction || this.hasCapability(Status.GOT_ATTACKED)) {
+        } else if (lastAction instanceof AttackAction || this.hasCapability(Status.GOT_ATTACKED)) {
             Location here = map.locationOf(this);
             for(Exit exit: here.getExits()) {
                 Actor target = exit.getDestination().getActor();

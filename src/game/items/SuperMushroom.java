@@ -28,25 +28,4 @@ public class SuperMushroom extends Item {
         super("Super Mushroom", '^', true);
 
     }
-
-    /**
-     * Let's Mario pick up SuperMushroom
-     * @param actor
-     * @return
-     */
-    @Override
-    public PickUpItemAction getPickUpAction(Actor actor) {
-        return super.getPickUpAction(actor);
-    }
-
-    /**
-     * Allows Koopa to drop when shell is obliterated
-     * @param actor
-     * @return
-     */
-    @Override
-    public DropItemAction getDropAction(Actor actor) {
-        return super.getDropAction(actor);
-    }
-
 }

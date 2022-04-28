@@ -7,6 +7,7 @@ import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.positions.GameMap;
 import game.Status;
+import game.actions.EmptyAction;
 import game.actions.SpeakAction;
 import game.actions.TradeAction;
 import game.behaviours.Behaviour;
@@ -43,7 +44,7 @@ public class Toad extends Actor {
      */
     @Override
     public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
-        return new DoNothingAction();
+        return new EmptyAction();
     }
     public static void createToad(GameMap gameMap){
         if(instance == null){
