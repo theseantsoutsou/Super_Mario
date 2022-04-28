@@ -11,25 +11,21 @@ import edu.monash.fit2099.engine.weapons.IntrinsicWeapon;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
+
 /**
  * A little fungus guy.
  */
 public class Goomba extends Actor {
 	private final Map<Integer, Behaviour> behaviours = new HashMap<>(); // priority, behaviour
 
-	public Actor getPlayer() {
-		return player;
-	}
-
-	public final Actor player = getPlayer();
-
 	/**
 	 * Constructor.
 	 */
 	public Goomba() {
-		super("Goomba", 'g', 20);
+		super("Goomba", 'g', 10);
 		this.behaviours.put(10, new WanderBehaviour());
-		//this.behaviours.put(10, new AttackBehaviour(player));
+		this.behaviours.put(20, new AttackBehaviour());
 
 	}
 
@@ -59,19 +55,22 @@ public class Goomba extends Actor {
 	 */
 	@Override
 	public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
-		//dice roll for suicide?
-
-		for(Behaviour Behaviour : behaviours.values()) {
+		//suicide
+		for (Behaviour Behaviour : behaviours.values()) {
 			Action action = Behaviour.getAction(this, map);
-			if (action != null)
+			if (action != null) {
 				return action;
-
-
+			}
+			else {
+				Random r = new Random();
+				if (r.nextInt(100) <= 10) {
+					map.removeActor(this);
+					return new DoNothingAction(); //TODO: ADD GENERIC ACTION METHOD
+				}
+			}
 		}
-
 		return new DoNothingAction();
 	}
-
 
 	@Override
 	public IntrinsicWeapon getIntrinsicWeapon() {return new IntrinsicWeapon(10, "Kicks" );}

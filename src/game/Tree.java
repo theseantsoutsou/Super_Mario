@@ -2,10 +2,12 @@ package game;
 
 import edu.monash.fit2099.engine.actions.ActionList;
 import edu.monash.fit2099.engine.actors.Actor;
+import edu.monash.fit2099.engine.positions.Exit;
 import edu.monash.fit2099.engine.positions.Ground;
 import edu.monash.fit2099.engine.positions.Location;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Tree extends Ground implements Jumpable{
@@ -60,24 +62,15 @@ public class Tree extends Ground implements Jumpable{
     }
 
     public void growSprout(Location location) {
-        Integer[][] adjacency = {{0,-1}, {0,1}, {1,-1}, {1,0}, {1,1}, {-1,-1}, {-1,0}, {-1,1}};
+        List<Exit> exits = location.getExits();
         Random r = new Random();
         Boolean grown = false;
-        int count = 0;
 
-        while (!grown && count < 8) {
-            ArrayList<Integer> visited = new ArrayList<>();
-            int idx = r.nextInt(8);
-            if (!visited.contains(idx)) {
-                visited.add(idx);
-                count++;
-                int x = location.x() + adjacency[idx][0];
-                int y = location.y() + adjacency[idx][1];
-
-                if (location.map().getXRange().contains(x) && location.map().getYRange().contains(y) && location.map().at(x,y).getGround() instanceof Dirt) {
-                    location.map().at(x,y).setGround(new Sprout());
-                    grown = true;
-                }
+        while (!grown) {
+            int idx = r.nextInt(exits.size());
+            if (exits.get(idx).getDestination().getGround() instanceof Dirt){
+                exits.get(idx).getDestination().setGround(new Sprout());
+                grown = true;
             }
         }
     }
