@@ -1,13 +1,16 @@
-package game;
+package game.grounds;
 
 import edu.monash.fit2099.engine.actions.ActionList;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.positions.Ground;
 import edu.monash.fit2099.engine.positions.Location;
+import game.actions.JumpAction;
+import game.Status;
+import game.items.Coin;
 
 import java.util.Random;
 
-public class Sapling extends Ground implements Jumpable{
+public class Sapling extends Ground implements Jumpable {
 
     //Private Attributes
     private int age;
@@ -41,15 +44,15 @@ public class Sapling extends Ground implements Jumpable{
         this.age++;
         if (this.age == 10) {
             location.setGround(new Tree());
-        } //else {
-            //this.spawn(location);
-        //}
+        } else {
+            this.spawn(location);
+        }
     }
 
     public void spawn(Location location) {
         Random r = new Random();
         if (r.nextInt(100) <= 10) {
-            //location.addActor(new Coin());
+            location.addItem(new Coin());
         }
     }
 
@@ -57,7 +60,9 @@ public class Sapling extends Ground implements Jumpable{
     public ActionList allowableActions(Actor actor, Location location, String direction){
         ActionList actions = new ActionList();
 
-        if(actor.hasCapability(Status.HOSTILE_TO_ENEMY)) {
+        Boolean sameGround = location.map().locationOf(actor).equals(location);
+
+        if(actor.hasCapability(Status.HOSTILE_TO_ENEMY) && !sameGround) {
             actions.add(new JumpAction(this,direction));
         }
 

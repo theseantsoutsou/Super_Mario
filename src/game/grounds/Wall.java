@@ -1,11 +1,13 @@
-package game;
+package game.grounds;
 
 import edu.monash.fit2099.engine.actions.ActionList;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.positions.Ground;
 import edu.monash.fit2099.engine.positions.Location;
+import game.actions.JumpAction;
+import game.Status;
 
-public class Wall extends Ground implements Jumpable{
+public class Wall extends Ground implements Jumpable {
 	//Private Attributes
 	private static final int JUMP_SUCCESS_RATE = 80;
 	private static final int FALL_DAMAGE = 20;
@@ -22,7 +24,6 @@ public class Wall extends Ground implements Jumpable{
 		return FALL_DAMAGE;
 	}
 
-	
 	@Override
 	public boolean canActorEnter(Actor actor) {
 		return false;

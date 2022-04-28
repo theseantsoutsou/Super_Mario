@@ -1,4 +1,4 @@
-package game;
+package game.actions;
 
 import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actions.ActionList;
@@ -6,9 +6,10 @@ import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.GameMap;
 import java.util.ArrayList;
-import edu.monash.fit2099.engine.weapons.Weapon;
 
-import java.util.Random;
+import game.items.TradableItem;
+import game.items.TradableItemInventory;
+import game.items.Wallet;
 
 /**
  * Special Action for attacking other Actors.

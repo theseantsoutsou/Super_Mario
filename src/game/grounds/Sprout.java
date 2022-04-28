@@ -1,14 +1,17 @@
-package game;
+package game.grounds;
 
 import edu.monash.fit2099.engine.actions.ActionList;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.positions.Ground;
 import edu.monash.fit2099.engine.positions.Location;
+import game.actions.JumpAction;
+import game.Status;
+import game.npcs.Goomba;
 
 import java.util.Random;
 
 
-public class Sprout extends Ground implements Jumpable{
+public class Sprout extends Ground implements Jumpable {
 
     //Private Attributes
     private int age;

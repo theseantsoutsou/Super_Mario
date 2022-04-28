@@ -1,4 +1,4 @@
-package game;
+package game.actions;
 
 import java.util.Random;
 
@@ -8,6 +8,7 @@ import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.weapons.Weapon;
+import game.Status;
 
 /**
  * Special Action for attacking other Actors.
@@ -39,6 +40,10 @@ public class AttackAction extends Action {
 		this.direction = direction;
 	}
 
+	public Actor getTarget() {
+		return this.target;
+	}
+
 	@Override
 	public String execute(Actor actor, GameMap map) {
 
@@ -51,6 +56,7 @@ public class AttackAction extends Action {
 		int damage = weapon.damage();
 		String result = actor + " " + weapon.verb() + " " + target + " for " + damage + " damage.";
 		target.hurt(damage);
+		target.addCapability(Status.GOT_ATTACKED);
 		if (!target.isConscious()) {
 			ActionList dropActions = new ActionList();
 			// drop all items

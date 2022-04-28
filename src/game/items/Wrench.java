@@ -1,11 +1,11 @@
-package game;
+package game.items;
 
-import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.weapons.WeaponItem;
+import game.Status;
 
 public class Wrench extends WeaponItem implements TradableItem{
-    Wrench(String name, char displayChar, int damage, String verb, int hitRate){
-        super(name,displayChar, damage, verb, hitRate);
+    public Wrench(){
+        super("Wrench",'=', 50, "whacks", 80);
         this.addToInventory();
         this.addCapability(Status.BREAK_SHELL);
     }

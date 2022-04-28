@@ -1,15 +1,16 @@
-package game;
+package game.actions;
 
 import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.positions.GameMap;
+import game.Status;
 
 import java.util.Random;
 
 public class SpeakAction extends Action {
     private Actor target;
     protected Random rand = new Random();
-    SpeakAction(Actor target){
+    public SpeakAction(Actor target){
         this.target=target;
     }
     @Override

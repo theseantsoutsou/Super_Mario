@@ -1,4 +1,4 @@
-package game;
+package game.npcs;
 
 
 import edu.monash.fit2099.engine.actions.Action;
@@ -6,8 +6,17 @@ import edu.monash.fit2099.engine.actions.ActionList;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.actions.DoNothingAction;
+import edu.monash.fit2099.engine.positions.Exit;
 import edu.monash.fit2099.engine.positions.GameMap;
+import edu.monash.fit2099.engine.positions.Location;
 import edu.monash.fit2099.engine.weapons.IntrinsicWeapon;
+import game.*;
+import game.actions.AttackAction;
+import game.actions.SuicideAction;
+import game.behaviours.AttackBehaviour;
+import game.behaviours.Behaviour;
+import game.behaviours.FollowBehaviour;
+import game.behaviours.WanderBehaviour;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -55,20 +64,28 @@ public class Goomba extends Actor {
 	 */
 	@Override
 	public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
-		//suicide
-		for (Behaviour Behaviour : behaviours.values()) {
-			Action action = Behaviour.getAction(this, map);
-			if (action != null) {
-				return action;
-			}
-			else {
-				Random r = new Random();
-				if (r.nextInt(100) <= 10) {
-					map.removeActor(this);
-					return new DoNothingAction(); //TODO: ADD GENERIC ACTION METHOD
+		Random r = new Random();
+		if (r.nextInt(100) <= 10) {
+			return new SuicideAction();
+		}
+
+		if (lastAction instanceof AttackAction || this.hasCapability(Status.GOT_ATTACKED)) {
+			Location here = map.locationOf(this);
+			for(Exit exit: here.getExits()) {
+				Actor target = exit.getDestination().getActor();
+				if (target != null) {
+					this.behaviours.put(10, new FollowBehaviour(target));
 				}
 			}
 		}
+
+		for (Behaviour behaviour : behaviours.values()) {
+			Action action = behaviour.getAction(this, map);
+			if (action != null) {
+				return action;
+			}
+		}
+
 		return new DoNothingAction();
 	}
 

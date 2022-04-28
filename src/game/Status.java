@@ -13,4 +13,6 @@ public enum Status {
     POWER_STAR,
 
     BREAK_SHELL,
+
+    GOT_ATTACKED
 }

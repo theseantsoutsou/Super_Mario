@@ -1,12 +1,14 @@
-package game;
+package game.actions;
 
-import java.util.Locale;
 import java.util.Random;
 
 import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actors.Actor;
+import edu.monash.fit2099.engine.positions.Exit;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Location;
+import game.Status;
+import game.grounds.Jumpable;
 
 public class JumpAction extends Action{
     //Private Attributes
@@ -35,11 +37,11 @@ public class JumpAction extends Action{
         Random r = new Random();
         Boolean isTall = actor.hasCapability(Status.TALL);
         int successRate = this.target.getSuccessRate();
-        String result = null;
+        String result;
 
 
         if (isTall || r.nextInt(100) <= successRate) {
-            map.moveActor(actor, getTargetLocation(actor, map));
+            map.moveActor(actor, this.getTargetLocation(actor, map));
             result = actor + " jumped to " + this.target.getClass().getSimpleName() + " successfully.";
 
         } else {
@@ -56,39 +58,14 @@ public class JumpAction extends Action{
     }
 
     public Location getTargetLocation(Actor actor, GameMap map) {
-        int x = map.locationOf(actor).x();
-        int y = map.locationOf(actor).y();
 
-        if (this.direction == "North") {
-            y = y - 1;
-
-        } else if (this.direction == "South") {
-            y = y + 1;
-
-        } else if (this.direction == "East") {
-            x = x + 1;
-
-        } else if (this.direction == "West") {
-            x = x - 1;
-
-        } else if (this.direction == "North-East") {
-            x = x + 1;
-            y = y - 1;
-
-        } else if (this.direction == "South-East") {
-            x = x + 1;
-            y = y + 1;
-
-        } else if (this.direction == "North-West") {
-            x = x - 1;
-            y = y - 1;
-
-        } else if (this.direction == "South-West") {
-            x = x - 1;
-            y = y + 1;
+        Location actorLocation = map.locationOf(actor);
+        for (Exit exit: actorLocation.getExits()) {
+            if (exit.getName() == this.direction) {
+                return exit.getDestination();
+            }
         }
-
-        return map.at(x, y);
+        return null;
     }
 
     @Override

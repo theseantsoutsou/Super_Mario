@@ -1,12 +1,17 @@
-package game;
+package game.npcs;
 
 import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actions.ActionList;
 import edu.monash.fit2099.engine.actions.DoNothingAction;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.displays.Display;
-import edu.monash.fit2099.engine.positions.Exit;
 import edu.monash.fit2099.engine.positions.GameMap;
+import game.Status;
+import game.actions.SpeakAction;
+import game.actions.TradeAction;
+import game.behaviours.Behaviour;
+import game.items.PowerStar;
+import game.items.Wrench;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,8 +21,8 @@ public class Toad extends Actor {
     private static Toad instance;
     public Toad() {
         super("Toad", 'O', 50);
-        addItemToInventory(new PowerStar("Power Star", '*', false));
-        addItemToInventory(new Wrench("Wrench", '=', 50, "whacks", 80));
+        addItemToInventory(new PowerStar());
+        addItemToInventory(new Wrench());
     }
 
     public ActionList allowableActions(Actor otherActor, String direction, GameMap map) {
@@ -44,7 +49,7 @@ public class Toad extends Actor {
         if(instance == null){
             instance = new Toad();
             int toadX = gameMap.getXRange().max()/2 + 5;
-            int toadY = gameMap.getYRange().max()/2;
+            int toadY = gameMap.getYRange().max()/2 + 1;
             gameMap.at(toadX,toadY).addActor(instance);
         }
     }

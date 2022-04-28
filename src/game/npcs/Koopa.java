@@ -1,4 +1,4 @@
-package game;
+package game.npcs;
 
 
 import edu.monash.fit2099.engine.actions.Action;
@@ -6,9 +6,17 @@ import edu.monash.fit2099.engine.actions.ActionList;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.actions.DoNothingAction;
+import edu.monash.fit2099.engine.positions.Exit;
 import edu.monash.fit2099.engine.positions.GameMap;
+import edu.monash.fit2099.engine.positions.Location;
 import edu.monash.fit2099.engine.weapons.IntrinsicWeapon;
-import edu.monash.fit2099.engine.items.Item;
+import game.*;
+import game.actions.AttackAction;
+import game.behaviours.AttackBehaviour;
+import game.behaviours.Behaviour;
+import game.behaviours.FollowBehaviour;
+import game.behaviours.WanderBehaviour;
+import game.items.SuperMushroom;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,10 +32,9 @@ public class Koopa extends Actor {
     public Koopa() {
         super("Koopa", 'K', 100);
         this.behaviours.put(10, new WanderBehaviour());
-//        this.behaviours.put(10, new AttackBehaviour());
+        this.behaviours.put(20, new AttackBehaviour());
 
     }
-
 
     /**
      * @param otherActor the Actor that might be performing attack
@@ -42,23 +49,6 @@ public class Koopa extends Actor {
         // it can be attacked only by the HOSTILE opponent, and this action will not attack the HOSTILE enemy back.
         if(otherActor.hasCapability(Status.HOSTILE_TO_ENEMY)) {
             actions.add(new AttackAction(this,direction));
-
-            //dormant when 'killed'
-            if (!this.isConscious()){
-                setDisplayChar('D');
-                this.resetMaxHp(50);
-                this.capabilitiesList().clear();
-//                otherActor.capabilitiesList().remove(Status.HOSTILE_TO_ENEMY); //note: should this.capabilities be cleared? or does player lose hostile_to_enemy?
-                //check if hostile_to_enemy is actor specific
-            }
-
-//        //Implementation of attack action (goomba -> player)
-//        if(otherActor.hasCapability(Status.HOSTILE_TO_ENEMY)){
-//            IntrinsicWeapon punch = new IntrinsicWeapon(30, "punches");
-//            actions.add(new AttackAction(otherActor,direction));
-//
-//
-//        }
 
         //wrench for complete destruction
         if (this.getDisplayChar() == 'D'){
@@ -86,12 +76,33 @@ public class Koopa extends Actor {
      */
     @Override
     public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
+        if (!this.isConscious()) {
+            setDisplayChar('D');
+            this.resetMaxHp(50);
+            this.behaviours.clear();
+        }
+
+        if (lastAction instanceof AttackAction || this.hasCapability(Status.GOT_ATTACKED)) {
+            Location here = map.locationOf(this);
+            for(Exit exit: here.getExits()) {
+                Actor target = exit.getDestination().getActor();
+                if (target != null) {
+                    this.behaviours.put(10, new FollowBehaviour(target));
+                }
+            }
+        }
+
         for(Behaviour Behaviour : behaviours.values()) {
             Action action = Behaviour.getAction(this, map);
             if (action != null)
                 return action;
         }
         return new DoNothingAction();
+    }
+
+    @Override
+    public IntrinsicWeapon getIntrinsicWeapon() {
+        return new IntrinsicWeapon(30, "punches");
     }
 
 }
