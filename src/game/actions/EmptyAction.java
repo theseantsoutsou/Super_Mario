@@ -12,11 +12,11 @@ public class EmptyAction extends Action {
     @Override
     public String execute(Actor actor, GameMap map) {
 
-        return System.lineSeparator();
+        return "";
     }
 
     @Override
     public String menuDescription(Actor actor) {
-        return System.lineSeparator();
+        return "";
     }
 }
