@@ -14,5 +14,6 @@ public enum Status {
 
     BREAK_SHELL,
 
-    GOT_ATTACKED
+    GOT_ATTACKED,
+
 }

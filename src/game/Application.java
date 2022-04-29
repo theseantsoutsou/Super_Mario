@@ -12,6 +12,7 @@ import game.grounds.Dirt;
 import game.grounds.Floor;
 import game.grounds.Sprout;
 import game.grounds.Wall;
+import game.items.SuperMushroom;
 import game.items.Wrench;
 import game.npcs.Goomba;
 import game.npcs.Koopa;
@@ -60,7 +61,7 @@ public class Application {
 			// FIXME: the Goomba should be generated from the Tree
 			gameMap.at(35, 10).addActor(new Goomba());
 			gameMap.at(42,7).addActor(new Koopa());
-			gameMap.at(42,11).addItem(new Wrench());
+			gameMap.at(42,11).addItem(new SuperMushroom());
 
 			world.run();
 

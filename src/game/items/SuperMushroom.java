@@ -1,9 +1,15 @@
 package game.items;
 
+import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.items.DropItemAction;
 import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.items.PickUpItemAction;
+import game.Status;
+import game.actions.ConsumeAction;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /***
  * Things SuperMushroom are able to do/ what it does/ all the qualities SuperMushroom has
@@ -17,6 +23,8 @@ import edu.monash.fit2099.engine.items.PickUpItemAction;
  */
 public class SuperMushroom extends Item implements TradableItem {
 
+    private Actor consumer;
+
     /**
      * Constructor
      */
@@ -26,26 +34,32 @@ public class SuperMushroom extends Item implements TradableItem {
     }
 
     /**
-     * Let's Mario pick up SuperMushroom
+     * Create and return an action to pick this Item up.
+     * If this Item is not portable, returns null.
      *
-     * @param actor
-     * @return
+     * @return a new PickUpItemAction if this Item is portable, null otherwise.
      */
     @Override
     public PickUpItemAction getPickUpAction(Actor actor) {
-        return super.getPickUpAction(actor);
+        this.consumer = actor;
+        return new PickUpItemAction(this);
     }
 
     /**
-     * Allows Koopa to drop when shell is obliterated
+     * Getter
      *
-     * @param actor
-     * @return
+     * Returns an unmodifiable copy of the actions list so that calling methods won't
+     * be able to change what this Item can do without the Item checking.
+     * @return an unmodifiable list of Actions
      */
     @Override
-    public DropItemAction getDropAction(Actor actor) {
-        return super.getDropAction(actor);
+    public List<Action> getAllowableActions() {
+        if (this.consumer != null && this.consumer.getInventory().contains(this)) {
+            this.addAction(new ConsumeAction(this, Status.TALL));
+        }
+        return super.getAllowableActions();
     }
+
 
     @Override
     public int getValue() {
