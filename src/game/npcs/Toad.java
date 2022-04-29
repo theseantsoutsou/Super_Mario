@@ -5,13 +5,14 @@ import edu.monash.fit2099.engine.actions.ActionList;
 import edu.monash.fit2099.engine.actions.DoNothingAction;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.displays.Display;
+import edu.monash.fit2099.engine.positions.Exit;
 import edu.monash.fit2099.engine.positions.GameMap;
 import game.Status;
-import game.actions.EmptyAction;
 import game.actions.SpeakAction;
 import game.actions.TradeAction;
 import game.behaviours.Behaviour;
 import game.items.PowerStar;
+import game.items.SuperMushroom;
 import game.items.Wrench;
 
 import java.util.HashMap;
@@ -20,9 +21,11 @@ import java.util.Map;
 public class Toad extends Actor {
     private final Map<Integer, Behaviour> behaviours = new HashMap<>();
     private static Toad instance;
+
     public Toad() {
         super("Toad", 'O', 50);
         addItemToInventory(new PowerStar());
+        addItemToInventory(new SuperMushroom());
         addItemToInventory(new Wrench());
     }
 
@@ -44,18 +47,19 @@ public class Toad extends Actor {
      */
     @Override
     public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
-        return new EmptyAction();
+        return new DoNothingAction();
     }
-    public static void createToad(GameMap gameMap){
-        if(instance == null){
+
+    public static void createToad(GameMap gameMap) {
+        if (instance == null) {
             instance = new Toad();
-            int toadX = gameMap.getXRange().max()/2 + 5;
-            int toadY = gameMap.getYRange().max()/2 + 1;
-            gameMap.at(toadX,toadY).addActor(instance);
+            int toadX = gameMap.getXRange().max() / 2 + 5;
+            int toadY = gameMap.getYRange().max() / 2;
+            gameMap.at(toadX, toadY).addActor(instance);
         }
     }
-    static public Toad getInstance(){
+
+    static public Toad getInstance() {
         return instance;
     }
 }
-

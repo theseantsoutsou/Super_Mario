@@ -13,18 +13,16 @@ import edu.monash.fit2099.engine.items.PickUpItemAction;
  * takes no damage
  * invincibility lasts for 10 turns upon activation
  */
-public class PowerStar extends Item {
-    /**
-     * Constructor.
-     */
+
+import edu.monash.fit2099.engine.items.Item;
+
+public class PowerStar extends Item implements TradableItem{
     public PowerStar() {
         super("Power Star", '*', true);
+        this.addToInventory();
     }
 
-    @Override
-    public PickUpItemAction getPickUpAction(Actor actor) {
-        return super.getPickUpAction(actor);
+    public int getValue() {
+        return 0;
     }
-
-
 }

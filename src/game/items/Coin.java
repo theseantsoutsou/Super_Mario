@@ -3,20 +3,24 @@ package game.items;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.items.PickUpItemAction;
+import edu.monash.fit2099.engine.positions.Location;
 
 import java.util.Random;
 
-public class Coin extends Item implements TradableItem{
-    public Coin(){
+public class Coin extends Item implements TradableItem {
+    private Location location;
+
+    public Coin(Location location) {
         super("Coin", '$', false);
+        //this.addToInventory();
+        this.location = location;
     }
 
-    @Override
     public int getValue() {
         int randVal = new Random().nextInt(4);
-        switch(randVal){
+        switch (randVal) {
             case 0:
-               return 5;
+                return 5;
             case 1:
                 return 10;
             case 2:
@@ -26,9 +30,11 @@ public class Coin extends Item implements TradableItem{
         }
         return 0;
     }
+
     @Override
     public PickUpItemAction getPickUpAction(Actor actor) {
         Wallet.getInstance().modifyCredits(this.getValue());
+        this.location.removeItem(this);
         return null;
     }
 }
