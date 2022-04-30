@@ -21,7 +21,7 @@ import java.util.List;
 
 public class PowerStar extends Item implements TradableItem{
 
-    private Actor consumer;
+    ConsumeAction action = new ConsumeAction(this, Status.POWER_STAR);
 
     public PowerStar() {
         super("Power Star", '*', true);
@@ -33,11 +33,7 @@ public class PowerStar extends Item implements TradableItem{
      *
      * @return a new PickUpItemAction if this Item is portable, null otherwise.
      */
-    @Override
-    public PickUpItemAction getPickUpAction(Actor actor) {
-        this.consumer = actor;
-        return new PickUpItemAction(this);
-    }
+
 
     /**
      * Getter
@@ -48,12 +44,15 @@ public class PowerStar extends Item implements TradableItem{
      */
     @Override
     public List<Action> getAllowableActions() {
-        if (this.consumer != null && this.consumer.getInventory().contains(this)) {
-            this.addAction(new ConsumeAction(this, Status.POWER_STAR));
+        if(super.getAllowableActions().contains(this.action)) {
+            this.removeAction(this.action);
+        }
+        if (this.hasCapability(Status.CARRIED)){
+            this.addAction(this.action);
         }
         return super.getAllowableActions();
     }
-
+    @Override
     public int getValue() {
         return 0;
     }

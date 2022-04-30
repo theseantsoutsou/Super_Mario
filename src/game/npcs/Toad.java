@@ -28,7 +28,6 @@ public class Toad extends Actor {
         addItemToInventory(new SuperMushroom());
         addItemToInventory(new Wrench());
     }
-
     public ActionList allowableActions(Actor otherActor, String direction, GameMap map) {
         ActionList actions = new ActionList();
         if (otherActor.hasCapability(Status.TRADE)) {
