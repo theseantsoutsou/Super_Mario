@@ -53,7 +53,7 @@ public class Toad extends Actor {
         if (instance == null) {
             instance = new Toad();
             int toadX = gameMap.getXRange().max() / 2 + 5;
-            int toadY = gameMap.getYRange().max() / 2;
+            int toadY = gameMap.getYRange().max() / 2 + 1;
             gameMap.at(toadX, toadY).addActor(instance);
         }
     }

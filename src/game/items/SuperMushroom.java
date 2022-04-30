@@ -32,13 +32,6 @@ public class SuperMushroom extends Item implements TradableItem {
     }
 
     /**
-     * Create and return an action to pick this Item up.
-     * If this Item is not portable, returns null.
-     *
-     * @return a new PickUpItemAction if this Item is portable, null otherwise.
-     */
-
-    /**
      * Getter
      *
      * Returns an unmodifiable copy of the actions list so that calling methods won't

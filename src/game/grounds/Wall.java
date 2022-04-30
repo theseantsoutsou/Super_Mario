@@ -4,6 +4,7 @@ import edu.monash.fit2099.engine.actions.ActionList;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.positions.Ground;
 import edu.monash.fit2099.engine.positions.Location;
+import game.actions.FlattenAction;
 import game.actions.JumpAction;
 import game.Status;
 
@@ -40,7 +41,9 @@ public class Wall extends Ground implements Jumpable {
 
 		Boolean sameGround = location.map().locationOf(actor).equals(location);
 
-		if(actor.hasCapability(Status.HOSTILE_TO_ENEMY) && !sameGround) {
+		if (actor.hasCapability(Status.POWER_STAR) && !sameGround) {
+			actions.add(new FlattenAction(this, direction));
+		}else if(actor.hasCapability(Status.HOSTILE_TO_ENEMY) && !sameGround) {
 			actions.add(new JumpAction(this, direction));
 		}
 

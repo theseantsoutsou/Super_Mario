@@ -4,6 +4,7 @@ import edu.monash.fit2099.engine.actions.ActionList;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.positions.Ground;
 import edu.monash.fit2099.engine.positions.Location;
+import game.actions.FlattenAction;
 import game.actions.JumpAction;
 import game.Status;
 import game.npcs.Goomba;
@@ -69,8 +70,10 @@ public class Sprout extends Ground implements Jumpable {
         ActionList actions = new ActionList();
 
         Boolean sameGround = location.map().locationOf(actor).equals(location);
-
-        if(actor.hasCapability(Status.HOSTILE_TO_ENEMY) && !this.spawn(location) && !sameGround) {
+        if (actor.hasCapability(Status.POWER_STAR) && !this.spawn(location) && !sameGround) {
+            actions.add(new FlattenAction(this, direction));
+        }
+        else if (actor.hasCapability(Status.HOSTILE_TO_ENEMY) && !this.spawn(location) && !sameGround) {
             actions.add(new JumpAction(this, direction));
         }
 

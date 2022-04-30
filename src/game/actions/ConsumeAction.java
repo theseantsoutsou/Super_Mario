@@ -20,11 +20,11 @@ public class ConsumeAction extends Action {
     public String execute(Actor actor, GameMap map) {
         actor.removeItemFromInventory(this.item);
         actor.addCapability(capability);
-        return null;
+        return actor + " consumed a " + this.item;
     }
 
     @Override
     public String menuDescription(Actor actor) {
-        return "Consume item";
+        return actor + " consumes " + this.item;
     }
 }

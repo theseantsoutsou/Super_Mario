@@ -15,6 +15,8 @@ public class Player extends Actor  {
 
 	private final Menu menu = new Menu();
 	private boolean itemInEffect;
+
+
 	/**
 	 * Constructor.
 	 *

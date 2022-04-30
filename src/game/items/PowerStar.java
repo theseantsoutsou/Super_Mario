@@ -4,6 +4,7 @@ import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.items.PickUpItemAction;
+import edu.monash.fit2099.engine.positions.Location;
 import game.Status;
 import game.actions.ConsumeAction;
 
@@ -22,17 +23,39 @@ import java.util.List;
 public class PowerStar extends Item implements TradableItem{
 
     ConsumeAction action = new ConsumeAction(this, Status.POWER_STAR);
+    int age;
 
     public PowerStar() {
         super("Power Star", '*', true);
+        this.age = 0;
         this.addToInventory();
     }
+
     /**
-     * Create and return an action to pick this Item up.
-     * If this Item is not portable, returns null.
+     * Inform a carried Item of the passage of time.
      *
-     * @return a new PickUpItemAction if this Item is portable, null otherwise.
+     * This method is called once per turn, if the Item is being carried.
+     * @param currentLocation The location of the actor carrying this Item.
+     * @param actor The actor carrying this Item.
      */
+    public void tick(Location currentLocation, Actor actor) {
+        this.age += 1;
+        if (this.age == 10) {
+            actor.removeItemFromInventory(this);
+        }
+    }
+
+    /**
+     * Inform an Item on the ground of the passage of time.
+     * This method is called once per turn, if the item rests upon the ground.
+     * @param currentLocation The location of the ground on which we lie.
+     */
+    public void tick(Location currentLocation) {
+        this.age += 1;
+        if (this.age == 10) {
+            currentLocation.removeItem(this);
+        }
+    }
 
 
     /**
