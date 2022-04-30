@@ -12,7 +12,11 @@ public class Wallet {
     }
 
     public int getCredits() {
-        return credits;
+        return this.credits;
+    }
+
+    public String printCredits() {
+        return "$" + this.credits;
     }
 
     public static Wallet getInstance() {

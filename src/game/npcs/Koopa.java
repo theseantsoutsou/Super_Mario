@@ -76,11 +76,12 @@ public class Koopa extends Actor {
      */
     @Override
     public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
+        if (this.isDormant()) {
+            return new EmptyAction();
+        }
+
         if (!this.isConscious()) {
-            this.dormant = true;
-            this.setDisplayChar('D');
-            this.resetMaxHp(50);
-            this.behaviours.clear();
+            this.makeDormant();
             return new EmptyAction();
 
         } else if (lastAction instanceof AttackAction || this.hasCapability(Status.GOT_ATTACKED)) {
@@ -104,6 +105,13 @@ public class Koopa extends Actor {
     @Override
     public IntrinsicWeapon getIntrinsicWeapon() {
         return new IntrinsicWeapon(30, "punches");
+    }
+
+    public void makeDormant() {
+        this.dormant = true;
+        this.setDisplayChar('D');
+        this.resetMaxHp(50);
+        this.behaviours.clear();
     }
 
 }

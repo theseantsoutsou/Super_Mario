@@ -50,6 +50,11 @@ public class BreakAction extends Action {
             return actor + " misses " + target + ".";
         }
 
+        if (actor.hasCapability(Status.POWER_STAR) && !this.target.isDormant()) {
+            this.target.makeDormant();
+            return this.target + " was instakilled";
+        }
+
         String result = null;
         int damage = weapon.damage();
 
@@ -62,8 +67,8 @@ public class BreakAction extends Action {
                 drop.execute(target, map);
             // remove actor
             map.removeActor(target);
-            result = actor + " broke Koopa's shell.";
-            result += System.lineSeparator() + target + " is killed.";
+            result = actor + " broke Koopa's shell";
+            result += System.lineSeparator() + target + " is killed";
 
         } else {
             this.target.hurt(damage);

@@ -20,6 +20,12 @@ public class ConsumeAction extends Action {
     public String execute(Actor actor, GameMap map) {
         actor.removeItemFromInventory(this.item);
         actor.addCapability(capability);
+        if (this.capability == Status.TALL) {
+            actor.increaseMaxHp(50);
+        }
+        else if (this.capability == Status.POWER_STAR) {
+            actor.heal(200);
+        }
         return actor + " consumed a " + this.item;
     }
 

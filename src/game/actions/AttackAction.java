@@ -42,26 +42,31 @@ public class AttackAction extends Action {
 
 	@Override
 	public String execute(Actor actor, GameMap map) {
-
+		String result = null;
 		Weapon weapon = actor.getWeapon();
 
 		if (!(rand.nextInt(100) <= weapon.chanceToHit())) {
 			return actor + " misses " + target + ".";
 		}
 
+		if (this.target.hasCapability(Status.POWER_STAR)) {
+			return this.target + " is invincible! " + this.target + " takes no damage!";
+		}
+
+		if (actor.hasCapability(Status.POWER_STAR)) {
+			map.removeActor(this.target);
+			return this.target + " is instakilled.";
+		}
+
 		int damage = weapon.damage();
-		String result = actor + " " + weapon.verb() + " " + target + " for " + damage + " damage.";
-		target.hurt(damage);
-		target.addCapability(Status.GOT_ATTACKED);
-		if (!target.isConscious()) {
-			ActionList dropActions = new ActionList();
-			// drop all items
-			for (Item item : target.getInventory())
-				dropActions.add(item.getDropAction(actor));
-			for (Action drop : dropActions)
-				drop.execute(target, map);
+
+		result = actor + " " + weapon.verb() + " " + this.target + " for " + damage + " damage.";
+		this.target.hurt(damage);
+		this.target.addCapability(Status.GOT_ATTACKED);
+
+		if (!this.target.isConscious()) {
 			// remove actor
-			map.removeActor(target);
+			map.removeActor(this.target);
 			result += System.lineSeparator() + target + " is killed.";
 		}
 
@@ -70,6 +75,6 @@ public class AttackAction extends Action {
 
 	@Override
 	public String menuDescription(Actor actor) {
-		return actor + " attacks " + target + " at " + direction;
+		return actor + " attacks " + this.target + " at " + direction;
 	}
 }

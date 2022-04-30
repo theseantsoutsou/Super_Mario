@@ -7,6 +7,7 @@ import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.displays.Menu;
+import game.items.Wallet;
 
 /**
  * Class representing the Player.
@@ -14,7 +15,7 @@ import edu.monash.fit2099.engine.displays.Menu;
 public class Player extends Actor  {
 
 	private final Menu menu = new Menu();
-	private boolean itemInEffect;
+	int invincibleTurns = 0;
 
 
 	/**
@@ -33,8 +34,7 @@ public class Player extends Actor  {
 
 	@Override
 	public void hurt(int points) {
-		if(this.hasCapability(Status.TALL)) {
-			this.itemInEffect = false;
+		if (this.hasCapability(Status.TALL)) {
 			this.removeCapability(Status.TALL);
 		}
 		super.hurt(points);
@@ -42,14 +42,21 @@ public class Player extends Actor  {
 
 	@Override
 	public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
-		// Handle multi-turn Actions
-		if(this.hasCapability(Status.TALL) && !this.itemInEffect){
-			this.itemInEffect = true;
-			this.increaseMaxHp(50);
+		if (this.invincibleTurns == 10) {
+			this.removeCapability(Status.POWER_STAR);
+			System.out.println(this + " is no longer invincible");
+			this.invincibleTurns = 0;
 		}
+		else if (this.hasCapability(Status.POWER_STAR)) {
+			this.invincibleTurns += 1;
+		}
+
+		// Handle multi-turn Actions
 		if (lastAction.getNextAction() != null)
 			return lastAction.getNextAction();
 
+		// print player hp
+		System.out.println(this.printHp() + " " + Wallet.getInstance().printCredits());
 		// return/print the console menu
 		return menu.showMenu(this, actions, display);
 	}
