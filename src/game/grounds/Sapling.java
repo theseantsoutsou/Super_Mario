@@ -30,6 +30,7 @@ public class Sapling extends Ground implements Jumpable {
      * Constructor for the Sapling class.
      * Calls its parent class Ground class's constructor to set display character.
      * Initializes its age to 0 and adds a HIGH_GROUND status to its capability.
+     *
      * @see Status#HIGH_GROUND
      */
     public Sapling() {
@@ -40,6 +41,7 @@ public class Sapling extends Ground implements Jumpable {
 
     /**
      * Getter method for the static variable JUMP_SUCCESS_RATE.
+     *
      * @return the success rate of jumping onto a Sapling object
      */
     @Override
@@ -60,6 +62,7 @@ public class Sapling extends Ground implements Jumpable {
      * Ground can also experience the joy of time.
      * Ran every player turn, increments Sapling's age; grows into a tree after 10 rounds.
      * Tries to spawn a $20 coin if it does not grow into a Tree.
+     *
      * @param location The location of the Sapling
      */
     @Override
@@ -74,6 +77,7 @@ public class Sapling extends Ground implements Jumpable {
 
     /**
      * Saplings have a 10 percent chance of spawning a coin at its location.
+     *
      * @param location the sapling's location
      * @see Coin
      */
@@ -87,6 +91,7 @@ public class Sapling extends Ground implements Jumpable {
     /**
      * Returns an ActionList which content depends on the actor's capabilities.
      * Potentially allows an actor to jump onto the Sapling or flatten it.
+     *
      * @param actor the Actor acting
      * @param location the current Location
      * @param direction the direction of the Ground from the Actor

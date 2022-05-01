@@ -12,12 +12,14 @@ public interface Jumpable {
 
     /**
      * Abstract getter method for the jumping success rate of a high-ground
+     *
      * @return the success rate of jumping onto the high-ground
      */
     int getSuccessRate();
 
     /**
      * Abstract getter method for the fall damage from a high-ground if jump fails
+     *
      * @return the fall damage from the high-ground
      */
     int getFallDamage();

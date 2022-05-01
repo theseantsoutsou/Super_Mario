@@ -25,6 +25,7 @@ public class Wall extends Ground implements Jumpable {
 	 * Constructor for the Wall class.
 	 * Calls its parent class Ground class's constructor to set display character.
 	 * Adds a HIGH_GROUND status to its capability.
+	 *
 	 * @see Status#HIGH_GROUND
 	 */
 	public Wall() {
@@ -34,6 +35,7 @@ public class Wall extends Ground implements Jumpable {
 
 	/**
 	 * Getter method for the static variable JUMP_SUCCESS_RATE.
+	 *
 	 * @return the success rate of jumping onto a Wall object
 	 */
 	@Override
@@ -43,6 +45,7 @@ public class Wall extends Ground implements Jumpable {
 
 	/**
 	 * Getter method for the static variable FALL_DAMAGE.
+	 *
 	 * @return the fall damage from a Wall object
 	 */
 	@Override
@@ -63,6 +66,7 @@ public class Wall extends Ground implements Jumpable {
 
 	/**
 	 * Walls can block thrown objects
+	 *
 	 * @return true
 	 */
 	@Override
@@ -73,6 +77,7 @@ public class Wall extends Ground implements Jumpable {
 	/**
 	 * Returns an ActionList which content depends on the actor's capabilities.
 	 * Potentially allows an actor to jump onto the Wall or flatten it.
+	 *
 	 * @param actor the Actor acting
 	 * @param location the current Location
 	 * @param direction the direction of the Ground from the Actor

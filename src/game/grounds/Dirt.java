@@ -17,6 +17,7 @@ public class Dirt extends Ground {
 	 * Constructor for the Dirt class.
 	 * Calls its parent class Ground class's constructor to set display character.
 	 * Adds a FERTILE status to its capability.
+	 *
 	 * @see Status#FERTILE
 	 */
 	public Dirt() {

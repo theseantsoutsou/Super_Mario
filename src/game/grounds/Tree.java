@@ -32,6 +32,7 @@ public class Tree extends Ground implements Jumpable {
      * Constructor for the Tree class.
      * Calls its parent class Ground class's constructor to set display character.
      * Initializes its age to 0 and adds a HIGH_GROUND status to its capability.
+     *
      * @see Status#HIGH_GROUND
      */
     public Tree() {
@@ -42,6 +43,7 @@ public class Tree extends Ground implements Jumpable {
 
     /**
      * Getter method for the static variable JUMP_SUCCESS_RATE.
+     *
      * @return the success rate of jumping onto a Tree object
      */
     @Override
@@ -51,6 +53,7 @@ public class Tree extends Ground implements Jumpable {
 
     /**
      * Getter method for the static variable FALL_DAMAGE.
+     *
      * @return the fall damage from a Tree object
      */
     @Override
@@ -63,6 +66,7 @@ public class Tree extends Ground implements Jumpable {
      * Ran every player turn, increments Tree's age; spawns a new sprout every 5 rounds randomly.
      * Has a 20 percent chance to wither and die every turn
      * If it does not die, it has a 15 percent chance of spawning a Koopa at its location.
+     *
      * @param location The location of the Tree
      */
     @Override
@@ -78,6 +82,7 @@ public class Tree extends Ground implements Jumpable {
 
     /**
      * Trees have a 15 percent chance of spawning a Koopa if an actor is not on it.
+     *
      * @param location the location of the Tree
      * @return true if a Koopa has been spawned, false otherwise
      * @see Koopa
@@ -95,6 +100,7 @@ public class Tree extends Ground implements Jumpable {
 
     /**
      * Randomly spawn a sprout at a fertile ground around the Tree.
+     *
      * @param location the location of the Tree.
      * @see Status#FERTILE
      */
@@ -114,6 +120,7 @@ public class Tree extends Ground implements Jumpable {
 
     /**
      * Trees have a 20 percent chance to wither and die every round.
+     *
      * @param location the location of the Tree
      * @return true if the Tree dies, false otherwise
      */
@@ -130,6 +137,7 @@ public class Tree extends Ground implements Jumpable {
     /**
      * Returns an ActionList which content depends on the actor's capabilities.
      * Potentially allows an actor to jump onto the Tree or flatten it.
+     *
      * @param actor the Actor acting
      * @param location the current Location
      * @param direction the direction of the Ground from the Actor

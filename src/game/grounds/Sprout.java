@@ -30,6 +30,7 @@ public class Sprout extends Ground implements Jumpable {
      * Constructor for the Sprout class.
      * Calls its parent class Ground class's constructor to set display character.
      * Initializes its age to 0 and adds a HIGH_GROUND status to its capability.
+     *
      * @see Status#HIGH_GROUND
      */
     public Sprout() {
@@ -40,6 +41,7 @@ public class Sprout extends Ground implements Jumpable {
 
     /**
      * Getter method for the static variable JUMP_SUCCESS_RATE.
+     *
      * @return the success rate of jumping onto a Sprout object
      */
     @Override
@@ -49,6 +51,7 @@ public class Sprout extends Ground implements Jumpable {
 
     /**
      * Getter method for the static variable FALL_DAMAGE.
+     *
      * @return the fall damage from a Sprout object
      */
     @Override
@@ -60,6 +63,7 @@ public class Sprout extends Ground implements Jumpable {
      * Ground can also experience the joy of time.
      * Ran every player turn, increments Sprout's age; grows into a Sapling after 10 rounds.
      * Tries to spawn a goomba if it does not grow into a Sapling.
+     *
      * @param location The location of the Sprout
      */
     @Override
@@ -74,6 +78,7 @@ public class Sprout extends Ground implements Jumpable {
 
     /**
      * Sprout has a 10% chance of spawning a Goomba on its location if an actor is not on it.
+     *
      * @param location the location of the Sprout
      * @return true if a Goomba spawns, false otherwise
      * @see Goomba
@@ -91,6 +96,7 @@ public class Sprout extends Ground implements Jumpable {
     /**
      * Returns an ActionList which content depends on the actor's capabilities.
      * Potentially allows an actor to jump onto the Sprout or flatten it.
+     *
      * @param actor the Actor acting
      * @param location the current Location
      * @param direction the direction of the Ground from the Actor

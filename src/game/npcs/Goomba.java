@@ -23,36 +23,48 @@ import java.util.Map;
 import java.util.Random;
 
 /**
- * A little fungus guy.
+ * The Goomba class is a class that represents a Goomba in Super Mario, the little fungus guy.
+ * The Goomba class is a subclass of the Actor class.
+ *
+ * @author Connor Gibson, Shang-Fu Tsou, Lucus Choy
+ * @version 2.0
+ * @since 02-May-2022
  */
 public class Goomba extends Actor {
+	//Private attributes
 	private final Map<Integer, Behaviour> behaviours = new HashMap<>(); // priority, behaviour
 
 	/**
-	 * Constructor.
+	 * Constructor for the Goomba class.
+	 * Calls its parent class Actor class's constructor to set name, display character, and HP attributes.
+	 * Loads new behaviours to its behaviours attribute in order of priority.
+	 *
+	 * @see FollowBehaviour
+	 * @see AttackBehaviour
+	 * @see WanderBehaviour
 	 */
 	public Goomba() {
-		super("Goomba", 'g', 10);
+		super("Goomba", 'g', 20);
 		this.behaviours.put(1, new AttackBehaviour());
 		this.behaviours.put(2, new FollowBehaviour());
 		this.behaviours.put(3, new WanderBehaviour());
-
-
 	}
 
 	/**
-	 * At the moment, we only make it can be attacked by Player.
-	 * You can do something else with this method.
-	 * @param otherActor the Actor that might perform an action.
+	 * Returns a new collection of the Actions that the otherActor can do Goomba.
+	 * If the otherActor is hostile to Goomba, allow the otherActor to attack
+	 *
+	 * @param otherActor the Actor that might be performing attack
 	 * @param direction  String representing the direction of the other Actor
 	 * @param map        current GameMap
-	 * @return list of actions
+	 * @return A collection of Actions.
+	 * @see AttackAction
 	 * @see Status#HOSTILE_TO_ENEMY
 	 */
 	@Override
 	public ActionList allowableActions(Actor otherActor, String direction, GameMap map) {
 		ActionList actions = new ActionList();
-		// it can be attacked only by the HOSTILE opponent, and this action will not attack the HOSTILE enemy back.
+
 		if(otherActor.hasCapability(Status.HOSTILE_TO_ENEMY)) {
 			actions.add(new AttackAction(this, direction));
 		}
@@ -61,8 +73,19 @@ public class Goomba extends Actor {
 	}
 
 	/**
-	 * Figure out what to do next.
-	 * @see Actor#playTurn(ActionList, Action, GameMap, Display)
+	 * Goomba has a 10 percent chance to commit suicide every turn.
+	 * If Goomba is engaged in a fight, it follows the other actor engaged
+	 * Goomba will either follow another actor, attack the other actor, or wander around.
+	 *
+	 * @param actions    collection of possible Actions for this Actor
+	 * @param lastAction The Action this Actor took last turn. Can do interesting things in conjunction with Action.getNextAction()
+	 * @param map        the map containing the Actor
+	 * @param display    the I/O object to which messages may be written
+	 * @return an Action
+	 * @see SuicideAction
+	 * @see Behaviour
+	 * @see	Status#ATTACKED
+	 * @see Status#GOT_ATTACKED
 	 */
 	@Override
 	public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
@@ -91,6 +114,11 @@ public class Goomba extends Actor {
 		return new DoNothingAction();
 	}
 
+	/**
+	 * Creates and returns an intrinsic weapon for Goomba.
+	 *
+	 * @return a freshly-instantiated IntrinsicWeapon
+	 */
 	@Override
 	public IntrinsicWeapon getIntrinsicWeapon() {return new IntrinsicWeapon(10, "Kicks" );}
 
