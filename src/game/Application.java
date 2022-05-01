@@ -12,6 +12,7 @@ import game.grounds.Dirt;
 import game.grounds.Floor;
 import game.grounds.Sprout;
 import game.grounds.Wall;
+import game.items.PowerStar;
 import game.items.SuperMushroom;
 import game.items.Wrench;
 import game.npcs.Goomba;
@@ -19,8 +20,11 @@ import game.npcs.Koopa;
 import game.npcs.Toad;
 
 /**
- * The main class for the Mario World game.
+ * The Application class is the main class that drives the Mario World game.
  *
+ * @author FIT2099 Teaching Team, Connor Gibson, Shang-Fu Tsou, Lucus Choy
+ * @version 2.0
+ * @since 02-May-2022
  */
 public class Application {
 
@@ -59,9 +63,10 @@ public class Application {
 			Toad.createToad(gameMap);
 
 			// FIXME: the Goomba should be generated from the Tree
-			gameMap.at(35, 10).addActor(new Goomba());
+//			gameMap.at(35, 10).addActor(new Goomba());
 			gameMap.at(42,7).addActor(new Koopa());
-			gameMap.at(42,11).addItem(new SuperMushroom());
+			gameMap.at(42,9).addItem(new SuperMushroom());
+			gameMap.at(42,8).addItem(new Wrench());
 
 			world.run();
 

@@ -5,18 +5,26 @@ package game;
  * It is also useful to give a `state` to abilities or actions that can be attached-detached.
  */
 public enum Status {
-    HOSTILE_TO_ENEMY, // use this status to be considered hostile towards enemy (e.g., to be attacked by enemy)
-    TALL, // use this status to tell that current instance has "grown".
-    TRADE, //use this status to allow actor to engage in trade.
+    HOSTILE_TO_ENEMY,   // use this status to be considered hostile towards enemy (e.g., to be attacked by enemy)
+    TRADE,              // use this status to allow actor to engage in trade.
+    CONVERSES,          // use this status to allow actor to engage in conversations
+    ON_HIGH_GROUND,     // use this status to tell that an actor is on a high_ground
+    RESETTABLE,         // use this status to tell that an actor is able to use reset action
 
-    CONVERSES,
-    POWER_STAR,
+    TALL,               // use this status to tell that current instance has "grown".
+    POWER_STAR,         // use this status to tell that an actor is invincible
 
-    BREAK_SHELL,
+    ATTACKED,           // use this status to tell that an actor just attacked (mainly for enemies)
+    GOT_ATTACKED,       // use this status to tell that an actor just got attacked (mainly for enemies)
 
-    GOT_ATTACKED,
+    CAN_SLEEP,          // use this status to tell that an actor can go to sleep after becoming unconscious
+    DORMANT,            // use this status to tell that an actor is asleep
 
-    CARRIED
+    CARRIED,            // use this status to describe an item in the inventory
+    BREAK_SHELL,        // use this status to describe an item that can break Koopa's shell.
+
+    FERTILE,            // use this status to describe fertile grounds that can grow plants (dirt)
+    HIGH_GROUND         // use this status to describe a jumpable ground (e.g., sprouts, saplings, trees, walls)
 
 
 }

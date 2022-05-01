@@ -6,19 +6,35 @@ import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.items.PickUpItemAction;
 import edu.monash.fit2099.engine.positions.Location;
 import game.actions.PickUpCoinAction;
+import game.actions.ResetAction;
 
 import java.util.Random;
 
+/**
+ * Coin object
+ * Currency that allows the user to trade with Toad if they have enough coins
+ */
 public class Coin extends Item implements TradableItem {
     private Location location;
 
+    /**
+     * Constructor
+     * @param location
+     */
     public Coin(Location location) {
         super("Coin", '$', false);
         //this.addToInventory();
         this.location = location;
         this.addAction(new PickUpCoinAction(this));
+        ResetAction resetAction = new ResetAction(location.getActor());
+
+        resetAction.registerInstance();
     }
 
+    /**
+     * Coins have a random value assigned to them
+     * @return
+     */
     public int getValue() {
         int randVal = new Random().nextInt(4);
         switch (randVal) {

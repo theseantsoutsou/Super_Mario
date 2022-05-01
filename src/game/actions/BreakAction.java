@@ -19,7 +19,7 @@ public class BreakAction extends Action {
     /**
      * The Koopa Shell that is to be broken
      */
-    private Koopa target;
+    private Actor target;
 
     /**
      * The direction of incoming attack.
@@ -36,49 +36,45 @@ public class BreakAction extends Action {
      *
      * @param target the Actor to attack
      */
-    public BreakAction(Koopa target, String direction) {
+    public BreakAction(Actor target, String direction) {
         this.target = target;
         this.direction = direction;
     }
 
+    /**
+     * Executes the action of destroying a koopa shell only when the koopa is in a dormant state
+     * causes the dormant koopa to drop a SuperMushroom when shell is destroyed
+     * @param actor The actor performing the action.
+     * @param map   The map the actor is on.
+     * @return
+     */
     @Override
     public String execute(Actor actor, GameMap map) {
 
-        Weapon weapon = actor.getWeapon();
-
-        if (!(rand.nextInt(100) <= weapon.chanceToHit())) {
-            return actor + " misses " + target + ".";
-        }
-
         String result = null;
-        int damage = weapon.damage();
 
-        if (this.target.isDormant()) {
-            ActionList dropActions = new ActionList();
-            // drop all items
-            for (Item item : target.getInventory())
-                dropActions.add(item.getDropAction(actor));
-            for (Action drop : dropActions)
-                drop.execute(target, map);
-            // remove actor
-            map.removeActor(target);
-            result = actor + " broke Koopa's shell.";
-            result += System.lineSeparator() + target + " is killed.";
-
-        } else {
-            this.target.hurt(damage);
-        }
+        ActionList dropActions = new ActionList();
+        // drop all items
+        for (Item item : this.target.getInventory())
+            dropActions.add(item.getDropAction(actor));
+        for (Action drop : dropActions)
+            drop.execute(this.target, map);
+        // remove actor
+        map.removeActor(this.target);
+        result = actor + " broke Koopa's shell";
+        result += System.lineSeparator() + this.target + " is killed";
 
         return result;
     }
 
+    /**
+     * Display description of when player destroys a koopa shell
+     * @param actor The actor performing the action.
+     * @return
+     */
     @Override
     public String menuDescription(Actor actor) {
-        if (target.isDormant()) {
-            return actor + " break Koopa's shell at " + direction;
-        } else {
-            return actor + " attacks " + target + " at " + direction;
-        }
+        return actor + " breaks " + this.target + "'s shell at " + direction;
 
     }
 }

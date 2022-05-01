@@ -9,6 +9,12 @@ import edu.monash.fit2099.engine.positions.Exit;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Location;
 
+/**
+ * The WanderBehaviour class is a class that generates random movements for enemy NPCs.
+ * The WanderBehaviour class is a subclass of the Action class and implements the Behaviour interface.
+ *
+ * @author FIT2099 Teaching Team
+ */
 public class WanderBehaviour extends Action implements Behaviour {
 	
 	private final Random random = new Random();
