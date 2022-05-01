@@ -20,8 +20,11 @@ import game.npcs.Koopa;
 import game.npcs.Toad;
 
 /**
- * The main class for the Mario World game.
+ * The Application class is the main class that drives the Mario World game.
  *
+ * @author FIT2099 Teaching Team, Connor Gibson, Shang-Fu Tsou, Lucus Choy
+ * @version 2.0
+ * @since 02-May-2022
  */
 public class Application {
 
