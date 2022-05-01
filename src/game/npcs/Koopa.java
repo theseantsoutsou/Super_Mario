@@ -14,7 +14,6 @@ import edu.monash.fit2099.engine.weapons.IntrinsicWeapon;
 import game.*;
 import game.actions.AttackAction;
 import game.actions.BreakAction;
-import game.actions.EmptyAction;
 import game.behaviours.AttackBehaviour;
 import game.behaviours.Behaviour;
 import game.behaviours.FollowBehaviour;
@@ -28,21 +27,18 @@ import java.util.Map;
  */
 public class Koopa extends Actor {
     private final Map<Integer, Behaviour> behaviours = new HashMap<>(); // priority, behaviour
-    private Boolean dormant = false;
 
     /**
      * Constructor.
      */
     public Koopa() {
         super("Koopa", 'K', 100);
-        this.behaviours.put(10, new WanderBehaviour());
-        this.behaviours.put(20, new AttackBehaviour());
+        this.behaviours.put(1, new AttackBehaviour());
+        this.behaviours.put(2, new FollowBehaviour());
+        this.behaviours.put(3, new WanderBehaviour());
+        this.addCapability(Status.CAN_SLEEP);
         this.addItemToInventory(new SuperMushroom());
 
-    }
-
-    public Boolean isDormant() {
-        return dormant;
     }
 
     /**
@@ -56,14 +52,11 @@ public class Koopa extends Actor {
 
         ActionList actions = new ActionList();
         if (otherActor.hasCapability(Status.HOSTILE_TO_ENEMY)) {
-            if (!this.isDormant()) {
+            if (!this.hasCapability(Status.DORMANT)) {
+                actions.add(new AttackAction(this, direction));
+            }
+            else if (otherActor.hasCapability(Status.BREAK_SHELL)) {
                 actions.add(new BreakAction(this, direction));
-            } else {
-                for (Item item : otherActor.getInventory()) {
-                    if (item.hasCapability(Status.BREAK_SHELL)) {
-                        actions.add(new BreakAction(this, direction));
-                    }
-                }
             }
         }
 
@@ -76,25 +69,27 @@ public class Koopa extends Actor {
      */
     @Override
     public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
-        if (this.isDormant()) {
-            return new EmptyAction();
+        if (!this.isConscious()) {
+            this.setDisplayChar('D');
+            this.resetMaxHp(50);
+            this.behaviours.clear();
         }
 
-        if (!this.isConscious()) {
-            this.makeDormant();
-            return new EmptyAction();
+        if (this.hasCapability(Status.DORMANT)) {
+            return new DoNothingAction();
+        }
 
-        } else if (lastAction instanceof AttackAction || this.hasCapability(Status.GOT_ATTACKED)) {
+        if (this.hasCapability(Status.ATTACKED) || this.hasCapability(Status.GOT_ATTACKED)) {
             Location here = map.locationOf(this);
             for(Exit exit: here.getExits()) {
                 Actor target = exit.getDestination().getActor();
-                if (target != null) {
-                    this.behaviours.put(10, new FollowBehaviour(target));
+                if (target != null && target.hasCapability(Status.HOSTILE_TO_ENEMY)) {
+                    this.behaviours.put(2, new FollowBehaviour(target));
                 }
             }
         }
 
-        for(Behaviour Behaviour : behaviours.values()) {
+        for (Behaviour Behaviour : behaviours.values()) {
             Action action = Behaviour.getAction(this, map);
             if (action != null)
                 return action;
@@ -105,13 +100,6 @@ public class Koopa extends Actor {
     @Override
     public IntrinsicWeapon getIntrinsicWeapon() {
         return new IntrinsicWeapon(30, "punches");
-    }
-
-    public void makeDormant() {
-        this.dormant = true;
-        this.setDisplayChar('D');
-        this.resetMaxHp(50);
-        this.behaviours.clear();
     }
 
 }

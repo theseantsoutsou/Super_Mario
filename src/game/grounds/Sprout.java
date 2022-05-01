@@ -26,6 +26,7 @@ public class Sprout extends Ground implements Jumpable {
     public Sprout() {
         super('+');
         this.age = 0;
+        this.addCapability(Status.HIGH_GROUND);
     }
 
     public int getSuccessRate() {
@@ -78,5 +79,16 @@ public class Sprout extends Ground implements Jumpable {
         }
 
         return actions;
+    }
+
+    /**
+     * Check if actor to-enter is an enemy.
+     *
+     * @param actor the Actor to check
+     * @return true
+     */
+    @Override
+    public boolean canActorEnter(Actor actor) {
+        return false;
     }
 }

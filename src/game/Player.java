@@ -15,7 +15,7 @@ import game.items.Wallet;
 public class Player extends Actor  {
 
 	private final Menu menu = new Menu();
-	int invincibleTurns = 0;
+	private int invincibleTurns = 0;
 
 
 	/**
@@ -42,6 +42,11 @@ public class Player extends Actor  {
 
 	@Override
 	public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
+		if (!map.locationOf(this).getGround().hasCapability(Status.HIGH_GROUND) &&
+				this.hasCapability(Status.ON_HIGH_GROUND)) {
+			this.removeCapability(Status.ON_HIGH_GROUND);
+		}
+
 		if (this.invincibleTurns == 10) {
 			this.removeCapability(Status.POWER_STAR);
 			System.out.println(this + " is no longer invincible");
@@ -50,6 +55,7 @@ public class Player extends Actor  {
 		else if (this.hasCapability(Status.POWER_STAR)) {
 			this.invincibleTurns += 1;
 		}
+
 
 		// Handle multi-turn Actions
 		if (lastAction.getNextAction() != null)

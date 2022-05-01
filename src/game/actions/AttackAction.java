@@ -45,7 +45,11 @@ public class AttackAction extends Action {
 		String result = null;
 		Weapon weapon = actor.getWeapon();
 
+		actor.addCapability(Status.ATTACKED);
+		this.target.addCapability(Status.GOT_ATTACKED);
+
 		if (!(rand.nextInt(100) <= weapon.chanceToHit())) {
+
 			return actor + " misses " + target + ".";
 		}
 
@@ -54,20 +58,31 @@ public class AttackAction extends Action {
 		}
 
 		if (actor.hasCapability(Status.POWER_STAR)) {
-			map.removeActor(this.target);
+			if (!this.target.hasCapability(Status.CAN_SLEEP)) {
+				map.removeActor(this.target);
+			}
+			else {
+				new BreakAction(this.target, this.direction).execute(actor, map);
+			}
 			return this.target + " is instakilled.";
 		}
 
 		int damage = weapon.damage();
 
 		this.target.hurt(damage);
-		this.target.addCapability(Status.GOT_ATTACKED);
+
 		result = actor + " " + weapon.verb() + " " + this.target + " for " + damage + " damage.";
 
 		if (!this.target.isConscious()) {
-			// remove actor
-			map.removeActor(this.target);
-			result += System.lineSeparator() + target + " is killed.";
+			if (!this.target.hasCapability(Status.CAN_SLEEP)) {
+				// remove actor
+				map.removeActor(this.target);
+				result += System.lineSeparator() + this.target + " is killed.";
+			}
+			else {
+				this.target.addCapability(Status.DORMANT);
+				result += System.lineSeparator() + this.target + " went dormant.";
+			}
 		}
 
 		return result;

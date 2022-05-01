@@ -27,6 +27,7 @@ public class Tree extends Ground implements Jumpable {
     public Tree() {
         super('T');
         this.age = 0;
+        this.addCapability(Status.HIGH_GROUND);
     }
 
     public int getSuccessRate() {
@@ -101,5 +102,16 @@ public class Tree extends Ground implements Jumpable {
         }
 
         return actions;
+    }
+
+    /**
+     * Check if actor to-enter is an enemy.
+     *
+     * @param actor the Actor to check
+     * @return true
+     */
+    @Override
+    public boolean canActorEnter(Actor actor) {
+        return false;
     }
 }

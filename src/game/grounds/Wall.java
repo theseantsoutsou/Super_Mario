@@ -15,6 +15,7 @@ public class Wall extends Ground implements Jumpable {
 
 	public Wall() {
 		super('#');
+		this.addCapability(Status.HIGH_GROUND);
 	}
 
 	public int getSuccessRate() {
@@ -49,4 +50,6 @@ public class Wall extends Ground implements Jumpable {
 
 		return actions;
 	}
+
+
 }

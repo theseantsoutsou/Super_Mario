@@ -33,8 +33,10 @@ public class Goomba extends Actor {
 	 */
 	public Goomba() {
 		super("Goomba", 'g', 10);
-		this.behaviours.put(10, new WanderBehaviour());
-		this.behaviours.put(20, new AttackBehaviour());
+		this.behaviours.put(1, new AttackBehaviour());
+		this.behaviours.put(2, new FollowBehaviour());
+		this.behaviours.put(3, new WanderBehaviour());
+
 
 	}
 
@@ -52,7 +54,7 @@ public class Goomba extends Actor {
 		ActionList actions = new ActionList();
 		// it can be attacked only by the HOSTILE opponent, and this action will not attack the HOSTILE enemy back.
 		if(otherActor.hasCapability(Status.HOSTILE_TO_ENEMY)) {
-			actions.add(new AttackAction(this,direction));
+			actions.add(new AttackAction(this, direction));
 		}
 
 		return actions;
@@ -69,12 +71,12 @@ public class Goomba extends Actor {
 			return new SuicideAction();
 		}
 
-		if (lastAction instanceof AttackAction || this.hasCapability(Status.GOT_ATTACKED)) {
+		if (this.hasCapability(Status.ATTACKED) || this.hasCapability(Status.GOT_ATTACKED)) {
 			Location here = map.locationOf(this);
 			for(Exit exit: here.getExits()) {
 				Actor target = exit.getDestination().getActor();
-				if (target != null) {
-					this.behaviours.put(10, new FollowBehaviour(target));
+				if (target != null && target.hasCapability(Status.HOSTILE_TO_ENEMY)) {
+					this.behaviours.put(2, new FollowBehaviour(target));
 				}
 			}
 		}

@@ -25,6 +25,7 @@ public class Sapling extends Ground implements Jumpable {
     public Sapling() {
         super('t');
         this.age = 0;
+        this.addCapability(Status.HIGH_GROUND);
     }
 
     public int getSuccessRate() {
@@ -66,10 +67,21 @@ public class Sapling extends Ground implements Jumpable {
         if (actor.hasCapability(Status.POWER_STAR) && !sameGround) {
             actions.add(new FlattenAction(this, direction));
         }
-        else if(actor.hasCapability(Status.HOSTILE_TO_ENEMY) && !sameGround) {
+        else if (actor.hasCapability(Status.HOSTILE_TO_ENEMY) && !sameGround) {
             actions.add(new JumpAction(this,direction));
         }
 
         return actions;
+    }
+
+    /**
+     * Check if actor to-enter is an enemy.
+     *
+     * @param actor the Actor to check
+     * @return true
+     */
+    @Override
+    public boolean canActorEnter(Actor actor) {
+        return false;
     }
 }

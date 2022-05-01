@@ -24,9 +24,15 @@ public class FollowBehaviour implements Behaviour {
 	public FollowBehaviour(Actor subject) {
 		this.target = subject;
 	}
+	public FollowBehaviour() {
+		this.target = null;
+	}
 
 	@Override
 	public Action getAction(Actor actor, GameMap map) {
+		if (this.target == null) {
+			return null;
+		}
 		if(!map.contains(target) || !map.contains(actor))
 			return null;
 		
