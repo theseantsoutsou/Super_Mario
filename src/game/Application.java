@@ -63,7 +63,7 @@ public class Application {
 //			gameMap.at(35, 10).addActor(new Goomba());
 			gameMap.at(42,7).addActor(new Koopa());
 			gameMap.at(42,9).addItem(new SuperMushroom());
-			gameMap.at(42,8).addItem(new PowerStar());
+			gameMap.at(42,8).addItem(new Wrench());
 
 			world.run();
 

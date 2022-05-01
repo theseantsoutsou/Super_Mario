@@ -3,7 +3,6 @@ package game.items;
 import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.items.Item;
-import edu.monash.fit2099.engine.items.PickUpItemAction;
 import edu.monash.fit2099.engine.positions.Location;
 import game.Status;
 import game.actions.ConsumeAction;
@@ -22,8 +21,9 @@ import java.util.List;
 
 public class PowerStar extends Item implements TradableItem{
 
-    ConsumeAction action = new ConsumeAction(this, Status.POWER_STAR);
-    int age;
+    private ConsumeAction action = new ConsumeAction(this, Status.POWER_STAR);
+    private int value = 600;
+    private int age;
 
     public PowerStar() {
         super("Power Star", '*', true);
@@ -77,6 +77,6 @@ public class PowerStar extends Item implements TradableItem{
     }
     @Override
     public int getValue() {
-        return 0;
+        return this.value;
     }
 }

@@ -55,11 +55,12 @@ public class JumpAction extends Action{
         if (isTall || r.nextInt(100) <= successRate) {
             map.moveActor(actor, this.getTargetLocation(actor, map));
             result = actor + " jumped to " + this.target.getClass().getSimpleName() + " successfully.";
+            actor.addCapability(Status.ON_HIGH_GROUND);
 
         } else {
             int fallDamage = this.target.getFallDamage();
             actor.hurt(fallDamage);
-            result = actor + "failed to jump to " + this.target.getClass().getSimpleName() + ". Player receives " + fallDamage + " fall damage.";
+            result = actor + " failed to jump to " + this.target.getClass().getSimpleName() + ". Player receives " + fallDamage + " fall damage.";
             if (!actor.isConscious()) {
                 map.removeActor(actor);
                 result += System.lineSeparator() + "Player died from fall damage.";

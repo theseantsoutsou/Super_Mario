@@ -22,7 +22,9 @@ import java.util.List;
  * M -> m, no 100% jump when player receives damage (if current hp < hp at start of tick)
  */
 public class SuperMushroom extends Item implements TradableItem {
-    ConsumeAction action = new ConsumeAction(this, Status.TALL);
+    private ConsumeAction action = new ConsumeAction(this, Status.TALL);
+    private int value = 400;
+
     /**
      * Constructor
      */
@@ -50,6 +52,6 @@ public class SuperMushroom extends Item implements TradableItem {
     }
     @Override
     public int getValue() {
-        return 0;
+        return this.value;
     }
 }

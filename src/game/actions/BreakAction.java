@@ -19,7 +19,7 @@ public class BreakAction extends Action {
     /**
      * The Koopa Shell that is to be broken
      */
-    private Koopa target;
+    private Actor target;
 
     /**
      * The direction of incoming attack.
@@ -36,7 +36,7 @@ public class BreakAction extends Action {
      *
      * @param target the Actor to attack
      */
-    public BreakAction(Koopa target, String direction) {
+    public BreakAction(Actor target, String direction) {
         this.target = target;
         this.direction = direction;
     }
@@ -51,33 +51,18 @@ public class BreakAction extends Action {
     @Override
     public String execute(Actor actor, GameMap map) {
 
-        Weapon weapon = actor.getWeapon();
         String result = null;
-        int damage = weapon.damage();
 
-        if (!(rand.nextInt(100) <= weapon.chanceToHit())) {
-            return actor + " misses " + target + ".";
-        }
-
-        if (actor.hasCapability(Status.POWER_STAR) && !this.target.isDormant()) {
-            this.target.makeDormant();
-        }
-
-        if (this.target.isDormant()) {
-            ActionList dropActions = new ActionList();
-            // drop all items
-            for (Item item : target.getInventory())
-                dropActions.add(item.getDropAction(actor));
-            for (Action drop : dropActions)
-                drop.execute(target, map);
-            // remove actor
-            map.removeActor(target);
-            result = actor + " broke Koopa's shell";
-            result += System.lineSeparator() + target + " is killed";
-
-        } else {
-            this.target.hurt(damage);
-        }
+        ActionList dropActions = new ActionList();
+        // drop all items
+        for (Item item : this.target.getInventory())
+            dropActions.add(item.getDropAction(actor));
+        for (Action drop : dropActions)
+            drop.execute(this.target, map);
+        // remove actor
+        map.removeActor(this.target);
+        result = actor + " broke Koopa's shell";
+        result += System.lineSeparator() + this.target + " is killed";
 
         return result;
     }
@@ -89,11 +74,7 @@ public class BreakAction extends Action {
      */
     @Override
     public String menuDescription(Actor actor) {
-        if (target.isDormant()) {
-            return actor + " break Koopa's shell at " + direction;
-        } else {
-            return actor + " attacks " + target + " at " + direction;
-        }
+        return actor + " breaks " + this.target + "'s shell at " + direction;
 
     }
 }

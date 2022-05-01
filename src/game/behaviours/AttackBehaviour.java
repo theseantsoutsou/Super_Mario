@@ -25,7 +25,7 @@ public class AttackBehaviour implements Behaviour {
         Location location = map.locationOf(actor);
         for (Exit exit: location.getExits()) {
             Actor target = exit.getDestination().getActor();
-            if (target != null && target.hasCapability(Status.HOSTILE_TO_ENEMY)) {
+            if (target != null && target.hasCapability(Status.HOSTILE_TO_ENEMY) && !target.hasCapability(Status.ON_HIGH_GROUND)) {
                 return new AttackAction(target, exit.getName());
             }
         }

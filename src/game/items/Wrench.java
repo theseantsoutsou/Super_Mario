@@ -9,6 +9,9 @@ import game.Status;
  * has the capability of BREAK_SHELL which is the only way the player can destroy a Koopa Shell
  */
 public class Wrench extends WeaponItem implements TradableItem{
+
+    private int value = 200;
+
     public Wrench(){
         super("Wrench",'=', 50, "whacks", 80);
         this.addToInventory();
@@ -20,6 +23,6 @@ public class Wrench extends WeaponItem implements TradableItem{
      * @return
      */
     public int getValue(){
-        return 200;
+        return this.value;
     }
 }

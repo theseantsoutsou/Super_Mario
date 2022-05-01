@@ -17,62 +17,75 @@ import game.behaviours.AttackBehaviour;
 import game.behaviours.Behaviour;
 import game.behaviours.FollowBehaviour;
 import game.behaviours.WanderBehaviour;
-import game.ResetManager;
-import game.actions.ResetAction;
-import game.grounds.Dirt;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-
 /**
- * A little fungus guy.
+ * The Goomba class is a class that represents a Goomba in Super Mario, the little fungus guy.
+ * The Goomba class is a subclass of the Actor class.
+ *
+ * @author Connor Gibson, Shang-Fu Tsou, Lucus Choy
+ * @version 2.0
+ * @since 02-May-2022
  */
 public class Goomba extends Actor {
+	//Private attributes
 	private final Map<Integer, Behaviour> behaviours = new HashMap<>(); // priority, behaviour
 
 	/**
-	 * Constructor.
+	 * Constructor for the Goomba class.
+	 * Calls its parent class Actor class's constructor to set name, display character, and HP attributes.
+	 * Loads new behaviours to its behaviours attribute in order of priority.
+	 *
+	 * @see FollowBehaviour
+	 * @see AttackBehaviour
+	 * @see WanderBehaviour
 	 */
 	public Goomba() {
-		super("Goomba", 'g', 10);
-		this.behaviours.put(10, new WanderBehaviour());
-		this.behaviours.put(20, new AttackBehaviour());
-
-
+		super("Goomba", 'g', 20);
+		this.behaviours.put(1, new AttackBehaviour());
+		this.behaviours.put(2, new FollowBehaviour());
+		this.behaviours.put(3, new WanderBehaviour());
 	}
 
 	/**
-	 * Player can attack Goomba and cause harm to it
-	 * @param otherActor the Actor that might perform an action.
+	 * Returns a new collection of the Actions that the otherActor can do Goomba.
+	 * If the otherActor is hostile to Goomba, allow the otherActor to attack
+	 *
+	 * @param otherActor the Actor that might be performing attack
 	 * @param direction  String representing the direction of the other Actor
 	 * @param map        current GameMap
-	 * @return list of actions
+	 * @return A collection of Actions.
+	 * @see AttackAction
 	 * @see Status#HOSTILE_TO_ENEMY
 	 */
 	@Override
 	public ActionList allowableActions(Actor otherActor, String direction, GameMap map) {
 		ActionList actions = new ActionList();
-		// it can be attacked only by the HOSTILE opponent, and this action will not attack the HOSTILE enemy back.
+
 		if(otherActor.hasCapability(Status.HOSTILE_TO_ENEMY)) {
-			actions.add(new AttackAction(this,direction));
-		}
-
-
-		//resetting the game
-		if (otherActor.hasCapability(Status.RESETTABLE)){
-			map.removeActor(this);
+			actions.add(new AttackAction(this, direction));
 		}
 
 		return actions;
 	}
 
 	/**
-	 * Figure out what to do next.
-	 * During it's turn, the goomba may attack the player if it is close enough to the player
-	 * additionally, the goomba has a 10% chance of being removed from the map due to suicide
-	 * @see Actor#playTurn(ActionList, Action, GameMap, Display)
+	 * Goomba has a 10 percent chance to commit suicide every turn.
+	 * If Goomba is engaged in a fight, it follows the other actor engaged
+	 * Goomba will either follow another actor, attack the other actor, or wander around.
+	 *
+	 * @param actions    collection of possible Actions for this Actor
+	 * @param lastAction The Action this Actor took last turn. Can do interesting things in conjunction with Action.getNextAction()
+	 * @param map        the map containing the Actor
+	 * @param display    the I/O object to which messages may be written
+	 * @return an Action
+	 * @see SuicideAction
+	 * @see Behaviour
+	 * @see	Status#ATTACKED
+	 * @see Status#GOT_ATTACKED
 	 */
 	@Override
 	public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
@@ -81,12 +94,12 @@ public class Goomba extends Actor {
 			return new SuicideAction();
 		}
 
-		if (lastAction instanceof AttackAction || this.hasCapability(Status.GOT_ATTACKED)) {
+		if (this.hasCapability(Status.ATTACKED) || this.hasCapability(Status.GOT_ATTACKED)) {
 			Location here = map.locationOf(this);
 			for(Exit exit: here.getExits()) {
 				Actor target = exit.getDestination().getActor();
-				if (target != null) {
-					this.behaviours.put(10, new FollowBehaviour(target));
+				if (target != null && target.hasCapability(Status.HOSTILE_TO_ENEMY)) {
+					this.behaviours.put(2, new FollowBehaviour(target));
 				}
 			}
 		}
@@ -102,8 +115,9 @@ public class Goomba extends Actor {
 	}
 
 	/**
-	 * What a goomba attacks the player with
-	 * @return
+	 * Creates and returns an intrinsic weapon for Goomba.
+	 *
+	 * @return a freshly-instantiated IntrinsicWeapon
 	 */
 	@Override
 	public IntrinsicWeapon getIntrinsicWeapon() {return new IntrinsicWeapon(10, "Kicks" );}
