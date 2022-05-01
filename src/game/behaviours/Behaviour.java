@@ -4,6 +4,13 @@ import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.positions.GameMap;
 
+/**
+ * Behaviour is an interface that act as a factory for creating actions depending on the objective of an Actor.
+ *
+ * @author FIT2099 Teaching Team
+ * @version 2.0
+ * @since 02-May-2022
+ */
 public interface Behaviour {
 	
 	/**

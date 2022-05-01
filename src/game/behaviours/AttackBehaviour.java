@@ -9,17 +9,22 @@ import game.Status;
 import game.actions.AttackAction;
 
 /**
- * Class that allows an actor to attack a hostile on its own
+ * The AttackBehaviour class is a class that allows for automated attacks from an actor to another.
+ * The AttackBehaviour class implements the Behaviour interface.
+ *
+ * @author Connor Gibson, Shang-Fu Tsou, Lucus Choy
+ * @version 2.0
+ * @since 02-May-2022
  */
 public class AttackBehaviour implements Behaviour {
 
     /**
-     * Determines the location of the target and whether the target actor is Hostile
+     * Creates an AttackAction if target within reach of actor.
+     *
      * @param actor the Actor acting
-     * @param map   the GameMap containing the Actor
-     * @return
+     * @param map the GameMap containing the Actor
+     * @return an AttackAction if target is hostile and on ground level; null otherwise
      */
-    // TODO: develop and use it to attack the player automatically.
     @Override
     public Action getAction(Actor actor, GameMap map) {
         Location location = map.locationOf(actor);
