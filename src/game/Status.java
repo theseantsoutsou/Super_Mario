@@ -10,6 +10,7 @@ public enum Status {
     TRADE, //use this status to allow actor to engage in trade.
     ON_HIGH_GROUND,
 
+    FERTILE,
     HIGH_GROUND,
 
     CONVERSES,
