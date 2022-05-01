@@ -12,6 +12,9 @@ import game.npcs.Goomba;
 import java.util.Random;
 
 
+/**
+ * Class for a Sprout ground object (high ground)
+ */
 public class Sprout extends Ground implements Jumpable {
 
     //Private Attributes
@@ -65,6 +68,14 @@ public class Sprout extends Ground implements Jumpable {
         return spawned;
     }
 
+    /**
+     * Allows the player to jump onto it when moving from high ground (if dice roll succeeds)
+     * Allows for traversal between two of the same Ground Objects
+     * @param actor     the Actor acting
+     * @param location  the current Location
+     * @param direction the direction of the Ground from the Actor
+     * @return
+     */
     @Override
     public ActionList allowableActions(Actor actor, Location location, String direction){
         ActionList actions = new ActionList();

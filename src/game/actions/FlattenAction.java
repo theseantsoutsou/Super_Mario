@@ -12,6 +12,9 @@ import game.items.Coin;
 
 import java.util.Random;
 
+/**
+ * Action for when the player flattens high ground when using a Power Star
+ */
 public class FlattenAction extends Action {
     //Private Attributes
     /**
@@ -34,6 +37,15 @@ public class FlattenAction extends Action {
         this.direction = direction;
     }
 
+    /**
+     * gets the location of that the player is trying to move to
+     * moves the player there
+     * 'flattens' the high ground by converting it to dirt
+     * creates a coin in the place that was flatten
+     * @param actor The actor performing the action.
+     * @param map   The map the actor is on.
+     * @return
+     */
     @Override
     public String execute(Actor actor, GameMap map) {
         Location targetLocation = this.getTargetLocation(actor, map);
@@ -46,6 +58,12 @@ public class FlattenAction extends Action {
 
     }
 
+    /**
+     * get the coordinates of where the player is trying to go
+     * @param actor
+     * @param map
+     * @return
+     */
     public Location getTargetLocation(Actor actor, GameMap map) {
 
         Location actorLocation = map.locationOf(actor);
@@ -57,6 +75,11 @@ public class FlattenAction extends Action {
         return null;
     }
 
+    /**
+     * Display the description for the prompt to flatten a piece of high ground
+     * @param actor The actor performing the action.
+     * @return
+     */
     @Override
     public String menuDescription(Actor actor) {
         return actor + " flattens " + this.target.getClass().getSimpleName() + " at " + direction;

@@ -18,16 +18,30 @@ import game.items.Wrench;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Friendly character the player can interact with such as talking or trading
+ */
 public class Toad extends Actor {
     private final Map<Integer, Behaviour> behaviours = new HashMap<>();
     private static Toad instance;
 
+    /**
+     * Constructor
+     */
     public Toad() {
         super("Toad", 'O', 50);
         addItemToInventory(new PowerStar());
         addItemToInventory(new SuperMushroom());
         addItemToInventory(new Wrench());
     }
+
+    /**
+     * Toad has the ability to either talk to the player or trade with the player
+     * @param otherActor the Actor that might be performing attack
+     * @param direction  String representing the direction of the other Actor
+     * @param map        current GameMap
+     * @return
+     */
     public ActionList allowableActions(Actor otherActor, String direction, GameMap map) {
         ActionList actions = new ActionList();
         if (otherActor.hasCapability(Status.TRADE)) {
@@ -41,7 +55,7 @@ public class Toad extends Actor {
 
     /**
      * Figure out what to do next.
-     *
+     * Toad does nothing when not interacting with the player (does not move ever)
      * @see Actor#playTurn(ActionList, Action, GameMap, Display)
      */
     @Override
@@ -49,6 +63,10 @@ public class Toad extends Actor {
         return new DoNothingAction();
     }
 
+    /**
+     * Creates toad at a specific part of the game map
+     * @param gameMap
+     */
     public static void createToad(GameMap gameMap) {
         if (instance == null) {
             instance = new Toad();
@@ -58,6 +76,10 @@ public class Toad extends Actor {
         }
     }
 
+    /**
+     * creates a toad instance
+     * @return
+     */
     static public Toad getInstance() {
         return instance;
     }

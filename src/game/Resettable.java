@@ -1,5 +1,9 @@
 package game;
 
+/**
+ * Interface that allows objects to be added to a list of resettable objects and
+ * allows Reset manager to reset a specific object to its default state
+ */
 public interface Resettable {
     /**
      * Allows any classes that use this interface to reset abilities, attributes, and/or items.

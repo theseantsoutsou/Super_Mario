@@ -24,7 +24,10 @@ import game.items.SuperMushroom;
 import java.util.HashMap;
 import java.util.Map;
 /**
- * A little fungus guy.
+ * Koopa enemy
+ * Has abilities similar to goomba except cannot be removed from the game map as it becomes dormant
+ * when killed
+ * Requires a wrench to fully remove from map
  */
 public class Koopa extends Actor {
     private final Map<Integer, Behaviour> behaviours = new HashMap<>(); // priority, behaviour
@@ -41,11 +44,18 @@ public class Koopa extends Actor {
 
     }
 
+    /**
+     * Returns whether the Koopa is in a dormant state
+     * @return
+     */
     public Boolean isDormant() {
         return dormant;
     }
 
     /**
+     * Player can attack Koopa but cannot kill it out right
+     * Becomes dormant when hp goes to 0
+     * Shell can only be destroyed when player has a wrench with the capability BREAK_SHELL
      * @param otherActor the Actor that might be performing attack
      * @param direction  String representing the direction of the other Actor
      * @param map        current GameMap
@@ -67,11 +77,18 @@ public class Koopa extends Actor {
             }
         }
 
+        //resetting the game
+        if (otherActor.hasCapability(Status.RESETTABLE)){
+            map.removeActor(this);
+        }
+
         return actions;
     }
 
     /**
      * Figure out what to do next.
+     * Allows the Koopa to move around and attack the player if they are within range
+     * Does not do anything if it is in a dormant state
      * @see Actor#playTurn(ActionList, Action, GameMap, Display)
      */
     @Override

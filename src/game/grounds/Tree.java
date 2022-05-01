@@ -5,14 +5,20 @@ import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.positions.Exit;
 import edu.monash.fit2099.engine.positions.Ground;
 import edu.monash.fit2099.engine.positions.Location;
+import game.ResetManager;
 import game.actions.FlattenAction;
 import game.actions.JumpAction;
 import game.Status;
+import game.actions.ResetAction;
+import game.actions.SuicideAction;
 import game.npcs.Koopa;
 
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Class for a Tree Ground object (high ground, Mature)
+ */
 public class Tree extends Ground implements Jumpable {
 
     //Private Attributes
@@ -53,6 +59,11 @@ public class Tree extends Ground implements Jumpable {
         }
     }
 
+    /**
+     * Trees have a chance to spawn a Koopa from them (15%)
+     * @param location
+     * @return
+     */
     public Boolean spawn(Location location) {
         Random r = new Random();
         Boolean spawned = false;
@@ -64,6 +75,10 @@ public class Tree extends Ground implements Jumpable {
         return spawned;
     }
 
+    /**
+     * Sprouts grow into trees after 5 turns
+     * @param location
+     */
     public void growSprout(Location location) {
         List<Exit> exits = location.getExits();
         Random r = new Random();
@@ -78,6 +93,11 @@ public class Tree extends Ground implements Jumpable {
         }
     }
 
+    /**
+     * Trees have a chance of being removed and turning to dirt every turn (20%)
+     * @param location
+     * @return
+     */
     public Boolean die(Location location) {
         Boolean dead = false;
         Random r = new Random();
@@ -88,6 +108,14 @@ public class Tree extends Ground implements Jumpable {
         return dead;
     }
 
+    /**
+     * Allows the player to jump on to a Tree from lower ground (if dice roll suceeds)
+     * Allows the player to traverse between Trees objects
+     * @param actor     the Actor acting
+     * @param location  the current Location
+     * @param direction the direction of the Ground from the Actor
+     * @return
+     */
     @Override
     public ActionList allowableActions(Actor actor, Location location, String direction){
         ActionList actions = new ActionList();
@@ -100,6 +128,15 @@ public class Tree extends Ground implements Jumpable {
             actions.add(new JumpAction(this,direction));
         }
 
+        //resetting the game
+        if (actor.hasCapability(Status.RESETTABLE)){
+            Random r = new Random();
+            if (r.nextInt(100) <= 50) {
+                location.setGround(new Dirt());
+            }
+        }
+
         return actions;
     }
+
 }

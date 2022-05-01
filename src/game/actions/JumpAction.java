@@ -10,6 +10,9 @@ import edu.monash.fit2099.engine.positions.Location;
 import game.Status;
 import game.grounds.Jumpable;
 
+/**
+ * Special Action that allows the player to move from lower ground to higher ones
+ */
 public class JumpAction extends Action{
     //Private Attributes
     /**
@@ -32,6 +35,15 @@ public class JumpAction extends Action{
         this.direction = direction;
     }
 
+    /**
+     * Takes the terrain feature that is at the location the player wants to move to
+     * retrieves the probability of the player jumping onto the terrain feature (stored in the class itself)
+     * does a check to see if the player succeeds in the dice roll
+     * jumps if success, takes damage if fail (if hp goes to 0, player dies from fall damage)
+     * @param actor The actor performing the action.
+     * @param map   The map the actor is on.
+     * @return
+     */
     @Override
     public String execute(Actor actor, GameMap map) {
         Random r = new Random();
@@ -57,6 +69,12 @@ public class JumpAction extends Action{
         return result;
     }
 
+    /**
+     * Get the coordinates of the terrain feature the player is attempting to jump on to
+     * @param actor
+     * @param map
+     * @return
+     */
     public Location getTargetLocation(Actor actor, GameMap map) {
 
         Location actorLocation = map.locationOf(actor);
@@ -68,6 +86,11 @@ public class JumpAction extends Action{
         return null;
     }
 
+    /**
+     * Display the description of jumping on to high ground on the menu
+     * @param actor The actor performing the action.
+     * @return
+     */
     @Override
     public String menuDescription(Actor actor) {
         return actor + " jumps to " + this.target.getClass().getSimpleName() + " at " + direction;

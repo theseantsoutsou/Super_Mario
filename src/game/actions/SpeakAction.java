@@ -7,12 +7,24 @@ import game.Status;
 
 import java.util.Random;
 
+/**
+ * Special Action that allows Toad to say random lines based on the player's capabilities
+ * (i.e. should not say first line if the player has a wrench in their inventory)
+ */
 public class SpeakAction extends Action {
     private Actor target;
     protected Random rand = new Random();
     public SpeakAction(Actor target){
         this.target=target;
     }
+
+    /**
+     * Checks the capabilities of the player to determine to determine which lines would make sense
+     * for toad to say
+     * @param actor The actor performing the action.
+     * @param map   The map the actor is on.
+     * @return
+     */
     @Override
     public String execute(Actor actor, GameMap map) {
         int randVal = 0;
@@ -44,6 +56,12 @@ public class SpeakAction extends Action {
         }
         return "";
     }
+
+    /**
+     * Display description to speak to Toad on the menu
+     * @param actor The actor performing the action.
+     * @return
+     */
     @Override
     public String menuDescription(Actor actor) {
         return String.format("Speak with %s.", target.toString());

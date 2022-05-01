@@ -41,6 +41,13 @@ public class BreakAction extends Action {
         this.direction = direction;
     }
 
+    /**
+     * Executes the action of destroying a koopa shell only when the koopa is in a dormant state
+     * causes the dormant koopa to drop a SuperMushroom when shell is destroyed
+     * @param actor The actor performing the action.
+     * @param map   The map the actor is on.
+     * @return
+     */
     @Override
     public String execute(Actor actor, GameMap map) {
 
@@ -75,6 +82,11 @@ public class BreakAction extends Action {
         return result;
     }
 
+    /**
+     * Display description of when player destroys a koopa shell
+     * @param actor The actor performing the action.
+     * @return
+     */
     @Override
     public String menuDescription(Actor actor) {
         if (target.isDormant()) {

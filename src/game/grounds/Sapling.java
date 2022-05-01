@@ -11,6 +11,9 @@ import game.items.Coin;
 
 import java.util.Random;
 
+/**
+ * Class for a Sapling object
+ */
 public class Sapling extends Ground implements Jumpable {
 
     //Private Attributes
@@ -50,6 +53,10 @@ public class Sapling extends Ground implements Jumpable {
         }
     }
 
+    /**
+     * Randomly adds a sapling onto the map if dice roll succeeds
+     * @param location
+     */
     public void spawn(Location location) {
         Random r = new Random();
         if (r.nextInt(100) <= 10) {
@@ -57,6 +64,14 @@ public class Sapling extends Ground implements Jumpable {
         }
     }
 
+    /**
+     * Allows the an actor to jump onto it and traverse it when crossing between two objects of the
+     * same type (sapling to sapling)
+     * @param actor     the Actor acting
+     * @param location  the current Location
+     * @param direction the direction of the Ground from the Actor
+     * @return
+     */
     @Override
     public ActionList allowableActions(Actor actor, Location location, String direction){
         ActionList actions = new ActionList();

@@ -8,6 +8,9 @@ import game.actions.FlattenAction;
 import game.actions.JumpAction;
 import game.Status;
 
+/**
+ * Class for a Wall Ground Object (High Ground)
+ */
 public class Wall extends Ground implements Jumpable {
 	//Private Attributes
 	private static final int JUMP_SUCCESS_RATE = 80;
@@ -35,6 +38,14 @@ public class Wall extends Ground implements Jumpable {
 		return true;
 	}
 
+	/**
+	 * Allows the player to jump onto a Wall from lower ground (if dice roll succeeds)
+	 * Allows the player to traverse between Wall objects
+	 * @param actor     the Actor acting
+	 * @param location  the current Location
+	 * @param direction the direction of the Ground from the Actor
+	 * @return
+	 */
 	@Override
 	public ActionList allowableActions(Actor actor, Location location, String direction){
 		ActionList actions = new ActionList();

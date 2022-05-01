@@ -8,8 +8,17 @@ import edu.monash.fit2099.engine.positions.Location;
 import game.Status;
 import game.actions.AttackAction;
 
+/**
+ * Class that allows an actor to attack a hostile on its own
+ */
 public class AttackBehaviour implements Behaviour {
 
+    /**
+     * Determines the location of the target and whether the target actor is Hostile
+     * @param actor the Actor acting
+     * @param map   the GameMap containing the Actor
+     * @return
+     */
     // TODO: develop and use it to attack the player automatically.
     @Override
     public Action getAction(Actor actor, GameMap map) {

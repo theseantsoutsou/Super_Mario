@@ -17,10 +17,14 @@ import game.behaviours.AttackBehaviour;
 import game.behaviours.Behaviour;
 import game.behaviours.FollowBehaviour;
 import game.behaviours.WanderBehaviour;
+import game.ResetManager;
+import game.actions.ResetAction;
+import game.grounds.Dirt;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+
 
 /**
  * A little fungus guy.
@@ -36,11 +40,11 @@ public class Goomba extends Actor {
 		this.behaviours.put(10, new WanderBehaviour());
 		this.behaviours.put(20, new AttackBehaviour());
 
+
 	}
 
 	/**
-	 * At the moment, we only make it can be attacked by Player.
-	 * You can do something else with this method.
+	 * Player can attack Goomba and cause harm to it
 	 * @param otherActor the Actor that might perform an action.
 	 * @param direction  String representing the direction of the other Actor
 	 * @param map        current GameMap
@@ -55,11 +59,19 @@ public class Goomba extends Actor {
 			actions.add(new AttackAction(this,direction));
 		}
 
+
+		//resetting the game
+		if (otherActor.hasCapability(Status.RESETTABLE)){
+			map.removeActor(this);
+		}
+
 		return actions;
 	}
 
 	/**
 	 * Figure out what to do next.
+	 * During it's turn, the goomba may attack the player if it is close enough to the player
+	 * additionally, the goomba has a 10% chance of being removed from the map due to suicide
 	 * @see Actor#playTurn(ActionList, Action, GameMap, Display)
 	 */
 	@Override
@@ -89,6 +101,10 @@ public class Goomba extends Actor {
 		return new DoNothingAction();
 	}
 
+	/**
+	 * What a goomba attacks the player with
+	 * @return
+	 */
 	@Override
 	public IntrinsicWeapon getIntrinsicWeapon() {return new IntrinsicWeapon(10, "Kicks" );}
 

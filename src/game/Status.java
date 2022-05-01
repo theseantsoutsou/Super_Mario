@@ -16,7 +16,10 @@ public enum Status {
 
     GOT_ATTACKED,
 
-    CARRIED
+    RESETTABLE,
+
+    CARRIED;
+
 
 
 }
