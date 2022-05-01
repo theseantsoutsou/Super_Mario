@@ -45,6 +45,8 @@ public class BreakAction extends Action {
     public String execute(Actor actor, GameMap map) {
 
         Weapon weapon = actor.getWeapon();
+        String result = null;
+        int damage = weapon.damage();
 
         if (!(rand.nextInt(100) <= weapon.chanceToHit())) {
             return actor + " misses " + target + ".";
@@ -52,11 +54,7 @@ public class BreakAction extends Action {
 
         if (actor.hasCapability(Status.POWER_STAR) && !this.target.isDormant()) {
             this.target.makeDormant();
-            return this.target + " was instakilled";
         }
-
-        String result = null;
-        int damage = weapon.damage();
 
         if (this.target.isDormant()) {
             ActionList dropActions = new ActionList();

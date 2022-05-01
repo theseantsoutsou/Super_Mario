@@ -60,9 +60,9 @@ public class AttackAction extends Action {
 
 		int damage = weapon.damage();
 
-		result = actor + " " + weapon.verb() + " " + this.target + " for " + damage + " damage.";
 		this.target.hurt(damage);
 		this.target.addCapability(Status.GOT_ATTACKED);
+		result = actor + " " + weapon.verb() + " " + this.target + " for " + damage + " damage.";
 
 		if (!this.target.isConscious()) {
 			// remove actor
