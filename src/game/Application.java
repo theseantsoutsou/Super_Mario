@@ -61,7 +61,7 @@ public class Application {
 			Actor mario = new Player("Player", 'm', 100);
 			world.addPlayer(mario, gameMap.at(42, 10));
 			Actor toad = new Toad();
-			world.addPlayer(toad, gameMap.at(45, 10));
+			gameMap.addActor(toad, gameMap.at(45, 10));
 			world.run();
 
 	}
