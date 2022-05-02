@@ -30,7 +30,6 @@ public class Coin extends Item implements TradableItem, Resettable {
         this.addAction(new PickUpCoinAction(this));
         this.registerInstance();
     }
-
     /**
      * Coins have a random value assigned to them
      * @return
