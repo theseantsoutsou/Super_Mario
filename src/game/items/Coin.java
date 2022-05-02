@@ -25,7 +25,6 @@ public class Coin extends Item implements TradableItem, Resettable {
      */
     public Coin(Location location) {
         super("Coin", '$', false);
-        //this.addToInventory();
         this.location = location;
         this.addAction(new PickUpCoinAction(this));
         this.registerInstance();

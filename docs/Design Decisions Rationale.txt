@@ -58,18 +58,20 @@ into Dirt.
 FlattenAction would also inherit attributes of the abstract class Action as it is an action the player
 can make after using a Power Star item.
 
-
 //////REQ5//////
-Requirement 5 is a more involved example than requirement 6, as it requires multiple actions to be generated simultaneously to populate the menu with trading options for the player. Furthermore, to trade items the functionality of certain items will need to be extended, such that they can have a value and can be identified as being tradeable.
-This will be implemented through the use of an interface “TradeableItem”, which will add new attributes and methods to certain item subclasses. Foremost, the use of an interface allows for the extension of the sub-classes of Item – which will reduce code repetition/redundancy through the use of default methods. The use of the interface also enforces a few different SOLID design principles. Firstly, it allows for interface segregation – not all subclasses of the Item class will require the attributes and methods associated with trading, so an interface allows for the extension of specific Item sub-classes. Using an interface in this scenario also ensures that entities derived from the Item class are open for extension, but closed for modification. Furthermore, using an interface would allow the methods/classes related to trading mechanics to only accept TradableItems(s) as inputs – which could allow for better exception handling.
-In this design the trading mechanics are implemented through the use of the TradeAction class, which is an extension of the Action class. TradeAction(s) are generated within the Toad class through the “getAllowableActions'' function. Here, if the Toad class has the correct capability, it should generate an ActionList, which contains the TradeAction(s). The inventory of the Actor (Toad in this case) trading with the player will be iterated through, and a TradeAction would be generated for each TradeableItem in the inventory (each item will lead to different menu prompts and trading outcomes). While it would be possible to implement the logic for this process in the “getAllowableActions” function of the Toad class, this could violate some of the SOLID principles. Instead, as depicted in the sequence diagram, the proposed implementation uses a static method within the TradeAction class to generate an ActionList containing Items, using the “target” Actor class’ inventory.
-Through this design, the static function allows all of the logic required for creating multiple instances of the TradeAction class to be encapsulated within the TradeAction class itself, instead of existing externally within a single Actor class’ method. This improves the reusability of the trade mechanics – if other trading characters were introduced, they would be able to implement trading behavior by using TradeAction methods and having the correct capabilitySet. Furthermore this is a continuation of the implementation of the Capability system of the game engine – the behavior of the Actor can be primarily defined by its capabilitySet and not necessarily its methods. This design is also an example of the single responsibility principle – by implementing all of the trading logic in the TradingAction class, any Actor class is only concerned with the logic required to supply actions governed by its capabilityList and Behaviors. All of this leads to reduced dependency as there is lower coupling and better organization as all functionality pertinent to trading is centralized.
+- If wallet were an attribute of the Player (or any sub-class of Actor) as it is in the initial design.
+it would be difficult for a TradeAction to access that attribute through calls to the Actor type. Instead, by making the
+Wallet class a Singleton design pattern with a static getInstance() method, the wallet can be accessed easily from within
+the TradeAction.
 
+- Few changes to variable and method names to make them more descriptive/obvious.
+
+- Implemented a TradeableItemInventory. This was forgotten in the initial design, but is necessary to access the methods of the
+TradableItem interface in places where only an Item type can is supplied. Furthermore, the Dependency Inversion Principle in
+not fully realised in the design without the inclusion of this class.
 
 //////REQ6//////
-Requirement 5 and requirement 6 deal with similar design problems – both require an action to be generated when interacting with Toad (when proximate to his location in the game world). 
-Requirement 6 will be implemented through the use of the SpeechAction class, which extends the Action class. The Action will be created from within Toad’s “getAllowableActions” using the class’ capabilitySet. This class will access the capabilitySet of the player to determine whether a player is holding/has activated a particular item. By determining this, the SpeechAction class can display the appropriate message when its execute method is called. 
-
+- No difference in SpeakAction
 
 //////REQ7//////
 The ResetManager class manages a list of objects that implements the Resettable interface.
