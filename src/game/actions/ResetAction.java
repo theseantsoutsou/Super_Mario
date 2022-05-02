@@ -18,9 +18,8 @@ public class ResetAction extends Action {
     }
 
     /**
-     * When run, resetManager would be called to handle resetting of all status and attributes that
-     * have been specified
-     * Status RESETTABLE would be removed from player so they can no longer reset the game.
+     * When run, resetManager would be called to handle resetting of all status/attributes and objects specified.
+     * Status RESETTABLE would be removed from player so that they can no longer reset the game.
      * @param actor The actor performing the action.
      * @param map   The map the actor is on.
      * @return
@@ -31,11 +30,6 @@ public class ResetAction extends Action {
         actor.removeCapability(Status.RESETTABLE);
         return "Game has been reset";
     }
-
-    /**
-     * Objects such as Goomba/Koopa, Tree, Player, Coins would be added to resettableList through this
-     * method
-     */
 
     /**
      * Which key the player would need to press in order to reset the game

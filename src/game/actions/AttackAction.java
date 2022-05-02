@@ -40,6 +40,18 @@ public class AttackAction extends Action {
 		this.direction = direction;
 	}
 
+	/**
+	 * Execute the AttackAction.
+	 * Retrieves Actor's weapon then calculates the chance to hit opponent.
+	 * Checks to see if Power Star is active for both target and attacker and
+	 * implements the appropriate attack logic for either case.
+	 * Checks to see if target is dead - removes deceased target from map.
+	 * Checks to see if target is dormant.
+	 *
+	 * @param actor The actor performing the action.
+	 * @param map The map the actor is on.
+	 * @return
+	 */
 	@Override
 	public String execute(Actor actor, GameMap map) {
 		String result = null;
@@ -88,6 +100,11 @@ public class AttackAction extends Action {
 		return result;
 	}
 
+	/**
+	 * Supplies appropriate descriptor for action.
+	 * @param actor The actor performing the action.
+	 * @return
+	 */
 	@Override
 	public String menuDescription(Actor actor) {
 		return actor + " attacks " + this.target + " at " + direction;

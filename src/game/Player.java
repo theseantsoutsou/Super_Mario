@@ -138,6 +138,10 @@ public class Player extends Actor implements Resettable  {
 	}
 
 	@Override
+	/**
+	 * Resets the capabilities give to the player by Magical Items.
+	 * Method is intended to be called when the game is reset.
+	 */
 	public void resetInstance() {
 		if(this.hasCapability(Status.TALL)){
 			this.removeCapability(Status.TALL);

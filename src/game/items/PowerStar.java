@@ -25,11 +25,20 @@ public class PowerStar extends Item implements TradableItem{
     private int value = 600;
     private int age;
 
+    /**
+     * Constructor for PowerStar - takes in boolean portable, which sets the portability of the item.
+     * (any traded item should not be portable)
+     * @param portable
+     */
     public PowerStar(boolean portable) {
         super("Power Star", '*', portable);
         this.age = 0;
         this.addToInventory();
     }
+
+    /**
+     * Overloaded constructor for PowerStar allows for instantiation without portability being specified.
+     */
     public PowerStar() {
         super("Power Star", '*', true);
         this.age = 0;
@@ -62,7 +71,6 @@ public class PowerStar extends Item implements TradableItem{
         }
     }
 
-
     /**
      * Getter
      *
@@ -81,6 +89,11 @@ public class PowerStar extends Item implements TradableItem{
         return super.getAllowableActions();
     }
     @Override
+    /**
+     * Getter
+     *
+     * TradeableItem interface method - get the value of the item.
+     */
     public int getValue() {
         return this.value;
     }

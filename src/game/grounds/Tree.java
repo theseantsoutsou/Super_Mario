@@ -182,6 +182,9 @@ public class Tree extends Ground implements Jumpable, Resettable {
     }
 
     @Override
+    /**
+     * Interface method - 50% chance for a Tree to turn to dirt upon game resetting.
+     */
     public void resetInstance(){
         Random random = new Random();
         if(random.nextInt(10) < 5) {

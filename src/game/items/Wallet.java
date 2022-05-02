@@ -3,7 +3,7 @@ package game.items;
 /**
  * Wallet class
  * Instead of having individual coin objects in the players inventory,
- * coins can be represented as a integer value in the wallet.
+ * coins can be represented as an integer value in the wallet.
  */
 public class Wallet {
     private int credits = 0;
@@ -38,7 +38,8 @@ public class Wallet {
     }
 
     /**
-     * Creates an instance of wallet to allow coin values to be represented here
+     * Creates an instance of wallet if it doesn't already exist,
+     * else returns preexisting instance.
      * @return
      */
     public static Wallet getInstance() {

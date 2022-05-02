@@ -48,11 +48,21 @@ public class Coin extends Item implements TradableItem, Resettable {
         return 0;
     }
 
+    /**
+     * Coin class should not use the PickUpItemAction
+     * as coins should not exist in the inventory.
+     * Overridden version returns null.
+     * @param actor
+     * @return null
+     */
     @Override
     public PickUpItemAction getPickUpAction(Actor actor) {
         return null;
     }
     @Override
+    /**
+     * Resettable interface method - remove coin from map when game is reset.
+     **/
     public void resetInstance(){
         this.location.removeItem(this);
     }

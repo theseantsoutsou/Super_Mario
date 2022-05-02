@@ -20,11 +20,16 @@ public class SuicideAction extends Action {
 
         map.removeActor(actor);
 
-        return actor + " killed itself.";
+        return menuDescription(actor);
     }
 
+    /**
+     * Outputs descriptor of action.
+     * @param actor The actor performing the action.
+     * @return
+     */
     @Override
     public String menuDescription(Actor actor) {
-        return "";
+        return actor+ " killed itself";
     }
 }

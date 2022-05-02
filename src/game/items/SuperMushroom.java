@@ -26,13 +26,17 @@ public class SuperMushroom extends Item implements TradableItem {
     private int value = 0;
 
     /**
-     * Constructor
+     * Constructor for SuperMushroom - takes in boolean portable, which sets the portability of the item.
+     * (any traded item should not be portable)
+     * @param portable
      */
     public SuperMushroom(boolean portable) {
         super("Super Mushroom", '^', portable);
         this.addToInventory();
     }
-
+    /**
+     * Overloaded constructor for SuperMushroom allows for instantiation without portability being specified.
+     */
     public SuperMushroom() {
         super("Super Mushroom", '^', true);
         this.addToInventory();

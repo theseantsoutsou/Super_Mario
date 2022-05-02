@@ -19,7 +19,7 @@ public class SpeakAction extends Action {
     }
 
     /**
-     * Checks the capabilities of the player to determine to determine which lines would make sense
+     * Checks the capabilities of the player to determine which lines would make sense
      * for toad to say
      * @param actor The actor performing the action.
      * @param map   The map the actor is on.

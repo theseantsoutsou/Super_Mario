@@ -10,9 +10,7 @@ import game.items.Wallet;
  * Action to allow items to be picked up.
  */
 public class PickUpCoinAction extends Action {
-
     private final Coin item;
-
     /**
      * Constructor.
      *

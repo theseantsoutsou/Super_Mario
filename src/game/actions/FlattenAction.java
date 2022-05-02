@@ -16,7 +16,6 @@ import java.util.Random;
  * Action for when the player flattens high ground when using a Power Star
  */
 public class FlattenAction extends Action {
-    //Private Attributes
     /**
      * The Ground that is to be attacked
      */
