@@ -5,7 +5,7 @@ import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.GameMap;
 import game.Status;
-import game.items.ConsumableItemManager;
+import game.items.TradableItemManager;
 import game.items.TradableItemInventory;
 
 /**
@@ -27,12 +27,12 @@ public class ConsumeAction extends Action {
      *
      * @param item  the item to be consumed
      * @param capability    the buff that the item will provide
-     * @see ConsumableItemManager
+     * @see TradableItemManager
      */
     public ConsumeAction (Item item, Status capability) {
         this.item = item;
         this.capability = capability;
-        ConsumableItemManager.getInstance().addToHashMap(item, this);
+        TradableItemManager.getInstance().addToHashMap(item, this);
     }
 
     /**

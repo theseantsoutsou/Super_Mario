@@ -9,11 +9,7 @@ import edu.monash.fit2099.engine.positions.GameMap;
 import game.Status;
 import game.actions.SpeakAction;
 import game.actions.TradeAction;
-import game.behaviours.Behaviour;
-import game.items.ConsumableItemManager;
-
-import java.util.HashMap;
-import java.util.Map;
+import game.items.TradableItemManager;
 
 /**
  * The Toad class is a class that represents the non-playable character Toad in Super Mario.
@@ -49,7 +45,7 @@ public class Toad extends Actor {
     @Override
     public ActionList allowableActions(Actor otherActor, String direction, GameMap map) {
         ActionList actions = new ActionList();
-        ConsumableItemManager.getInstance().replenishInventory(this);
+        TradableItemManager.getInstance().replenishInventory(this);
         if (otherActor.hasCapability(Status.TRADE)) {
             actions.add(TradeAction.getTradeActions(this));
         }

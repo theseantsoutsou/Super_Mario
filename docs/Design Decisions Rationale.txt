@@ -7,9 +7,9 @@ Assignment 2 Rationale:
 //////REQ3//////
 - Same as design
 //////REQ4//////
-- Implemented ConsumableItemManager to manage ConsumeActions and magical items. ConsumableItem manager allows for the
+- Implemented TradableItemManager to manage ConsumeActions and magical items. TradableItem manager allows for the
 generation of Toads inventory without direct dependencies with each item class. Instead, Toad has a dependency with the
-ConsumableItemManager, which reduces inter-package dependencies and couplings. Furthermore, it uses a Hashmap to keep
+TradableItemManager, which reduces inter-package dependencies and couplings. Furthermore, it uses a Hashmap to keep
 track of all instance of ConsumeActions to ensure that multiple ConsumeActions cannot be associated with one item and
 that items do not retain ConsumeActions when dropped.
 

@@ -81,9 +81,9 @@ public class PowerStar extends Item implements TradableItem{
      */
     @Override
     public List<Action> getAllowableActions() {
-        if (ConsumableItemManager.getInstance().getConsumeAction(this)!= null
+        if (TradableItemManager.getInstance().getConsumeAction(this)!= null
                 && !this.hasCapability(Status.CARRIED)) {
-            this.removeAction(ConsumableItemManager.getInstance().getConsumeAction(this));
+            this.removeAction(TradableItemManager.getInstance().getConsumeAction(this));
         }
         else if (this.hasCapability(Status.CARRIED)){
             this.addAction(new ConsumeAction(this, Status.POWER_STAR));

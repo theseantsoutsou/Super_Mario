@@ -13,15 +13,15 @@ import java.util.HashMap;
  * @version 2.0
  * @since 02-May-2022
  */
-public class ConsumableItemManager {
+public class TradableItemManager {
     //Private attributes
-    private static ConsumableItemManager manager;
+    private static TradableItemManager manager;
     private static HashMap<Item, Action> consumeActionMap = new HashMap<>();
 
     /**
      * Private constructor
      */
-    private ConsumableItemManager(){
+    private TradableItemManager(){
     }
 
     /**
@@ -30,9 +30,9 @@ public class ConsumableItemManager {
      *
      * @return manager, a ConsumableItemManager instance
      */
-    public static ConsumableItemManager getInstance(){
+    public static TradableItemManager getInstance(){
         if(manager == null){
-            manager = new ConsumableItemManager();
+            manager = new TradableItemManager();
         }
         return manager;
     }
