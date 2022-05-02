@@ -4,6 +4,7 @@ import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.items.PickUpItemAction;
+import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Location;
 import game.ResetManager;
 import game.Resettable;
@@ -18,34 +19,27 @@ import java.util.Random;
  */
 public class Coin extends Item implements TradableItem, Resettable {
     private Location location;
+    private int value;
 
     /**
+     * A coin is an item which holds value that the player can use to trade.
      * Constructor
      * @param location
+     * @param value
      */
-    public Coin(Location location) {
+    public Coin(Location location, int value) {
         super("Coin", '$', false);
-        this.location = location;
         this.addAction(new PickUpCoinAction(this));
         this.registerInstance();
+        this.location = location;
+        this.value = value;
     }
     /**
      * Coins have a random value assigned to them
      * @return
      */
     public int getValue() {
-        int randVal = new Random().nextInt(4);
-        switch (randVal) {
-            case 0:
-                return 5;
-            case 1:
-                return 10;
-            case 2:
-                return 20;
-            case 3:
-                return 9001;
-        }
-        return 0;
+        return value;
     }
 
     /**
@@ -63,7 +57,7 @@ public class Coin extends Item implements TradableItem, Resettable {
     /**
      * Resettable interface method - remove coin from map when game is reset.
      **/
-    public void resetInstance(){
+    public void resetInstance(GameMap map){
         this.location.removeItem(this);
     }
 }

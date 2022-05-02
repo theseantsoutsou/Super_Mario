@@ -84,7 +84,7 @@ public class Sapling extends Ground implements Jumpable {
     public void spawn(Location location) {
         Random r = new Random();
         if (r.nextInt(100) <= 10) {
-            location.addItem(new Coin(location));
+            location.addItem(new Coin(location,20));
         }
     }
 

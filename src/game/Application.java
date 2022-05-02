@@ -2,6 +2,7 @@ package game;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.displays.Display;
@@ -57,11 +58,13 @@ public class Application {
 
 			GameMap gameMap = new GameMap(groundFactory, map);
 			world.addGameMap(gameMap);
-
 			Actor mario = new Player("Player", 'm', 100);
 			world.addPlayer(mario, gameMap.at(42, 10));
 			Actor toad = new Toad();
 			world.addPlayer(toad, gameMap.at(45, 10));
+			gameMap.at(42,9).addItem(new PowerStar());
+			gameMap.at(42,9).addItem(new SuperMushroom());
+
 			/* REMOVE ME
 			gameMap.at(42,7).addActor(new Koopa());
 			gameMap.at(42,9).addItem(new SuperMushroom());

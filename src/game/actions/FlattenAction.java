@@ -50,7 +50,7 @@ public class FlattenAction extends Action {
         Location targetLocation = this.getTargetLocation(actor, map);
         map.moveActor(actor, targetLocation);
         targetLocation.setGround(new Dirt());
-        targetLocation.addItem(new Coin(targetLocation));
+        targetLocation.addItem(new Coin(targetLocation, 5));
         String result = actor + " flattened " + this.target.getClass().getSimpleName() + ".";
 
         return result;

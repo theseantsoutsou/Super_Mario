@@ -6,6 +6,7 @@ import edu.monash.fit2099.engine.actions.ActionList;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.actions.DoNothingAction;
+import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.Exit;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Location;
@@ -142,7 +143,14 @@ public class Koopa extends Actor implements Resettable{
         return new IntrinsicWeapon(30, "punches");
     }
     @Override
-    public void resetInstance(){
-        this.hurt(this.getMaxHp());
+    public void resetInstance(GameMap map){
+        ActionList dropActions = new ActionList();
+        // drop all items
+        for (Item item : this.getInventory())
+            dropActions.add(item.getDropAction(this));
+        for (Action drop : dropActions)
+            drop.execute(this, map);
+        // remove actor
+        map.removeActor(this);
     }
 }

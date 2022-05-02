@@ -26,7 +26,7 @@ public class ResetAction extends Action {
      */
     @Override
     public String execute(Actor actor, GameMap map) {
-        resetManager.run();
+        resetManager.run(map);
         actor.removeCapability(Status.RESETTABLE);
         return "Game has been reset";
     }

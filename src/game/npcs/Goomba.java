@@ -67,6 +67,7 @@ public class Goomba extends Actor implements Resettable {
 	@Override
 	public ActionList allowableActions(Actor otherActor, String direction, GameMap map) {
 		ActionList actions = new ActionList();
+
 		if(otherActor.hasCapability(Status.HOSTILE_TO_ENEMY)) {
 			actions.add(new AttackAction(this, direction));
 		}
@@ -125,11 +126,9 @@ public class Goomba extends Actor implements Resettable {
 	@Override
 	public IntrinsicWeapon getIntrinsicWeapon() {return new IntrinsicWeapon(10, "Kicks" );}
 	@Override
-	public void resetInstance(){
-		this.hurt(this.getMaxHp());
-		this.map.removeActor(this);
+	public void resetInstance(GameMap map){
+		map.removeActor(this);
 	}
 }
-
 
 

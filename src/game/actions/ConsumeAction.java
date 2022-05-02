@@ -5,6 +5,7 @@ import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.GameMap;
 import game.Status;
+import game.items.ConsumableItemManager;
 import game.items.TradableItemInventory;
 
 /**
@@ -23,6 +24,7 @@ public class ConsumeAction extends Action {
     public ConsumeAction (Item item, Status capability) {
         this.item = item;
         this.capability = capability;
+        ConsumableItemManager.getInstance().addToHashMap(item, this);
     }
 
     /**

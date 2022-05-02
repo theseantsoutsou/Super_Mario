@@ -3,6 +3,7 @@ package game.grounds;
 import edu.monash.fit2099.engine.actions.ActionList;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.positions.Exit;
+import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Ground;
 import edu.monash.fit2099.engine.positions.Location;
 import game.ResetManager;
@@ -185,7 +186,7 @@ public class Tree extends Ground implements Jumpable, Resettable {
     /**
      * Interface method - 50% chance for a Tree to turn to dirt upon game resetting.
      */
-    public void resetInstance(){
+    public void resetInstance(GameMap map){
         Random random = new Random();
         if(random.nextInt(10) < 5) {
             this.location.setGround(new Dirt());
