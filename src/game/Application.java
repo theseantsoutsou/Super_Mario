@@ -62,14 +62,6 @@ public class Application {
 			world.addPlayer(mario, gameMap.at(42, 10));
 			Actor toad = new Toad();
 			world.addPlayer(toad, gameMap.at(45, 10));
-			gameMap.at(42,9).addItem(new PowerStar());
-			gameMap.at(42,9).addItem(new SuperMushroom());
-
-			/* REMOVE ME
-			gameMap.at(42,7).addActor(new Koopa());
-			gameMap.at(42,9).addItem(new SuperMushroom());
-			gameMap.at(42,8).addItem(new Wrench());
-			*/
 			world.run();
 
 	}
