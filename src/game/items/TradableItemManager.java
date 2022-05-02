@@ -7,7 +7,7 @@ import edu.monash.fit2099.engine.items.Item;
 import java.util.HashMap;
 
 /**
- * The ConsumableItemManger class is a class that manages the consumable items and their specific associated actions.
+ * The TradableItemManager class is a class that manages the consumable items and their specific associated actions.
  *
  * @author Connor Gibson, Shang-Fu Tsou, Lucus Choy
  * @version 2.0
@@ -25,10 +25,10 @@ public class TradableItemManager {
     }
 
     /**
-     * Public static method to instantiate the ConsumableItemManager if it does not exist,
+     * Public static method to instantiate the TradableItemManager if it does not exist,
      * otherwise returns preexisting instance.
      *
-     * @return manager, a ConsumableItemManager instance
+     * @return manager, a TradableItemManager instance
      */
     public static TradableItemManager getInstance(){
         if(manager == null){
