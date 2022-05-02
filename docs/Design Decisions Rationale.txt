@@ -59,7 +59,7 @@ FlattenAction would also inherit attributes of the abstract class Action as it i
 can make after using a Power Star item.
 
 //////REQ5//////
-- If wallet were an attribute of the Player (or any sub-class of Actor) as it is in the initial design.
+- If wallet were an attribute of the Player (or any subclass of Actor) as it is in the initial design.
 it would be difficult for a TradeAction to access that attribute through calls to the Actor type. Instead, by making the
 Wallet class a Singleton design pattern with a static getInstance() method, the wallet can be accessed easily from within
 the TradeAction.
