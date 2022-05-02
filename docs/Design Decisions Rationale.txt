@@ -1,4 +1,17 @@
+Assignment 2 Rationale:
 
+//////REQ1//////
+- Same as design
+//////REQ2//////
+- Same as design
+//////REQ3//////
+- Same as design
+//////REQ4//////
+- Implemented ConsumableItemManager to manage ConsumeActions and magical items. ConsumableItem manager allows for the
+generation of Toads inventory without direct dependencies with each item class. Instead, Toad has a dependency with the
+ConsumableItemManager, which reduces inter-package dependencies and couplings. Furthermore, it uses a Hashmap to keep
+track of all instance of ConsumeActions to ensure that multiple ConsumeActions cannot be associated with one item and
+that items do not retain ConsumeActions when dropped.
 
 //////REQ5//////
 - If wallet were an attribute of the Player (or any subclass of Actor) as it is in the initial design.
@@ -13,10 +26,12 @@ TradableItem interface in places where only an Item type can is supplied. Furthe
 not fully realised in the design without the inclusion of this class.
 
 //////REQ6//////
-- No difference in SpeakAction
+- Same as design
 
+//////REQ7/////
+- Same as design
 
-Design rationale from Assignment 1:
+Assignment 1 Rationale:
 
 //////REQ1//////
 While Sprout, Sapling, and Mature are stages of a tree, they have unique spawning abilities. To obey the Single-Responsibility
