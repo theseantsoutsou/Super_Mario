@@ -25,6 +25,11 @@ public class PowerStar extends Item implements TradableItem{
     private int value = 600;
     private int age;
 
+    public PowerStar(boolean portable) {
+        super("Power Star", '*', portable);
+        this.age = 0;
+        this.addToInventory();
+    }
     public PowerStar() {
         super("Power Star", '*', true);
         this.age = 0;

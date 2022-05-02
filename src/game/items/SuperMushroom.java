@@ -23,11 +23,16 @@ import java.util.List;
  */
 public class SuperMushroom extends Item implements TradableItem {
     private ConsumeAction action = new ConsumeAction(this, Status.TALL);
-    private int value = 400;
+    private int value = 0;
 
     /**
      * Constructor
      */
+    public SuperMushroom(boolean portable) {
+        super("Super Mushroom", '^', portable);
+        this.addToInventory();
+    }
+
     public SuperMushroom() {
         super("Super Mushroom", '^', true);
         this.addToInventory();

@@ -5,6 +5,7 @@ import edu.monash.fit2099.engine.actions.ActionList;
 import edu.monash.fit2099.engine.actions.DoNothingAction;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.displays.Display;
+import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.GameMap;
 import game.Status;
 import game.actions.SpeakAction;
@@ -37,9 +38,6 @@ public class Toad extends Actor {
      */
     public Toad() {
         super("Toad", 'O', 50);
-        this.addItemToInventory(new PowerStar());
-        this.addItemToInventory(new SuperMushroom());
-        this.addItemToInventory(new Wrench());
     }
 
     /**
@@ -57,6 +55,7 @@ public class Toad extends Actor {
     @Override
     public ActionList allowableActions(Actor otherActor, String direction, GameMap map) {
         ActionList actions = new ActionList();
+        this.replenishInventory();
         if (otherActor.hasCapability(Status.TRADE)) {
             actions.add(TradeAction.getTradeActions(this));
         }
@@ -64,6 +63,14 @@ public class Toad extends Actor {
             actions.add(new SpeakAction(this));
         }
         return actions;
+    }
+    public void replenishInventory(){
+        for(int i = 0;i< this.getInventory().size(); i++){
+            this.removeItemFromInventory(this.getInventory().get(i));
+        }
+        this.addItemToInventory(new PowerStar(false));
+        this.addItemToInventory(new SuperMushroom(false));
+        this.addItemToInventory(new Wrench());
     }
 
     /**

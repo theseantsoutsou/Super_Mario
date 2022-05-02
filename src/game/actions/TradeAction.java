@@ -51,13 +51,13 @@ public class TradeAction extends Action {
 	public String execute(Actor player, GameMap map) {
 		int credits = Wallet.getInstance().getCredits();
 		if (credits >= value) {
+			nonPlayerCharacter.removeItemFromInventory(item);
 			Wallet.getInstance().modifyCredits(-1 * value);
-			//nonPlayerCharacter.removeItemFromInventory(item);
 			player.addItemToInventory(item);
 		} else {
 			return "You have insufficient credits.";
 		}
-		return String.format("The player has bought %s for $%s.", item.toString(), value);
+		return String.format("The player has bought %s for $%s.", this.item, value);
 	}
 
 	/**

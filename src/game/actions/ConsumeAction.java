@@ -5,6 +5,7 @@ import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.GameMap;
 import game.Status;
+import game.items.TradableItemInventory;
 
 /**
  * Class that allows the player to use a magic Item (Power Star or Super Mushroom)
@@ -34,6 +35,7 @@ public class ConsumeAction extends Action {
     @Override
     public String execute(Actor actor, GameMap map) {
         actor.removeItemFromInventory(this.item);
+        TradableItemInventory.getInstance().getTradableItems().remove(this.item);
         actor.addCapability(capability);
         if (this.capability == Status.TALL) {
             actor.increaseMaxHp(50);
