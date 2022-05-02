@@ -6,10 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A global Singleton manager that does soft-reset on the instances.
- * HINT: refer to Bootcamp Week 5 about static factory method.
- * A3: Think about how will you improve this implementation in the future assessment.
- * What could be the drawbacks of this implementation?
+ * The ResetManager is a singleton class that does soft-reset on the instances
+ *
+ * @author FIT2099 Teaching Team, Connor Gibson, Shang-Fu Tsou, Lucus Choy
+ * @version 2.0
+ * @since 02-May-2022
  */
 public class ResetManager {
     /**
@@ -18,13 +19,18 @@ public class ResetManager {
      */
     private List<Resettable> resettableList;
 
+    private static ResetManager instance; //A singleton reset manager instance
+
     /**
-     * A singleton reset manager instance
+     * Private constructor
      */
-    private static ResetManager instance;
+    private ResetManager(){
+        resettableList = new ArrayList<>();
+    }
 
     /**
      * Get the singleton instance of reset manager
+     *
      * @return ResetManager singleton instance
      */
     public static ResetManager getInstance(){
@@ -32,13 +38,6 @@ public class ResetManager {
             instance = new ResetManager();
         }
         return instance;
-    }
-
-    /**
-     * Constructor
-     */
-    private ResetManager(){
-        resettableList = new ArrayList<>();
     }
 
     /**
@@ -53,7 +52,8 @@ public class ResetManager {
 
     /**
      * Add the Resettable instance to the list. Use in constructor of Resettable objects.
-     * @param reset
+     *
+     * @param reset an object that implements Resettable
     **/
     public void appendResetInstance(Resettable reset){
         resettableList.add(reset);
@@ -62,6 +62,7 @@ public class ResetManager {
 
     /**
      * Remove a Resettable instance from the list
+     *
      * @param resettable resettable object
      */
     public void cleanUp(Resettable resettable){

@@ -24,9 +24,6 @@ import java.util.Map;
  * @since 02-May-2022
  */
 public class Toad extends Actor {
-    //Private attributes
-    private final Map<Integer, Behaviour> behaviours = new HashMap<>();
-    private static Toad instance;
 
     /**
      * Constructor for the Toad class.

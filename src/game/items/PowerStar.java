@@ -9,26 +9,23 @@ import game.actions.ConsumeAction;
 
 import java.util.List;
 
-/***
- * PowerStar Attributes:
- * can be picked up
- * can be traded
- * is in the game for 10 turns (ground and player inventory, resets upon pickup)
- * heals 200 hit points
- * takes no damage
- * invincibility lasts for 10 turns upon activation
+/**
+ * The PowerStar class is a class that represents the item that makes Mario invincible.
+ * The PowerStar class is a subclass of the Item class and implements the TradableItem interface.
+ *
+ * @author Connor Gibson, Shang-Fu Tsou, Lucus Choy
+ * @version 2.0
+ * @since 02-May-2022
  */
-
 public class PowerStar extends Item implements TradableItem{
-
-    private ConsumeAction action = new ConsumeAction(this, Status.POWER_STAR);
+    //Private attributes
     private int value = 600;
     private int age;
 
     /**
      * Constructor for PowerStar - takes in boolean portable, which sets the portability of the item.
-     * (any traded item should not be portable)
-     * @param portable
+     * (any item to be traded should not be portable)
+     * @param portable Boolean value, true if portable, false otherwise.
      */
     public PowerStar(boolean portable) {
         super("Power Star", '*', portable);
@@ -47,8 +44,8 @@ public class PowerStar extends Item implements TradableItem{
 
     /**
      * Inform a carried Item of the passage of time.
-     *
      * This method is called once per turn, if the Item is being carried.
+     *
      * @param currentLocation The location of the actor carrying this Item.
      * @param actor The actor carrying this Item.
      */
@@ -56,26 +53,30 @@ public class PowerStar extends Item implements TradableItem{
         this.age += 1;
         if (this.age == 10) {
             actor.removeItemFromInventory(this);
+            System.out.println("The Power Star has disappeared from your inventory!");
         }
     }
 
     /**
      * Inform an Item on the ground of the passage of time.
      * This method is called once per turn, if the item rests upon the ground.
+     *
      * @param currentLocation The location of the ground on which we lie.
      */
     public void tick(Location currentLocation) {
         this.age += 1;
         if (this.age == 10) {
             currentLocation.removeItem(this);
+            System.out.println("The Power Star has disappeared from the map.");
         }
     }
 
     /**
-     * Getter
+     * Check if the PowerStar has been paired with a ConsumeAction in the ConsumableItemManager and if the PowerStar
+     * is being carried. If it has been paired, remove the ConsumeAction to ensure player cannot consume PowerStar
+     * if it is on the ground (i.e. picking up the item then dropping it should remove the ConsumeAction).
+     * Otherwise, if the PowerStar is simply being carried, add a new ConsumeAction.
      *
-     * Returns an unmodifiable copy of the actions list so that calling methods won't
-     * be able to change what this Item can do without the Item checking.
      * @return an unmodifiable list of Actions
      */
     @Override
@@ -89,12 +90,11 @@ public class PowerStar extends Item implements TradableItem{
         }
         return super.getAllowableActions();
     }
-    @Override
+
     /**
-     * Getter
-     *
-     * TradeableItem interface method - get the value of the item.
+     * Interface method - getter for PowerStar's value.
      */
+    @Override
     public int getValue() {
         return this.value;
     }

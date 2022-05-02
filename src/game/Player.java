@@ -137,11 +137,12 @@ public class Player extends Actor implements Resettable  {
 		return this.hasCapability(Status.TALL) ? Character.toUpperCase(super.getDisplayChar()): super.getDisplayChar();
 	}
 
-	@Override
 	/**
-	 * Resets the capabilities give to the player by Magical Items.
-	 * Method is intended to be called when the game is reset.
+	 * Interface method - Resets the capabilities give to the player by Magical Items when game is reset.
+	 *
+	 * @param map The GameMap which this object exists in.
 	 */
+	@Override
 	public void resetInstance(GameMap map) {
 		this.removeCapability(Status.TALL);
 		this.removeCapability(Status.POWER_STAR);

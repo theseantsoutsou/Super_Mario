@@ -33,6 +33,7 @@ import java.util.Map;
  * @since 02-May-2022
  */
 public class Koopa extends Actor implements Resettable{
+    //Private attribute
     private final Map<Integer, Behaviour> behaviours = new HashMap<>(); // priority, behaviour
 
     /**
@@ -142,6 +143,13 @@ public class Koopa extends Actor implements Resettable{
     public IntrinsicWeapon getIntrinsicWeapon() {
         return new IntrinsicWeapon(30, "punches");
     }
+
+
+    /**
+     * Interface method -  Force Koopa to drop the items (SuperMushroom) in its inventory then remove it from the map.
+     *
+     * @param map The GameMap which this object exists in.
+     */
     @Override
     public void resetInstance(GameMap map){
         ActionList dropActions = new ActionList();

@@ -18,7 +18,7 @@ import java.util.Random;
 
 /**
  * The Tree class is a class that represents the final stage of a tree's life cycle.
- * The Tree class is a subclass of the Ground class and implements the Jumpable interface.
+ * The Tree class is a subclass of the Ground class and implements the Jumpable and Resettable interfaces.
  *
  * @author Connor Gibson, Shang-Fu Tsou, Lucus Choy
  * @version 2.0
@@ -182,10 +182,12 @@ public class Tree extends Ground implements Jumpable, Resettable {
         return false;
     }
 
-    @Override
     /**
      * Interface method - 50% chance for a Tree to turn to dirt upon game resetting.
+     *
+     * @param map The GameMap which this object exists in.
      */
+    @Override
     public void resetInstance(GameMap map){
         Random random = new Random();
         if(random.nextInt(10) < 5) {

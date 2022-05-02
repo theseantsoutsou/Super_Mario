@@ -12,7 +12,12 @@ import game.items.TradableItemInventory;
 import game.items.Wallet;
 
 /**
- * Special Action for attacking other Actors.
+ * The TradeAction class is a special Action for an actor to trade with Toad
+ * The TradeAction class is a subclass of the Action class.
+ *
+ * @author Connor Gibson, Shang-Fu Tsou, Lucus Choy
+ * @version 2.0
+ * @since 02-May-2022
  */
 public class TradeAction extends Action {
 	/**
@@ -24,11 +29,12 @@ public class TradeAction extends Action {
 
 	/**
 	 * Constructor.
+	 * Verifies item is a TradableItem.
+	 * Retrieves value of item.
+	 * Sets nonPlayerCharacter.
 	 *
 	 * @param item the Item to be traded
-	 *             Verifies is item is a TradableItem.
-	 *             Retrieves value of item.
-	 *             Sets nonPlayerCharacter.
+	 * @param NPC the actor in charge of the trade
 	 */
 	private TradeAction(Item item, Actor NPC) throws Exception {
 		if (setItem(item)) {
@@ -41,11 +47,12 @@ public class TradeAction extends Action {
 	}
 
 	/**
-	 * Determines if the player has enough coins in their wallet in order to purchase the item
-	 * they want from Toad
-	 * @param player
+	 * Executes TradeAction
+	 * Determines if the player has enough coins in their wallet in order to purchase the item they want from Toad
+	 *
+	 * @param player the player involved in the trade
 	 * @param map    The map the actor is on.
-	 * @return
+	 * @return A String describing the outcome of the trade
 	 */
 	@Override
 	public String execute(Actor player, GameMap map) {
@@ -62,12 +69,12 @@ public class TradeAction extends Action {
 
 	/**
 	 * Allows the player to trade with the target (toad)
-	 * @param target
-	 * @return
+	 *
+	 * @param target actor to trade with
+	 * @return a new list of Actions containing possible TradeActions
 	 */
 	public static ActionList getTradeActions(Actor target) {
 		ActionList tradeActions = new ActionList();
-		Action action = null;
 		for (Item i : target.getInventory()) {
 			try {
 				tradeActions.add(new TradeAction(i, target));
@@ -80,9 +87,10 @@ public class TradeAction extends Action {
 	}
 
 	/**
-	 * Display the description to trade an item on the menu
+	 * Display the description to trade an item on the menu.
+	 *
 	 * @param actor The actor performing the action.
-	 * @return
+	 * @return A String to be added to actor's menu of options.
 	 */
 	@Override
 	public String menuDescription(Actor actor) {
@@ -90,9 +98,11 @@ public class TradeAction extends Action {
 	}
 
 	/**
-	 * Sets an Item that will be for trade
-	 * @param item
-	 * @return
+	 * Sets an Item that will be for trade, by checking if the static TradableItemInventory contains the item.
+	 *
+	 * @param item the item to be traded
+	 * @return true the item has been set, false otherwise
+	 * @see TradableItemInventory
 	 */
 	public boolean setItem(Item item) {
 		if (TradableItemInventory.getInstance().getTradableItems().contains(item)) {

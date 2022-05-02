@@ -1,23 +1,24 @@
 package game.actions;
 
-import java.util.Random;
-
 import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actions.ActionList;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.items.Item;
-import edu.monash.fit2099.engine.weapons.Weapon;
-import game.Status;
-import game.npcs.Koopa;
 
 /**
- * Special Action for attacking other Actors.
+ * The BreakAction class is a special Action for breaking dormant actor's shell.
+ * BreakAction is generated conditionally and therefore does not check Actor's capabilities.
+ * The BreakAction class is a subclass of the Action class.
+ *
+ * @author Connor Gibson, Shang-Fu Tsou, Lucus Choy
+ * @version 2.0
+ * @since 02-May-2022
  */
 public class BreakAction extends Action {
 
     /**
-     * The Koopa Shell that is to be broken
+     * The dormant actor whose shell is to be broken
      */
     private Actor target;
 
@@ -25,11 +26,6 @@ public class BreakAction extends Action {
      * The direction of incoming attack.
      */
     private String direction;
-
-    /**
-     * Random number generator
-     */
-    protected Random rand = new Random();
 
     /**
      * Constructor.
@@ -42,16 +38,18 @@ public class BreakAction extends Action {
     }
 
     /**
-     * Executes the action of destroying a koopa shell only when the koopa is in a dormant state
-     * causes the dormant koopa to drop a SuperMushroom when shell is destroyed
+     * Executes the action of destroying a dormant actor's shell only when the target is in a dormant state.
+     * The dormant actor to drop items in its inventory when shell is destroyed.
+     * Has a 100 percent hit rate because the dormant target will be stationary.
+     *
      * @param actor The actor performing the action.
      * @param map   The map the actor is on.
-     * @return
+     * @return a String to output to console that describes the result of this action
      */
     @Override
     public String execute(Actor actor, GameMap map) {
 
-        String result = null;
+        String result;
 
         ActionList dropActions = new ActionList();
         // drop all items
@@ -68,9 +66,10 @@ public class BreakAction extends Action {
     }
 
     /**
-     * Display description of when player destroys a koopa shell
+     * Display description of the target the actor can break and in what direction.
+     *
      * @param actor The actor performing the action.
-     * @return
+     * @return a String to add to actor's menu of options
      */
     @Override
     public String menuDescription(Actor actor) {

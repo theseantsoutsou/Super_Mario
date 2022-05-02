@@ -11,7 +11,12 @@ import edu.monash.fit2099.engine.weapons.Weapon;
 import game.Status;
 
 /**
- * Special Action for attacking other Actors.
+ * The AttackAction class is a special Action for attacking other Actors.
+ * The AttackAction class is a subclass of the Action class.
+ *
+ * @author Connor Gibson, Shang-Fu Tsou, Lucus Choy
+ * @version 2.0
+ * @since 02-May-2022
  */
 public class AttackAction extends Action {
 
@@ -43,14 +48,17 @@ public class AttackAction extends Action {
 	/**
 	 * Execute the AttackAction.
 	 * Retrieves Actor's weapon then calculates the chance to hit opponent.
-	 * Checks to see if Power Star is active for both target and attacker and
-	 * implements the appropriate attack logic for either case.
-	 * Checks to see if target is dead - removes deceased target from map.
-	 * Checks to see if target is dormant.
+	 * Checks to see if Power Star is active for either target and attacker and implements the appropriate attack sequence
+	 * Checks to see if target is unconscious
+	 * If target is unconscious and cannot go to sleep, remove from map.
+	 * If target is unconscious and can go to sleep, make target dormant.
 	 *
-	 * @param actor The actor performing the action.
+	 * @param actor The actor performing the action
 	 * @param map The map the actor is on.
-	 * @return
+	 * @return a String to output to console that describes the result of this attack
+	 * @see BreakAction
+	 * @see Status#CAN_SLEEP
+	 * @see Status#DORMANT
 	 */
 	@Override
 	public String execute(Actor actor, GameMap map) {
@@ -102,8 +110,9 @@ public class AttackAction extends Action {
 
 	/**
 	 * Supplies appropriate descriptor for action.
+	 *
 	 * @param actor The actor performing the action.
-	 * @return
+	 * @return a String to add to actor's menu of options
 	 */
 	@Override
 	public String menuDescription(Actor actor) {

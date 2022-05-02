@@ -125,6 +125,12 @@ public class Goomba extends Actor implements Resettable {
 	 */
 	@Override
 	public IntrinsicWeapon getIntrinsicWeapon() {return new IntrinsicWeapon(10, "Kicks" );}
+
+	/**
+	 * Interface method - Remove Goomba from the map upon reset.
+	 *
+	 * @param map The GameMap which this object exists in.
+	 */
 	@Override
 	public void resetInstance(GameMap map){
 		map.removeActor(this);

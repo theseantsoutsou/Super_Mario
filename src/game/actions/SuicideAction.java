@@ -5,15 +5,21 @@ import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.positions.GameMap;
 
 /**
- * Special Action that lets an actor commit suicide (Goomba)
+ * The SuicideAction class is a special Action for an actor to commit suicide
+ * The SuicideAction class is a subclass of the Action class.
+ *
+ * @author Connor Gibson, Shang-Fu Tsou, Lucus Choy
+ * @version 2.0
+ * @since 02-May-2022
  */
 public class SuicideAction extends Action {
 
     /**
      * Removes the actor from the game map
+     *
      * @param actor The actor performing the action.
      * @param map   The map the actor is on.
-     * @return
+     * @return A String describing the outcome of this SuicideAction.
      */
     @Override
     public String execute(Actor actor, GameMap map) {
@@ -25,11 +31,12 @@ public class SuicideAction extends Action {
 
     /**
      * Outputs descriptor of action.
+     *
      * @param actor The actor performing the action.
-     * @return
+     * @return A String describing who killed itself.
      */
     @Override
     public String menuDescription(Actor actor) {
-        return actor+ " killed itself";
+        return actor + " killed itself";
     }
 }

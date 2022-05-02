@@ -11,24 +11,24 @@ import game.Status;
 import game.grounds.Jumpable;
 
 /**
- * Special Action that allows the player to move from lower ground to higher ones
+ * The JumpAction class is a special Action for jumping onto high-grounds.
+ * The JumpAction class is a subclass of the Action class.
+ *
+ * @author Connor Gibson, Shang-Fu Tsou, Lucus Choy
+ * @version 2.0
+ * @since 02-May-2022
  */
 public class JumpAction extends Action{
-    //Private Attributes
-    /**
-     * The Ground that is to be attacked
-     */
-    private Jumpable target;
+    //Private attributes
+    private Jumpable target; //High-ground that is to be jumped on
 
-    /**
-     * The direction of incoming attack.
-     */
     private String direction;
 
     /**
      * Constructor.
      *
-     * @param target the Actor to attack
+     * @param target    the target jumpable ground to jump on
+     * @param direction the direction of the target is at relative to the actor executing the action
      */
     public JumpAction(Jumpable target, String direction) {
         this.target = target;
@@ -36,18 +36,21 @@ public class JumpAction extends Action{
     }
 
     /**
-     * Takes the terrain feature that is at the location the player wants to move to
-     * retrieves the probability of the player jumping onto the terrain feature (stored in the class itself)
-     * does a check to see if the player succeeds in the dice roll
-     * jumps if success, takes damage if fail (if hp goes to 0, player dies from fall damage)
+     * Executes the JumpAction.
+     * Checks if player has 'grown' and get the jump success rate of the target.
+     * If the target has grown or passes the success rate, move actor to the target's location and add a status of
+     * ON_HIGH_GROUND to actor's capabilities.
+     * Otherwise, actor takes fall damage, value depending on the target.
+     * Check if actor is alive after taking fall damage.
+     *
      * @param actor The actor performing the action.
      * @param map   The map the actor is on.
-     * @return
+     * @return a String describing the outcome of the JumpAction
      */
     @Override
     public String execute(Actor actor, GameMap map) {
         Random r = new Random();
-        Boolean isTall = actor.hasCapability(Status.TALL);
+        boolean isTall = actor.hasCapability(Status.TALL);
         int successRate = this.target.getSuccessRate();
         String result;
 
@@ -71,16 +74,17 @@ public class JumpAction extends Action{
     }
 
     /**
-     * Get the coordinates of the terrain feature the player is attempting to jump on to
-     * @param actor
-     * @param map
-     * @return
+     * Checks the exits around the actor and return the exit location at the desired direction.
+     *
+     * @param actor The actor performing the action.
+     * @param map   The map the actor is on.
+     * @return the location at of the exit in the desired direction
      */
     public Location getTargetLocation(Actor actor, GameMap map) {
 
         Location actorLocation = map.locationOf(actor);
         for (Exit exit: actorLocation.getExits()) {
-            if (exit.getName() == this.direction) {
+            if (exit.getName().equals(this.direction)) {
                 return exit.getDestination();
             }
         }
@@ -88,9 +92,10 @@ public class JumpAction extends Action{
     }
 
     /**
-     * Display the description of jumping on to high ground on the menu
+     * Display description of what high-ground the player can jump on and in what direction.
+     *
      * @param actor The actor performing the action.
-     * @return
+     * @return a String to add to actor's menu of options
      */
     @Override
     public String menuDescription(Actor actor) {

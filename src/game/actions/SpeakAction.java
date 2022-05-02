@@ -8,22 +8,35 @@ import game.Status;
 import java.util.Random;
 
 /**
- * Special Action that allows Toad to say random lines based on the player's capabilities
+ * The SpeakAction class is a special Action for Toad to say random lines based on the player's capabilities
  * (i.e. should not say first line if the player has a wrench in their inventory)
+ * The SpeakAction class is a subclass of the Action class.
+ *
+ * @author Connor Gibson, Shang-Fu Tsou, Lucus Choy
+ * @version 2.0
+ * @since 02-May-2022
  */
 public class SpeakAction extends Action {
+    //Private attributes
     private Actor target;
-    protected Random rand = new Random();
+    private Random rand = new Random();
+
+    /**
+     * Constructor.
+     *
+     * @param target The actor that player can speak to.
+     */
     public SpeakAction(Actor target){
         this.target=target;
     }
 
     /**
-     * Checks the capabilities of the player to determine which lines would make sense
-     * for toad to say
+     * Execute SpeakAction.
+     * Checks the capabilities of the player to determine which lines would make sense for the NPC target to say.
+     *
      * @param actor The actor performing the action.
      * @param map   The map the actor is on.
-     * @return
+     * @return A String that provide hints to the player
      */
     @Override
     public String execute(Actor actor, GameMap map) {
@@ -58,9 +71,10 @@ public class SpeakAction extends Action {
     }
 
     /**
-     * Display description to speak to Toad on the menu
+     * Display description to speak to the target actor on the menu
+     *
      * @param actor The actor performing the action.
-     * @return
+     * @return A String to add to actor's menu of options
      */
     @Override
     public String menuDescription(Actor actor) {

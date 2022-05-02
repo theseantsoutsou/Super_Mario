@@ -3,11 +3,14 @@ package game.items;
 import java.util.ArrayList;
 
 /**
- * Singleton class used for tracking TradeableItems
- * Can be used to access methods and attributes of TradeableItems
- * Enforces DIP principle.
+ * The TradableItemInventory is a singleton class used to track TradableItems.
+ *
+ * @author Connor Gibson, Shang-Fu Tsou, Lucus Choy
+ * @version 2.0
+ * @since 02-May-2022
  */
 public class TradableItemInventory {
+    //Private attributes
     private ArrayList<TradableItem> tradableItems;
     private static TradableItemInventory inventory;
 
@@ -17,8 +20,8 @@ public class TradableItemInventory {
     private TradableItemInventory() {tradableItems = new ArrayList<>();}
 
     /**
-     * Instantiate the TradeableItemInventory if it does not exist,
-     * else returns preexisting instance.
+     * Public static method to instantiate the TradableItemInventory if it does not exist,
+     * otherwise returns preexisting instance.
      * @return inventory
      */
     public static TradableItemInventory getInstance() {
@@ -29,14 +32,19 @@ public class TradableItemInventory {
     }
 
     /**
-     * Getter
+     * Getter for the tradableItems
      *
-     * Returns list of TradableItems
-     * @return tradeableItems
+     * @return a list of tradableItems
      */
     public ArrayList<TradableItem> getTradableItems() {
         return tradableItems;
     }
+
+    /**
+     * Adds a TradableItem to the list of tradableItems
+     *
+     * @param item a TradableItem
+     */
     public void appendItem(TradableItem item){
         tradableItems.add(item);
     }

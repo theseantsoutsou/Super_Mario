@@ -7,10 +7,17 @@ import game.items.Coin;
 import game.items.Wallet;
 
 /**
- * Action to allow items to be picked up.
+ * The PickUpCoinAction class is a special Action that specifically picks up coins only.
+ * The PickUpCoinAction class is a subclass of the Action class.
+ *
+ * @author Connor Gibson, Shang-Fu Tsou, Lucus Choy
+ * @version 2.0
+ * @since 02-May-2022
  */
 public class PickUpCoinAction extends Action {
+    //Private Attribute
     private final Coin item;
+
     /**
      * Constructor.
      *
@@ -21,7 +28,8 @@ public class PickUpCoinAction extends Action {
     }
 
     /**
-     * Add the item to the actor's inventory.
+     * Modify the credits in the static instance of Wallet
+     * Remove the coin from the location
      *
      * @param actor The actor performing the action.
      * @param map   The map the actor is on.
@@ -39,7 +47,7 @@ public class PickUpCoinAction extends Action {
      * Describe the action in a format suitable for displaying in the menu.
      *
      * @param actor The actor performing the action.
-     * @return a string, "Player picks up the coin"
+     * @return a String to add to the actor's menu of options
      * @see Action#menuDescription(Actor)
      */
     @Override

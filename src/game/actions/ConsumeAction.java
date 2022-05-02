@@ -9,17 +9,25 @@ import game.items.ConsumableItemManager;
 import game.items.TradableItemInventory;
 
 /**
- * Class that allows the player to use a magic Item (Power Star or Super Mushroom)
+ * The ConsumeAction class is a special Action for using Magical Items.
+ * The ConsumeAction class is a subclass of the Action class.
+ *
+ * @author Connor Gibson, Shang-Fu Tsou, Lucus Choy
+ * @version 2.0
+ * @since 02-May-2022
  */
 public class ConsumeAction extends Action {
-
+    //Private attributes
     private Item item;
     private Status capability;
 
     /**
-     * Constructor
-     * @param item
-     * @param capability
+     * Constructor for the ConsumeAction class.
+     * Stores {@code item, this} to ConsumableItemManger to keep track of whether the item can be consumed.
+     *
+     * @param item  the item to be consumed
+     * @param capability    the buff that the item will provide
+     * @see ConsumableItemManager
      */
     public ConsumeAction (Item item, Status capability) {
         this.item = item;
@@ -28,11 +36,13 @@ public class ConsumeAction extends Action {
     }
 
     /**
-     * Adds associated capability to player when magic item is consumed
-     * removes item from the player's inventory
+     * Remove the item from the actor's inventory and from the static instance of TradableItemInventory.
+     * Gives the actor the associated capability/status.
+     * Checks the capability of the item provides and buff the actor accordingly.
+     *
      * @param actor The actor performing the action.
      * @param map   The map the actor is on.
-     * @return
+     * @return a String describing who consumed what
      */
     @Override
     public String execute(Actor actor, GameMap map) {
@@ -49,9 +59,10 @@ public class ConsumeAction extends Action {
     }
 
     /**
-     * Display description of what item the player uses/consumes
+     * Display description of what item the player can consume
+     *
      * @param actor The actor performing the action.
-     * @return
+     * @return a String to add to actor's menu of options
      */
     @Override
     public String menuDescription(Actor actor) {

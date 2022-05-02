@@ -13,23 +13,23 @@ import game.items.Coin;
 import java.util.Random;
 
 /**
- * Action for when the player flattens high ground when using a Power Star
+ * The FlattenAction class is a special Action for crushing high-grounds and turning them into dirt.
+ * The FlattenAction class is a subclass of the Action class.
+ *
+ * @author Connor Gibson, Shang-Fu Tsou, Lucus Choy
+ * @version 2.0
+ * @since 02-May-2022
  */
 public class FlattenAction extends Action {
-    /**
-     * The Ground that is to be attacked
-     */
-    private Jumpable target;
+    //Private attributes
+    private Jumpable target; //High-ground that is to be jumped on
 
-    /**
-     * The direction of incoming attack.
-     */
     private String direction;
 
     /**
      * Constructor.
      *
-     * @param target the Actor to attack
+     * @param target the Jumpable ground to jump on
      */
     public FlattenAction (Jumpable target, String direction) {
         this.target = target;
@@ -37,13 +37,13 @@ public class FlattenAction extends Action {
     }
 
     /**
-     * gets the location of that the player is trying to move to
-     * moves the player there
-     * 'flattens' the high ground by converting it to dirt
-     * creates a coin in the place that was flatten
+     * Executes FlattenAction.
+     * Moves actor to target's location and set the ground at the location to dirt.
+     * Spawn a new Coin item at the flattened location.
+     *
      * @param actor The actor performing the action.
      * @param map   The map the actor is on.
-     * @return
+     * @return string describing the result of the FlattenAction
      */
     @Override
     public String execute(Actor actor, GameMap map) {
@@ -54,14 +54,14 @@ public class FlattenAction extends Action {
         String result = actor + " flattened " + this.target.getClass().getSimpleName() + ".";
 
         return result;
-
     }
 
     /**
-     * get the coordinates of where the player is trying to go
-     * @param actor
-     * @param map
-     * @return
+     * Checks the exits around the actor and return the exit location at the desired direction.
+     *
+     * @param actor The actor performing the action.
+     * @param map   The map the actor is on.
+     * @return the location at of the exit in the desired direction
      */
     public Location getTargetLocation(Actor actor, GameMap map) {
 
@@ -75,9 +75,10 @@ public class FlattenAction extends Action {
     }
 
     /**
-     * Display the description for the prompt to flatten a piece of high ground
+     * Display description of what high-ground the player can flatten and in what direction.
+     *
      * @param actor The actor performing the action.
-     * @return
+     * @return a String to add to actor's menu of options
      */
     @Override
     public String menuDescription(Actor actor) {
