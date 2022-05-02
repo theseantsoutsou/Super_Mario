@@ -38,7 +38,7 @@ public class TradableItemManager {
     }
 
     /**
-     * Add a pair of item & associated action (currently just ConsumeAction) to the consumeActionMap
+     * Add a pair of item and associated action (currently just ConsumeAction) to the consumeActionMap
      *
      * @param item Consumable item (key)
      * @param action Action to be paired with (value)
