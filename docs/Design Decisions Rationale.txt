@@ -5,7 +5,12 @@ Assignment 2 Rationale:
 //////REQ2//////
 - Same as design
 //////REQ3//////
-- Same as design
+- Added the implementation of a SuicideAction and BreakAction for Goomba and Koopa respectively. SuicideAction specifically
+allows an actor to commit suicide, which is called every Goomba play turn. By making this functionality an independent
+class, instead of directly calling removeActor() in Goomba's playTurn, this implementation follows the Single Responsibility
+Principle. Similarly, by making BreakAction an independent class, the workload and responsibilities of AttackAction would be decreased.
+The BreakAction's sole responsibility now is to break a dormant character's shell.
+
 //////REQ4//////
 - Implemented TradableItemManager to manage ConsumeActions and magical items. TradableItem manager allows for the
 generation of Toads inventory without direct dependencies with each item class. Instead, Toad has a dependency with the
@@ -21,7 +26,7 @@ the TradeAction.
 
 - Few changes to variable and method names to make them more descriptive/obvious.
 
-- Implemented a TradeableItemInventory. This was forgotten in the initial design, but is necessary to access the methods of the
+- Implemented a TradableItemInventory. This was forgotten in the initial design, but is necessary to access the methods of the
 TradableItem interface in places where only an Item type can is supplied. Furthermore, the Dependency Inversion Principle in
 not fully realised in the design without the inclusion of this class.
 
@@ -30,6 +35,7 @@ not fully realised in the design without the inclusion of this class.
 
 //////REQ7/////
 - Same as design
+
 
 Assignment 1 Rationale:
 
