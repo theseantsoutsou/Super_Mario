@@ -30,9 +30,11 @@ import java.util.Random;
  * @version 2.0
  * @since 02-May-2022
  */
-public class Goomba extends Actor {
+public class Goomba extends Actor implements Resettable {
 	//Private attributes
 	private final Map<Integer, Behaviour> behaviours = new HashMap<>(); // priority, behaviour
+
+	private GameMap map;
 
 	/**
 	 * Constructor for the Goomba class.
@@ -48,6 +50,7 @@ public class Goomba extends Actor {
 		this.behaviours.put(1, new AttackBehaviour());
 		this.behaviours.put(2, new FollowBehaviour());
 		this.behaviours.put(3, new WanderBehaviour());
+		this.registerInstance();
 	}
 
 	/**
@@ -64,7 +67,6 @@ public class Goomba extends Actor {
 	@Override
 	public ActionList allowableActions(Actor otherActor, String direction, GameMap map) {
 		ActionList actions = new ActionList();
-
 		if(otherActor.hasCapability(Status.HOSTILE_TO_ENEMY)) {
 			actions.add(new AttackAction(this, direction));
 		}
@@ -90,6 +92,7 @@ public class Goomba extends Actor {
 	@Override
 	public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
 		Random r = new Random();
+		this.map = map;
 		if (r.nextInt(100) <= 10) {
 			return new SuicideAction();
 		}
@@ -121,8 +124,12 @@ public class Goomba extends Actor {
 	 */
 	@Override
 	public IntrinsicWeapon getIntrinsicWeapon() {return new IntrinsicWeapon(10, "Kicks" );}
-
-
-
-
+	@Override
+	public void resetInstance(){
+		this.hurt(this.getMaxHp());
+		this.map.removeActor(this);
+	}
 }
+
+
+

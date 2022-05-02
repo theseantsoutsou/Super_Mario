@@ -5,6 +5,8 @@ import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.positions.Exit;
 import edu.monash.fit2099.engine.positions.Ground;
 import edu.monash.fit2099.engine.positions.Location;
+import game.ResetManager;
+import game.Resettable;
 import game.actions.FlattenAction;
 import game.actions.JumpAction;
 import game.Status;
@@ -21,12 +23,14 @@ import java.util.Random;
  * @version 2.0
  * @since 02-May-2022
  */
-public class Tree extends Ground implements Jumpable {
+public class Tree extends Ground implements Jumpable, Resettable {
 
     //Private Attributes
     private int age;
     private static final int JUMP_SUCCESS_RATE = 70;
     private static final int FALL_DAMAGE = 30;
+
+    private Location location;
 
     /**
      * Constructor for the Tree class.
@@ -39,6 +43,7 @@ public class Tree extends Ground implements Jumpable {
         super('T');
         this.age = 0;
         this.addCapability(Status.HIGH_GROUND);
+        this.registerInstance();
     }
 
     /**
@@ -71,6 +76,7 @@ public class Tree extends Ground implements Jumpable {
      */
     @Override
     public void tick(Location location) {
+        this.location = location;
         this.age++;
         if (this.age %5 == 0) {
             this.growSprout(location);
@@ -88,6 +94,7 @@ public class Tree extends Ground implements Jumpable {
      * @see Koopa
      */
     public boolean spawn(Location location) {
+
         Random r = new Random();
         Boolean spawned = false;
 
@@ -172,5 +179,13 @@ public class Tree extends Ground implements Jumpable {
     @Override
     public boolean canActorEnter(Actor actor) {
         return false;
+    }
+
+    @Override
+    public void resetInstance(){
+        Random random = new Random();
+        if(random.nextInt(10) < 5) {
+            this.location.setGround(new Dirt());
+        }
     }
 }

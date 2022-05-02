@@ -52,7 +52,7 @@ public class TradeAction extends Action {
 		int credits = Wallet.getInstance().getCredits();
 		if (credits >= value) {
 			Wallet.getInstance().modifyCredits(-1 * value);
-			nonPlayerCharacter.removeItemFromInventory(item);
+			//nonPlayerCharacter.removeItemFromInventory(item);
 			player.addItemToInventory(item);
 		} else {
 			return "You have insufficient credits.";

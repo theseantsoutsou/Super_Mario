@@ -31,7 +31,7 @@ import java.util.Map;
  * @version 2.0
  * @since 02-May-2022
  */
-public class Koopa extends Actor {
+public class Koopa extends Actor implements Resettable{
     private final Map<Integer, Behaviour> behaviours = new HashMap<>(); // priority, behaviour
 
     /**
@@ -52,6 +52,7 @@ public class Koopa extends Actor {
         this.behaviours.put(3, new WanderBehaviour());
         this.addCapability(Status.CAN_SLEEP);
         this.addItemToInventory(new SuperMushroom());
+        this.registerInstance();
 
     }
 
@@ -140,5 +141,8 @@ public class Koopa extends Actor {
     public IntrinsicWeapon getIntrinsicWeapon() {
         return new IntrinsicWeapon(30, "punches");
     }
-
+    @Override
+    public void resetInstance(){
+        this.hurt(this.getMaxHp());
+    }
 }

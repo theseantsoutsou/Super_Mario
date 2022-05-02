@@ -10,11 +10,10 @@ import game.Status;
 /**
  * Class to allow the player to reset predetermined aspects of the game once per life
  */
-public class ResetAction extends Action implements Resettable {
+public class ResetAction extends Action {
 
     ResetManager resetManager;
-
-    public ResetAction(Actor actor){
+    public ResetAction(){
         resetManager = ResetManager.getInstance();
     }
 
@@ -33,26 +32,10 @@ public class ResetAction extends Action implements Resettable {
         return "Game has been reset";
     }
 
-
-    /**
-     * Attributes and the like should be reset here
-     * Classes call for this method in order to reset attributes (enemies removed, player resets status,
-     *trees have a 50% chance of becoming dirt, coins on the ground are removed)
-     */
-    @Override
-    public void resetInstance() {
-
-    }
-
     /**
      * Objects such as Goomba/Koopa, Tree, Player, Coins would be added to resettableList through this
      * method
      */
-    @Override
-    public void registerInstance() {
-        Resettable.super.registerInstance();
-        resetManager.appendResetInstance(this);
-    }
 
     /**
      * Which key the player would need to press in order to reset the game
@@ -68,7 +51,6 @@ public class ResetAction extends Action implements Resettable {
      */
     @Override
     public String menuDescription(Actor actor) {
-
         return actor + " resets game";
     }
 }

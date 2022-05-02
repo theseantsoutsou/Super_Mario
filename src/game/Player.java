@@ -7,6 +7,7 @@ import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.displays.Menu;
+import game.actions.ResetAction;
 import game.items.Wallet;
 
 /**
@@ -17,7 +18,7 @@ import game.items.Wallet;
  * @version 2.0
  * @since 02-May-2022
  */
-public class Player extends Actor  {
+public class Player extends Actor implements Resettable  {
 	//Private attributes
 	private final Menu menu = new Menu();
 	private int invincibleTurns = 0;
@@ -39,6 +40,8 @@ public class Player extends Actor  {
 		this.addCapability(Status.HOSTILE_TO_ENEMY);
 		this.addCapability(Status.TRADE);
 		this.addCapability(Status.CONVERSES);
+		this.addCapability(Status.RESETTABLE);
+		this.registerInstance();
 	}
 
 	/**
@@ -91,6 +94,9 @@ public class Player extends Actor  {
 		if (lastAction.getNextAction() != null)
 			return lastAction.getNextAction();
 
+		if(this.hasCapability(Status.RESETTABLE)){
+			actions.add(new ResetAction());
+		}
 		// print player hp
 		System.out.println(this.printHp() + " " + Wallet.getInstance().printCredits());
 		// return/print the console menu
@@ -129,5 +135,16 @@ public class Player extends Actor  {
 	@Override
 	public char getDisplayChar(){
 		return this.hasCapability(Status.TALL) ? Character.toUpperCase(super.getDisplayChar()): super.getDisplayChar();
+	}
+
+	@Override
+	public void resetInstance() {
+		if(this.hasCapability(Status.TALL)){
+			this.removeCapability(Status.TALL);
+		}
+		if(this.hasCapability(Status.POWER_STAR)){
+			this.removeCapability(Status.POWER_STAR);
+		}
+		this.heal(this.getMaxHp());
 	}
 }
