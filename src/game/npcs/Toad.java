@@ -86,18 +86,4 @@ public class Toad extends Actor {
     public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
         return new DoNothingAction();
     }
-
-    /**
-     * Public static method to instantiate a Toad and place it on the game map.
-     *
-     * @param gameMap the map where Toad is to be placed
-     */
-    public static void createToad(GameMap gameMap) {
-        if (instance == null) {
-            instance = new Toad();
-            int toadX = gameMap.getXRange().max() / 2 + 5;
-            int toadY = gameMap.getYRange().max() / 2 + 1;
-            gameMap.at(toadX, toadY).addActor(instance);
-        }
-    }
 }
