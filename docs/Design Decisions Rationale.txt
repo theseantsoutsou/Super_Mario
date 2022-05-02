@@ -1,3 +1,5 @@
+
+
 //////REQ5//////
 - If wallet were an attribute of the Player (or any subclass of Actor) as it is in the initial design.
 it would be difficult for a TradeAction to access that attribute through calls to the Actor type. Instead, by making the
