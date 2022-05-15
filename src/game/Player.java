@@ -81,13 +81,17 @@ public class Player extends Actor implements Resettable  {
 			this.removeCapability(Status.ON_HIGH_GROUND);
 		}
 
+		if (this.hasCapability(Status.POWER_STAR)) {
+			this.invincibleTurns += 1;
+		}
+
 		if (this.invincibleTurns == 10) {
 			this.removeCapability(Status.POWER_STAR);
+			this.invincibleTurns += 1;
+		}
+		else if (this.invincibleTurns == 11) {
 			System.out.println(this + " is no longer invincible");
 			this.invincibleTurns = 0;
-		}
-		else if (this.hasCapability(Status.POWER_STAR)) {
-			this.invincibleTurns += 1;
 		}
 
 		// Handle multi-turn Actions

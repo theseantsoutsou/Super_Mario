@@ -25,8 +25,7 @@ public enum Status {
 
     FERTILE,            // use this status to describe fertile grounds that can grow plants (dirt)
     HIGH_GROUND,        // use this status to describe a jumpable ground (e.g., sprouts, saplings, trees, walls)
-
-
+    PIRANHA             // use this status to describe a warp pipe with a piranha plant that's alive
 
 
 }

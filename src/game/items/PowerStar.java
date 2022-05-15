@@ -19,7 +19,7 @@ import java.util.List;
  */
 public class PowerStar extends Item implements TradableItem{
     //Private attributes
-    private int value = 600;
+    private int value = 0;
     private int age;
 
     /**
@@ -51,7 +51,7 @@ public class PowerStar extends Item implements TradableItem{
      */
     public void tick(Location currentLocation, Actor actor) {
         this.age += 1;
-        if (this.age == 10) {
+        if (this.age == 11) {
             actor.removeItemFromInventory(this);
             System.out.println("The Power Star has disappeared from your inventory!");
         }
@@ -65,7 +65,7 @@ public class PowerStar extends Item implements TradableItem{
      */
     public void tick(Location currentLocation) {
         this.age += 1;
-        if (this.age == 10) {
+        if (this.age == 11) {
             currentLocation.removeItem(this);
             System.out.println("The Power Star has disappeared from the map.");
         }

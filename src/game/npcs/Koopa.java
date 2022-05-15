@@ -14,7 +14,6 @@ import edu.monash.fit2099.engine.weapons.IntrinsicWeapon;
 import game.*;
 import game.actions.AttackAction;
 import game.actions.BreakAction;
-import game.actions.SuicideAction;
 import game.behaviours.AttackBehaviour;
 import game.behaviours.Behaviour;
 import game.behaviours.FollowBehaviour;
