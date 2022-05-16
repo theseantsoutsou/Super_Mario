@@ -30,7 +30,7 @@ public class Lava extends Ground {
      * @param location The location of the Ground
      */
     public void tick(Location location) {
-        if (location.getActor().hasCapability(Status.HOSTILE_TO_ENEMY)) {
+        if (location.containsAnActor() && location.getActor().hasCapability(Status.HOSTILE_TO_ENEMY)) {
             location.getActor().hurt(damage);
         }
     }

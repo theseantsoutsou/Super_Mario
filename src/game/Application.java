@@ -2,7 +2,6 @@ package game;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.displays.Display;
@@ -10,11 +9,7 @@ import edu.monash.fit2099.engine.positions.FancyGroundFactory;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.World;
 import game.grounds.*;
-import game.items.PowerStar;
-import game.items.SuperMushroom;
-import game.items.Wrench;
-import game.npcs.Goomba;
-import game.npcs.Koopa;
+
 import game.npcs.Toad;
 
 /**
@@ -28,11 +23,12 @@ public class Application {
 
 	public static void main(String[] args) {
 
-			World world = new World(new Display());
+		World world = new World(new Display());
 
-			FancyGroundFactory groundFactory = new FancyGroundFactory(new Dirt(), new Wall(), new Floor(), new Sprout(), new WarpPipe());
+		FancyGroundFactory groundFactory = new FancyGroundFactory(new Dirt(), new Wall(), new Floor(), new Sprout(),
+				new WarpPipe(), new Lava());
 
-			List<String> map = Arrays.asList(
+		List<String> map = Arrays.asList(
 				"..........................................##..........+.........................",
 				"............+............+..................#...................................",
 				"............................................#...................................",
@@ -52,14 +48,33 @@ public class Application {
 				"...................+.................................#..........................",
 				"......................................................#.........................",
 				".......................................................##.......................");
+		GameMap gameMap = new GameMap(groundFactory, map);
+		world.addGameMap(gameMap);
+		Actor mario = new Player("Player", 'm', 100);
+		world.addPlayer(mario, gameMap.at(42, 10));
+		Actor toad = new Toad();
+		gameMap.addActor(toad, gameMap.at(44, 10));
 
-			GameMap gameMap = new GameMap(groundFactory, map);
-			world.addGameMap(gameMap);
-			Actor mario = new Player("Player", 'm', 100);
-			world.addPlayer(mario, gameMap.at(42, 10));
-			Actor toad = new Toad();
-			gameMap.addActor(toad, gameMap.at(44, 10));
-			world.run();
+		List<String> lavaMap = Arrays.asList(
+				"C...................##..........+.......................",
+				"............+............+..................#...........",
+				"..........LLLLLL..........L......#......................",
+				"..............L......##..........L...........+..........",
+				".............L..............#..........L................",
+				".................L.............#.......L................",
+				"........+.......LLLLLLL.L..............#.......L........",
+				".................LL..........##..........L..............",
+				"...............LL...............................##......",
+				".........+...............+.....___..L......+............",
+				"........................L......___....+++...........LL..",
+				"............................L..___..+.......LLL.........",
+				".............................L..........+...............",
+				"........................+........................##.....",
+				".................................L.................#....");
+		GameMap lavaZone = new GameMap(groundFactory, lavaMap);
+		world.addGameMap(lavaZone);
+
+		world.run();
 
 	}
 }

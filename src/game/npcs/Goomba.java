@@ -18,9 +18,9 @@ import game.behaviours.Behaviour;
 import game.behaviours.FollowBehaviour;
 import game.behaviours.WanderBehaviour;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+import java.util.TreeMap;
 
 /**
  * The Goomba class is a class that represents a Goomba in Super Mario, the little fungus guy.
@@ -32,7 +32,7 @@ import java.util.Random;
  */
 public class Goomba extends Actor implements Resettable {
 	//Private attributes
-	private final Map<Integer, Behaviour> behaviours = new HashMap<>(); // priority, behaviour
+	private final Map<Integer, Behaviour> behaviours = new TreeMap<>(); // priority, behaviour
 
 	private GameMap map;
 

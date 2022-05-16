@@ -20,8 +20,8 @@ import game.behaviours.FollowBehaviour;
 import game.behaviours.WanderBehaviour;
 import game.items.SuperMushroom;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * The Koopa class is a class that represents a Koopa in Super Mario, the turtle guy.
@@ -33,7 +33,7 @@ import java.util.Map;
  */
 public class Koopa extends Actor implements Resettable{
     //Private attribute
-    private final Map<Integer, Behaviour> behaviours = new HashMap<>(); // priority, behaviour
+    private final Map<Integer, Behaviour> behaviours = new TreeMap<>(); // priority, behaviour
 
     /**
      * Constructor for the Koopa class.

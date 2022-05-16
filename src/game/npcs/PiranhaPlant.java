@@ -11,12 +11,12 @@ import game.Resettable;
 import game.behaviours.AttackBehaviour;
 import game.behaviours.Behaviour;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 public class PiranhaPlant extends Actor implements Resettable {
     //Private attributes
-    private final Map<Integer, Behaviour> behaviours = new HashMap<>(); // priority, behaviour
+    private final Map<Integer, Behaviour> behaviours = new TreeMap<>(); // priority, behaviour
 
     /**
      * Constructor.
