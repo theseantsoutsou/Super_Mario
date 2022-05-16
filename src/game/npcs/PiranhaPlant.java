@@ -3,7 +3,6 @@ package game.npcs;
 import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actions.ActionList;
 import edu.monash.fit2099.engine.actions.DoNothingAction;
-import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.weapons.IntrinsicWeapon;
@@ -11,25 +10,26 @@ import game.Resettable;
 import game.behaviours.AttackBehaviour;
 import game.behaviours.Behaviour;
 
-import java.util.Map;
-import java.util.TreeMap;
-
-public class PiranhaPlant extends Actor implements Resettable {
-    //Private attributes
-    private final Map<Integer, Behaviour> behaviours = new TreeMap<>(); // priority, behaviour
-
+public class PiranhaPlant extends Enemy implements Resettable {
     /**
      * Constructor.
      *
      */
     public PiranhaPlant() {
         super("Piranha Plant", 'Y', 150);
-        this.behaviours.put(1, new AttackBehaviour());
+        this.getBehaviours().put(1, new AttackBehaviour());
         this.registerInstance();
     }
 
     @Override
     public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
+        for (Behaviour behaviour : this.getBehaviours().values()) {
+            Action action = behaviour.getAction(this, map);
+            if (action != null) {
+                return action;
+            }
+        }
+
         return new DoNothingAction();
     }
 

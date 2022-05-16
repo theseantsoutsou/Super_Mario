@@ -10,6 +10,7 @@ import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.World;
 import game.grounds.*;
 
+import game.npcs.Bowser;
 import game.npcs.Toad;
 
 /**
@@ -50,10 +51,6 @@ public class Application {
 				".......................................................##.......................");
 		GameMap gameMap = new GameMap(groundFactory, map);
 		world.addGameMap(gameMap);
-		Actor mario = new Player("Player", 'm', 100);
-		world.addPlayer(mario, gameMap.at(42, 10));
-		Actor toad = new Toad();
-		gameMap.addActor(toad, gameMap.at(44, 10));
 
 		List<String> lavaMap = Arrays.asList(
 				"C...................##..........+.......................",
@@ -73,6 +70,13 @@ public class Application {
 				".................................L.................#....");
 		GameMap lavaZone = new GameMap(groundFactory, lavaMap);
 		world.addGameMap(lavaZone);
+
+		Actor mario = new Player("Player", 'm', 100);
+		world.addPlayer(mario, lavaZone.at(6, 10));
+		Actor toad = new Toad();
+		Actor bowser = new Bowser(4, 10);
+		gameMap.addActor(bowser, lavaZone.at(4, 10));
+		gameMap.addActor(toad, gameMap.at(44, 10));
 
 		world.run();
 

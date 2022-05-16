@@ -31,10 +31,7 @@ import java.util.TreeMap;
  * @version 2.0
  * @since 02-May-2022
  */
-public class Koopa extends Actor implements Resettable{
-    //Private attribute
-    private final Map<Integer, Behaviour> behaviours = new TreeMap<>(); // priority, behaviour
-
+public class Koopa extends Enemy implements Resettable{
     /**
      * Constructor for the Koopa class.
      * Calls its parent class Actor class's constructor to set name, display character, and HP attributes.
@@ -48,9 +45,8 @@ public class Koopa extends Actor implements Resettable{
      */
     public Koopa() {
         super("Koopa", 'K', 100);
-        this.behaviours.put(1, new AttackBehaviour());
-        this.behaviours.put(2, new FollowBehaviour());
-        this.behaviours.put(3, new WanderBehaviour());
+        this.getBehaviours().put(1, new AttackBehaviour());
+        this.getBehaviours().put(3, new WanderBehaviour());
         this.addCapability(Status.CAN_SLEEP);
         this.addItemToInventory(new SuperMushroom());
         this.registerInstance();
@@ -108,29 +104,14 @@ public class Koopa extends Actor implements Resettable{
         if (!this.isConscious()) {
             this.setDisplayChar('D');
             this.resetMaxHp(50);
-            this.behaviours.clear();
+            this.getBehaviours().clear();
         }
 
         if (this.hasCapability(Status.DORMANT)) {
             return new DoNothingAction();
         }
 
-        if (this.hasCapability(Status.ATTACKED) || this.hasCapability(Status.GOT_ATTACKED)) {
-            Location here = map.locationOf(this);
-            for(Exit exit: here.getExits()) {
-                Actor target = exit.getDestination().getActor();
-                if (target != null && target.hasCapability(Status.HOSTILE_TO_ENEMY)) {
-                    this.behaviours.put(2, new FollowBehaviour(target));
-                }
-            }
-        }
-
-        for (Behaviour Behaviour : behaviours.values()) {
-            Action action = Behaviour.getAction(this, map);
-            if (action != null)
-                return action;
-        }
-        return new DoNothingAction();
+        return super.playTurn(actions, lastAction, map, display);
     }
 
     /**

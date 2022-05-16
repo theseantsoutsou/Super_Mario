@@ -27,17 +27,6 @@ public class FollowBehaviour implements Behaviour {
 	}
 
 	/**
-	 * Secondary constructor for the FollowBehaviour class.
-	 * Used to instantiate a FollowBehaviour when the target is not yet determined.
-	 *
-	 * @see game.npcs.Goomba
-	 * @see game.npcs.Koopa
-	 */
-	public FollowBehaviour() {
-		this.target = null;
-	}
-
-	/**
 	 * Creates a MoveActorAction that moves actor closer to a target.
 	 *
 	 * @param actor the Actor acting
