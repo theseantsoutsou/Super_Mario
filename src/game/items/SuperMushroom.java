@@ -1,10 +1,12 @@
 package game.items;
 
 import edu.monash.fit2099.engine.actions.Action;
+import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.items.Item;
 import game.Status;
 import game.actions.ConsumeAction;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,9 +17,12 @@ import java.util.List;
  * @version 2.0
  * @since 02-May-2022
  */
-public class SuperMushroom extends Item implements TradableItem {
+public class SuperMushroom extends Item implements TradableItem, ConsumableItem {
     //Private attribute
-    private int value = 400;
+    private int value = 0;
+    Action consumeAction;
+
+    private Enum<Status> capability = Status.TALL;
 
     /**
      * Constructor for SuperMushroom - takes in boolean portable, which sets the portability of the item.
@@ -26,14 +31,16 @@ public class SuperMushroom extends Item implements TradableItem {
      */
     public SuperMushroom(boolean portable) {
         super("Super Mushroom", '^', portable);
-        this.addToInventory();
+        this.addToItemManager();
+        this.addToConsumablesManager();
     }
     /**
      * Overloaded constructor for SuperMushroom allows for instantiation without portability being specified.
      */
     public SuperMushroom() {
         super("Super Mushroom", '^', true);
-        this.addToInventory();
+        this.addToItemManager();
+        this.addToConsumablesManager();
     }
 
     /**
@@ -47,14 +54,11 @@ public class SuperMushroom extends Item implements TradableItem {
      */
     @Override
     public List<Action> getAllowableActions() {
-        if (TradableItemManager.getInstance().getConsumeAction(this)!= null
-                && !this.hasCapability(Status.CARRIED)) {
-            this.removeAction(TradableItemManager.getInstance().getConsumeAction(this));
+        List<Action> actions = new ArrayList<>();
+        if(this.hasCapability(Status.CARRIED)) {
+            actions.add(new ConsumeAction(this));
         }
-        else if (this.hasCapability(Status.CARRIED)){
-            this.addAction(new ConsumeAction(this, Status.TALL));
-        }
-        return super.getAllowableActions();
+        return actions;
     }
 
     /**
@@ -63,5 +67,20 @@ public class SuperMushroom extends Item implements TradableItem {
     @Override
     public int getValue() {
         return this.value;
+    }
+
+    @Override
+    public void addToItemManager() {
+        TradableItem.super.addToItemManager();
+    }
+    @Override
+    public void applyEffects(Actor actor) {
+        actor.increaseMaxHp(50);
+        actor.addCapability(capability);
+    }
+
+    @Override
+    public Enum<Status> getCapability() {
+        return capability;
     }
 }

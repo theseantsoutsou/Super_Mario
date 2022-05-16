@@ -9,6 +9,8 @@ import edu.monash.fit2099.engine.positions.GameMap;
 import game.Status;
 import game.actions.SpeakAction;
 import game.actions.TradeAction;
+import game.items.ConsumableItemManager;
+import game.items.PowerStar;
 import game.items.TradableItemManager;
 
 /**

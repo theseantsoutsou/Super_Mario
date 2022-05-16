@@ -22,7 +22,7 @@ public class Wrench extends WeaponItem implements TradableItem{
      */
     public Wrench(){
         super("Wrench",'=', 50, "whacks", 80);
-        this.addToInventory();
+        this.addToItemManager();
         this.addCapability(Status.BREAK_SHELL);
     }
 

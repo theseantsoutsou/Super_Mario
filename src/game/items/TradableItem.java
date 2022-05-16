@@ -19,7 +19,7 @@ public interface TradableItem {
      * Default method adds instance of a TradableItem to the TradableItemInventory singleton instance.
      * Use in the constructor of TradableItems.
      */
-    default void addToInventory(){
-        TradableItemInventory.getInstance().appendItem(this);
+    default void addToItemManager(){
+        TradableItemManager.getInstance().appendItem(this);
     }
 }

@@ -1,12 +1,14 @@
 package game.items;
 
 import edu.monash.fit2099.engine.actions.Action;
+import edu.monash.fit2099.engine.actions.ActionList;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.Location;
 import game.Status;
 import game.actions.ConsumeAction;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,20 +19,25 @@ import java.util.List;
  * @version 2.0
  * @since 02-May-2022
  */
-public class PowerStar extends Item implements TradableItem{
+public class PowerStar extends Item implements TradableItem, ConsumableItem {
     //Private attributes
     private int value = 0;
     private int age;
 
+    private Enum<Status> capability = Status.POWER_STAR;
+
     /**
      * Constructor for PowerStar - takes in boolean portable, which sets the portability of the item.
      * (any item to be traded should not be portable)
+     *
      * @param portable Boolean value, true if portable, false otherwise.
      */
     public PowerStar(boolean portable) {
         super("Power Star", '*', portable);
         this.age = 0;
-        this.addToInventory();
+        this.addToItemManager();
+        this.addToConsumablesManager();
+
     }
 
     /**
@@ -39,7 +46,8 @@ public class PowerStar extends Item implements TradableItem{
     public PowerStar() {
         super("Power Star", '*', true);
         this.age = 0;
-        this.addToInventory();
+        this.addToItemManager();
+        this.addToConsumablesManager();
     }
 
     /**
@@ -47,7 +55,7 @@ public class PowerStar extends Item implements TradableItem{
      * This method is called once per turn, if the Item is being carried.
      *
      * @param currentLocation The location of the actor carrying this Item.
-     * @param actor The actor carrying this Item.
+     * @param actor           The actor carrying this Item.
      */
     public void tick(Location currentLocation, Actor actor) {
         this.age += 1;
@@ -81,14 +89,11 @@ public class PowerStar extends Item implements TradableItem{
      */
     @Override
     public List<Action> getAllowableActions() {
-        if (TradableItemManager.getInstance().getConsumeAction(this)!= null
-                && !this.hasCapability(Status.CARRIED)) {
-            this.removeAction(TradableItemManager.getInstance().getConsumeAction(this));
+        List<Action> actions = new ArrayList<>();
+        if (this.hasCapability(Status.CARRIED)) {
+            actions.add(new ConsumeAction(this));
         }
-        else if (this.hasCapability(Status.CARRIED)){
-            this.addAction(new ConsumeAction(this, Status.POWER_STAR));
-        }
-        return super.getAllowableActions();
+        return actions;
     }
 
     /**
@@ -97,5 +102,21 @@ public class PowerStar extends Item implements TradableItem{
     @Override
     public int getValue() {
         return this.value;
+    }
+
+    @Override
+    public void addToItemManager() {
+        TradableItem.super.addToItemManager();
+    }
+
+    @Override
+    public void applyEffects(Actor actor) {
+        actor.heal(200);
+        actor.addCapability(capability);
+    }
+
+    @Override
+    public Enum<Status> getCapability() {
+        return capability;
     }
 }

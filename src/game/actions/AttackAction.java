@@ -64,12 +64,12 @@ public class AttackAction extends Action {
 	public String execute(Actor actor, GameMap map) {
 		String result = null;
 		Weapon weapon = actor.getWeapon();
+		int chance = (actor.hasCapability(Status.POWER_STAR))?100:weapon.chanceToHit();
 
 		actor.addCapability(Status.ATTACKED);
 		this.target.addCapability(Status.GOT_ATTACKED);
 
-		if (!(rand.nextInt(100) <= weapon.chanceToHit())) {
-
+		if ((rand.nextInt(100) > chance)) {
 			return actor + " misses " + target + ".";
 		}
 

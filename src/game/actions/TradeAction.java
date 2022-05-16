@@ -8,7 +8,7 @@ import edu.monash.fit2099.engine.positions.GameMap;
 import java.util.ArrayList;
 
 import game.items.TradableItem;
-import game.items.TradableItemInventory;
+import game.items.TradableItemManager;
 import game.items.Wallet;
 
 /**
@@ -39,7 +39,7 @@ public class TradeAction extends Action {
 	private TradeAction(Item item, Actor NPC) throws Exception {
 		if (setItem(item)) {
 			this.nonPlayerCharacter = NPC;
-			ArrayList<TradableItem> inventory = TradableItemInventory.getInstance().getTradableItems();
+			ArrayList<TradableItem> inventory = TradableItemManager.getInstance().getTradableItems();
 			this.value = inventory.get(inventory.indexOf(item)).getValue();
 		} else {
 			throw new Exception("Attempting to trade non-tradable item");
@@ -102,10 +102,10 @@ public class TradeAction extends Action {
 	 *
 	 * @param item the item to be traded
 	 * @return true the item has been set, false otherwise
-	 * @see TradableItemInventory
+	 * @see TradableItemManager
 	 */
 	public boolean setItem(Item item) {
-		if (TradableItemInventory.getInstance().getTradableItems().contains(item)) {
+		if (TradableItemManager.getInstance().getTradableItems().contains(item)) {
 			this.item = item;
 			return true;
 		} else {
