@@ -5,12 +5,9 @@ import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.positions.Exit;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Location;
-import game.Status;
 import game.grounds.Dirt;
-import game.grounds.Jumpable;
+import game.grounds.HighGround;
 import game.items.Coin;
-
-import java.util.Random;
 
 /**
  * The FlattenAction class is a special Action for crushing high-grounds and turning them into dirt.
@@ -22,7 +19,7 @@ import java.util.Random;
  */
 public class FlattenAction extends Action {
     //Private attributes
-    private Jumpable target; //High-ground that is to be jumped on
+    private HighGround target; //High-ground that is to be jumped on
 
     private String direction;
 
@@ -31,7 +28,7 @@ public class FlattenAction extends Action {
      *
      * @param target the Jumpable ground to jump on
      */
-    public FlattenAction (Jumpable target, String direction) {
+    public FlattenAction (HighGround target, String direction) {
         this.target = target;
         this.direction = direction;
     }
@@ -67,7 +64,7 @@ public class FlattenAction extends Action {
 
         Location actorLocation = map.locationOf(actor);
         for (Exit exit: actorLocation.getExits()) {
-            if (exit.getName() == this.direction) {
+            if (exit.getName().equals(this.direction)) {
                 return exit.getDestination();
             }
         }

@@ -8,7 +8,7 @@ import edu.monash.fit2099.engine.positions.Exit;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Location;
 import game.Status;
-import game.grounds.Jumpable;
+import game.grounds.HighGround;
 
 /**
  * The JumpAction class is a special Action for jumping onto high-grounds.
@@ -20,7 +20,7 @@ import game.grounds.Jumpable;
  */
 public class JumpAction extends Action{
     //Private attributes
-    private Jumpable target; //High-ground that is to be jumped on
+    private HighGround target; //High-ground that is to be jumped on
 
     private String direction;
 
@@ -30,7 +30,7 @@ public class JumpAction extends Action{
      * @param target    the target jumpable ground to jump on
      * @param direction the direction of the target is at relative to the actor executing the action
      */
-    public JumpAction(Jumpable target, String direction) {
+    public JumpAction(HighGround target, String direction) {
         this.target = target;
         this.direction = direction;
     }

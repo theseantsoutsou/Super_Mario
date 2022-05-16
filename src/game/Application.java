@@ -72,7 +72,7 @@ public class Application {
 		world.addGameMap(lavaZone);
 
 		Actor mario = new Player("Player", 'm', 100);
-		world.addPlayer(mario, lavaZone.at(6, 10));
+		world.addPlayer(mario, gameMap.at(42, 10));
 		Actor toad = new Toad();
 		Actor bowser = new Bowser(4, 10);
 		gameMap.addActor(bowser, lavaZone.at(4, 10));
