@@ -20,7 +20,6 @@ import game.items.TradableItemManager;
 public class ConsumeAction extends Action {
     //Private attributes
     private ConsumableItem item;
-    private Status capability;
 
     /**
      * Constructor for the ConsumeAction class.

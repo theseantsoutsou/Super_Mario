@@ -10,5 +10,4 @@ public interface ConsumableItem {
     }
     void applyEffects(Actor actor);
     Enum<Status> getCapability();
-
 }
