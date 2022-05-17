@@ -45,7 +45,6 @@ public class Koopa extends Enemy implements Resettable{
      */
     public Koopa() {
         super("Koopa", 'K', 100);
-        this.getBehaviours().put(1, new AttackBehaviour());
         this.getBehaviours().put(3, new WanderBehaviour());
         this.addCapability(Status.CAN_SLEEP);
         this.addItemToInventory(new SuperMushroom());

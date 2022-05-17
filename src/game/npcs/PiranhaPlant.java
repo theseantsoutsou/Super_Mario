@@ -3,12 +3,15 @@ package game.npcs;
 import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actions.ActionList;
 import edu.monash.fit2099.engine.actions.DoNothingAction;
+import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.weapons.IntrinsicWeapon;
 import game.Resettable;
-import game.behaviours.AttackBehaviour;
+import game.Status;
+import game.actions.AttackAction;
 import game.behaviours.Behaviour;
+import game.behaviours.FollowBehaviour;
 
 public class PiranhaPlant extends Enemy implements Resettable {
     /**
@@ -17,8 +20,19 @@ public class PiranhaPlant extends Enemy implements Resettable {
      */
     public PiranhaPlant() {
         super("Piranha Plant", 'Y', 150);
-        this.getBehaviours().put(1, new AttackBehaviour());
         this.registerInstance();
+    }
+
+    @Override
+    public ActionList allowableActions(Actor otherActor, String direction, GameMap map) {
+
+        ActionList actions = new ActionList();
+
+        if(otherActor.hasCapability(Status.HOSTILE_TO_ENEMY)) {
+            actions.add(new AttackAction(this, direction));
+        }
+
+        return actions;
     }
 
     @Override

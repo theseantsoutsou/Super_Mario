@@ -37,32 +37,11 @@ public class Goomba extends Enemy implements Resettable {
 	 */
 	public Goomba() {
 		super("Goomba", 'g', 20);
-		this.getBehaviours().put(1, new AttackBehaviour());
 		this.getBehaviours().put(3, new WanderBehaviour());
 		this.registerInstance();
 	}
 
-	/**
-	 * Returns a new collection of the Actions that the otherActor can do Goomba.
-	 * If the otherActor is hostile to Goomba, allow the otherActor to attack
-	 *
-	 * @param otherActor the Actor that might be performing attack
-	 * @param direction  String representing the direction of the other Actor
-	 * @param map        current GameMap
-	 * @return A collection of Actions.
-	 * @see AttackAction
-	 * @see Status#HOSTILE_TO_ENEMY
-	 */
-	@Override
-	public ActionList allowableActions(Actor otherActor, String direction, GameMap map) {
-		ActionList actions = new ActionList();
 
-		if(otherActor.hasCapability(Status.HOSTILE_TO_ENEMY)) {
-			actions.add(new AttackAction(this, direction));
-		}
-
-		return actions;
-	}
 
 	/**
 	 * Goomba has a 10 percent chance to commit suicide every turn.
