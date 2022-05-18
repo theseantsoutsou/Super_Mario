@@ -5,6 +5,7 @@ import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Location;
 import game.Resettable;
 import game.Status;
+import game.npcs.FlyingKoopa;
 import game.npcs.Koopa;
 
 import java.util.List;
@@ -68,7 +69,12 @@ public class Tree extends HighGround implements Spawnable, Resettable {
     public void spawn(Location location) {
         Random r = new Random();
         if (r.nextInt(100) <= 15 && !location.containsAnActor()) {
-            location.addActor(new Koopa());
+            if (r.nextInt(10) <= 5) {
+                location.addActor(new Koopa());
+            }
+            else {
+                location.addActor(new FlyingKoopa());
+            }
         }
     }
 

@@ -7,9 +7,7 @@ import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.actions.DoNothingAction;
 import edu.monash.fit2099.engine.items.Item;
-import edu.monash.fit2099.engine.positions.Exit;
 import edu.monash.fit2099.engine.positions.GameMap;
-import edu.monash.fit2099.engine.positions.Location;
 import edu.monash.fit2099.engine.weapons.IntrinsicWeapon;
 import game.*;
 import game.actions.AttackAction;
@@ -19,9 +17,6 @@ import game.behaviours.Behaviour;
 import game.behaviours.FollowBehaviour;
 import game.behaviours.WanderBehaviour;
 import game.items.SuperMushroom;
-
-import java.util.Map;
-import java.util.TreeMap;
 
 /**
  * The Koopa class is a class that represents a Koopa in Super Mario, the turtle guy.
@@ -49,7 +44,20 @@ public class Koopa extends Enemy implements Resettable{
         this.addCapability(Status.CAN_SLEEP);
         this.addItemToInventory(new SuperMushroom());
         this.registerInstance();
+    }
 
+    /**
+     * Secondary constructor used in Koopa's subclasses
+     * @param name
+     * @param displayChar
+     * @param hitPoints
+     */
+    public Koopa(String name, char displayChar, int hitPoints) {
+        super(name, displayChar, hitPoints);
+        this.getBehaviours().put(3, new WanderBehaviour());
+        this.addCapability(Status.CAN_SLEEP);
+        this.addItemToInventory(new SuperMushroom());
+        this.registerInstance();
     }
 
     /**

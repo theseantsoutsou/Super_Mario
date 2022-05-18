@@ -17,6 +17,7 @@ public enum Status {
     ATTACKED,           // use this status to tell that an actor just attacked (mainly for enemies)
     GOT_ATTACKED,       // use this status to tell that an actor just got attacked (mainly for enemies)
     HOSTAGE,
+    FLY,
 
     CAN_SLEEP,          // use this status to tell that an actor can go to sleep after becoming unconscious
     DORMANT,            // use this status to tell that an actor is asleep
