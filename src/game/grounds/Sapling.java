@@ -15,10 +15,7 @@ import java.util.Random;
  * @version 2.0
  * @since 02-May-2022
  */
-public class Sapling extends HighGround implements Spawnable {
-
-    //Private Attributes
-    private int age;
+public class Sapling extends Tree {
 
     /**
      * Constructor for the Sapling class.
@@ -29,7 +26,6 @@ public class Sapling extends HighGround implements Spawnable {
      */
     public Sapling() {
         super('t', 80, 20);
-        this.age = 1;
     }
 
     /**
@@ -41,15 +37,12 @@ public class Sapling extends HighGround implements Spawnable {
      */
     @Override
     public void tick(Location location) {
-        if (this.age == 10) {
-            location.setGround(new Tree());
-
-            //spawn fire flower on location
-            this.spawn(location);
-        } else {
-            this.spawn(location);
+        if (this.getAge() == 10) {
+            location.setGround(new Mature());
+            this.addCapability(Status.CAN_GROW);
         }
-        this.age++;
+        this.spawn(location);
+        super.tick(location);
     }
 
     /**
@@ -62,14 +55,9 @@ public class Sapling extends HighGround implements Spawnable {
     public void spawn(Location location) {
         Random r = new Random();
 
-        if (this.age == 10){
-            if (r.nextInt(100) <= 50 && !location.containsAnActor()){
-                location.addItem(new FireFlower(true));
-            }
-        }else {
-            if (r.nextInt(100) <= 10) {
-                location.addItem(new Coin(location, 20));
-            }
+        if (this.getAge() < 10 && r.nextInt(100) <= 10) {
+            location.addItem(new Coin(location, 20));
         }
+        super.spawn(location);
     }
 }

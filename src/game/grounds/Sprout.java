@@ -15,11 +15,7 @@ import java.util.Random;
  * @version 2.0
  * @since 02-May-2022
  */
-public class Sprout extends HighGround implements Spawnable{
-
-    //Private Attributes
-    private int age;
-
+public class Sprout extends Tree {
     /**
      * Constructor for the Sprout class.
      * Calls its parent class Ground class's constructor to set display character.
@@ -29,7 +25,7 @@ public class Sprout extends HighGround implements Spawnable{
      */
     public Sprout() {
         super('+',90, 10);
-        this.age = 1;
+
     }
 
     /**
@@ -41,16 +37,12 @@ public class Sprout extends HighGround implements Spawnable{
      */
     @Override
     public void tick(Location location) {
-        if (this.age == 10) {
+        if (this.getAge() == 10) {
             location.setGround(new Sapling());
-
-            //spawns a FireFlower
-            this.spawn(location);
-
-        } else {
-            this.spawn(location);
+            this.addCapability(Status.CAN_GROW);
         }
-        this.age++;
+        this.spawn(location);
+        super.tick(location);
     }
 
     /**
@@ -62,16 +54,10 @@ public class Sprout extends HighGround implements Spawnable{
     @Override
     public void spawn(Location location) {
         Random r = new Random();
-        //spawn fire flower if age == 10, otherwise, do Goomba roll
-        if (this.age == 10){
-            if (r.nextInt(100) <= 50 && !location.containsAnActor()){
-                location.addItem(new FireFlower(true));
-            }
-        }else {
-            if (r.nextInt(100) <= 10 && !location.containsAnActor()) {
-                location.addActor(new Goomba());
-            }
+        if (this.getAge() < 10 && r.nextInt(100) <= 10 && !location.containsAnActor()) {
+            location.addActor(new Goomba());
         }
+        super.spawn(location);
     }
 
 
