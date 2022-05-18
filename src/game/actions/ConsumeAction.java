@@ -4,8 +4,12 @@ import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.GameMap;
+import edu.monash.fit2099.engine.positions.Ground;
+import edu.monash.fit2099.engine.positions.Location;
+import game.grounds.Dirt;
 import game.items.Consumable;
 import game.items.ConsumableItemManager;
+import game.items.FireFlower;
 import game.items.TradableItemManager;
 
 /**
@@ -20,6 +24,7 @@ public class ConsumeAction extends Action {
     //Private attributes
     private Consumable item;
 
+
     /**
      * Constructor for the ConsumeAction class.
      * Stores {@code item, this} to ConsumableItemManger to keep track of whether the item can be consumed.
@@ -32,6 +37,8 @@ public class ConsumeAction extends Action {
         this.item = item;
     }
 
+
+
     /**
      * Remove the item from the actor's inventory and from the static instance of TradableItemInventory.
      * Gives the actor the associated capability/status.
@@ -43,9 +50,14 @@ public class ConsumeAction extends Action {
      */
     @Override
     public String execute(Actor actor, GameMap map) {
-        Item consumedItem = actor.getInventory().get(actor.getInventory().indexOf(this.item));
+        if (actor.getInventory().contains(this.item)) {
+            Item consumedItem = actor.getInventory().get(actor.getInventory().indexOf(this.item));
+            actor.removeItemFromInventory(consumedItem);
+        }else{
+
+//            map.locationOf(actor).removeItem(item);
+    }
         TradableItemManager.getInstance().getTradableItems().remove(this.item);
-        actor.removeItemFromInventory(consumedItem);
         this.item.applyEffects(actor);
         return actor + " consumed a " + this.item;
     }

@@ -98,6 +98,7 @@ public class Player extends Actor implements Resettable  {
 			this.invincibleTurns = 0;
 		}
 
+
 		// Handle multi-turn Actions
 		if (lastAction.getNextAction() != null)
 			return lastAction.getNextAction();

@@ -3,6 +3,7 @@ package game.grounds;
 import edu.monash.fit2099.engine.positions.Location;
 import game.Status;
 import game.items.Coin;
+import game.items.FireFlower;
 
 import java.util.Random;
 
@@ -42,6 +43,9 @@ public class Sapling extends HighGround implements Spawnable {
     public void tick(Location location) {
         if (this.age == 10) {
             location.setGround(new Tree());
+
+            //spawn fire flower on location
+            this.spawn(location);
         } else {
             this.spawn(location);
         }
@@ -57,8 +61,15 @@ public class Sapling extends HighGround implements Spawnable {
     @Override
     public void spawn(Location location) {
         Random r = new Random();
-        if (r.nextInt(100) <= 10) {
-            location.addItem(new Coin(location,20));
+
+        if (this.age == 10){
+            if (r.nextInt(100) <= 50 && !location.containsAnActor()){
+                location.addItem(new FireFlower(true));
+            }
+        }else {
+            if (r.nextInt(100) <= 10) {
+                location.addItem(new Coin(location, 20));
+            }
         }
     }
 }

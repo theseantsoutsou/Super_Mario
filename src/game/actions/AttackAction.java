@@ -9,6 +9,8 @@ import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.weapons.Weapon;
 import game.Status;
+import game.behaviours.AttackBehaviour;
+import game.grounds.Fire;
 
 /**
  * The AttackAction class is a special Action for attacking other Actors.
@@ -64,7 +66,8 @@ public class AttackAction extends Action {
 	public String execute(Actor actor, GameMap map) {
 		String result = null;
 		Weapon weapon = actor.getWeapon();
-		int chance = (actor.hasCapability(Status.POWER_STAR))?100:weapon.chanceToHit();
+		int chance = (actor.hasCapability(Status.POWER_STAR) || actor.hasCapability(Status.FIRE_ATTACK))?100:weapon.chanceToHit();
+
 
 		actor.addCapability(Status.ATTACKED);
 		this.target.addCapability(Status.GOT_ATTACKED);
@@ -86,6 +89,13 @@ public class AttackAction extends Action {
 			}
 			return this.target + " is instakilled.";
 		}
+
+		if (actor.hasCapability(Status.FIRE_ATTACK)){
+			map.locationOf(target).setGround(new Fire());
+
+			return actor + " attacked " + this.target + " with fire.";
+		}
+
 
 		int damage = weapon.damage();
 

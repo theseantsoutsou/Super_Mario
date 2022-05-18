@@ -13,6 +13,7 @@ public enum Status {
 
     TALL,               // use this status to tell that current instance has "grown".
     POWER_STAR,         // use this status to tell that an actor is invincible
+    FIRE_ATTACK,        // use this status to tell that an actor is able to use FireAttackAction
 
     ATTACKED,           // use this status to tell that an actor just attacked (mainly for enemies)
     GOT_ATTACKED,       // use this status to tell that an actor just got attacked (mainly for enemies)
