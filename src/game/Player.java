@@ -25,6 +25,7 @@ public class Player extends Actor implements Resettable  {
 	//Private attributes
 	private final Menu menu = new Menu();
 	private int invincibleTurns = 0;
+	private int fireTurns = 0;
 
 	/**
 	 * Constructor for the Player class.
@@ -96,6 +97,19 @@ public class Player extends Actor implements Resettable  {
 		else if (this.invincibleTurns == 11) {
 			System.out.println(this + " is no longer invincible");
 			this.invincibleTurns = 0;
+		}
+
+		//fire attack counter
+		if (this.hasCapability(Status.FIRE_ATTACK)) {
+			this.fireTurns +=1;
+		}
+		if (this.fireTurns == 20){
+			this.removeCapability(Status.FIRE_ATTACK);
+			this.fireTurns +=1;
+		}
+		else if (this.fireTurns == 21){
+			System.out.println(this + " can no longer attack with fire");
+			this.fireTurns = 0;
 		}
 
 

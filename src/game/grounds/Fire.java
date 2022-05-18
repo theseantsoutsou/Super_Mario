@@ -26,7 +26,7 @@ public class Fire extends Ground {
 
     @Override
     public void tick(Location location){
-        if (this.age == 5){
+        if (this.age == 3){
             location.setGround(new Dirt());
         }
         if (location.containsAnActor()){
