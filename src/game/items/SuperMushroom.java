@@ -19,7 +19,7 @@ import java.util.List;
  */
 public class SuperMushroom extends Item implements TradableItem, Consumable {
     //Private attribute
-    private int value = 0;
+    private int value = 600;
     Action consumeAction;
 
     private Enum<Status> capability = Status.TALL;

@@ -29,8 +29,6 @@ public enum Status {
     HIGH_GROUND,        // use this status to describe a jumpable ground (e.g., sprouts, saplings, trees, walls)
     PIRANHA,            // use this status to describe a warp pipe with a piranha plant that's alive
 
-    CAN_BE_CONSUMED,
-
-    FILLABLE
+    CAN_BE_CONSUMED
 
 }

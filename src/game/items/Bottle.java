@@ -20,7 +20,7 @@ public final class Bottle extends Item implements TradableItem{
      */
     public Bottle() {
         super("Bottle", 'b', false);
-        this.addCapability(Status.FILLABLE);
+        this.addToItemManager();
         baseAttack = 0;
     }
     public void fill(Water water){

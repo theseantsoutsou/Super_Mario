@@ -20,7 +20,7 @@ import java.util.List;
  */
 public class PowerStar extends Item implements TradableItem, Consumable {
     //Private attributes
-    private int value = 0;
+    private int value = 400;
     private int age;
 
     private Enum<Status> capability = Status.POWER_STAR;
