@@ -7,6 +7,8 @@ import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.displays.Menu;
+import edu.monash.fit2099.engine.weapons.IntrinsicWeapon;
+import edu.monash.fit2099.engine.weapons.Weapon;
 import game.actions.ResetAction;
 import game.items.Bottle;
 import game.items.Wallet;
@@ -153,5 +155,13 @@ public class Player extends Actor implements Resettable  {
 		this.removeCapability(Status.TALL);
 		this.removeCapability(Status.POWER_STAR);
 		this.heal(this.getMaxHp());
+	}
+	@Override
+	public IntrinsicWeapon getIntrinsicWeapon() {
+		int baseAttack = 0;
+		for(Item i: this.getInventory()){
+			baseAttack = i instanceof Bottle ? ((Bottle)i).getBaseAttack():0;
+			}
+		return new IntrinsicWeapon(5 + baseAttack, "punches");
 	}
 }

@@ -17,7 +17,7 @@ import java.util.List;
  * @version 2.0
  * @since 02-May-2022
  */
-public class SuperMushroom extends Item implements TradableItem, ConsumableItem {
+public class SuperMushroom extends Item implements TradableItem, Consumable {
     //Private attribute
     private int value = 0;
     Action consumeAction;
@@ -79,8 +79,4 @@ public class SuperMushroom extends Item implements TradableItem, ConsumableItem 
         actor.addCapability(capability);
     }
 
-    @Override
-    public Enum<Status> getCapability() {
-        return capability;
-    }
 }

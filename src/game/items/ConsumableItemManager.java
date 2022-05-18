@@ -1,11 +1,6 @@
 package game.items;
 
-import edu.monash.fit2099.engine.actions.Action;
-import edu.monash.fit2099.engine.actors.Actor;
-import edu.monash.fit2099.engine.items.Item;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * The TradableItemManager class is a class that manages the consumable items and their specific associated actions.
@@ -18,7 +13,7 @@ public class ConsumableItemManager {
     //Private attributes
     private static ConsumableItemManager manager;
 
-    public ArrayList<ConsumableItem> consumableItems = new ArrayList<ConsumableItem>();
+    public ArrayList<Consumable> consumableItems = new ArrayList<Consumable>();
 
     /**
      * Private constructor
@@ -38,7 +33,7 @@ public class ConsumableItemManager {
         }
         return manager;
     }
-    public void appendItem(ConsumableItem item){this.consumableItems.add(item);}
+    public void appendItem(Consumable item){this.consumableItems.add(item);}
     /**
      * Replenish actor's inventory with new instances of tradable items.
      *

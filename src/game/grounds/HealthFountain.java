@@ -1,32 +1,21 @@
 package game.grounds;
 
-import edu.monash.fit2099.engine.actions.ActionList;
-import edu.monash.fit2099.engine.actors.Actor;
-import edu.monash.fit2099.engine.positions.Ground;
-import edu.monash.fit2099.engine.positions.Location;
-import game.actions.FillAction;
-import game.actions.JumpAction;
+import edu.monash.fit2099.engine.actions.Action;
+import game.items.HealingWater;
+import game.items.Water;
 
-/*
-public class Fountain extends HighGround {
-    public Fountain(){
-        super('H', 100, 0);
+public class HealthFountain extends Fountain{
+    public HealthFountain(){
+        super('H');
     }
 
     @Override
+    public Water getWater() {
+        return new HealingWater();
+    }
 
-    public ActionList allowableActions(Actor actor, Location location, String direction) {
-        ActionList actions = new ActionList();
-
-        boolean sameGround = location.map().locationOf(actor).equals(location);
-
-        if (!sameGround) {
-            actions.add(new JumpAction(this, direction));
-        }
-        else {
-            actions.add(new FillAction("Healing Water"));
-        }
-        return actions;
+    @Override
+    public String toString() {
+        return "Healing Fountain";
     }
 }
-*/

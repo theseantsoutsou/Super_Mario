@@ -1,30 +1,46 @@
 package game.items;
 
+import edu.monash.fit2099.engine.actions.Action;
+import edu.monash.fit2099.engine.actions.ActionList;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.items.Item;
 import game.Status;
+import game.actions.ConsumeWaterAction;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 
-public class Bottle extends Item implements ConsumableItem, TradableItem{
-    private ArrayList<String> contents = new ArrayList<>();
+public final class Bottle extends Item implements TradableItem{
+    private Stack<Water> contents = new Stack<>();
+
+    static int baseAttack = 0;
     /***
      * Constructor.
      */
     public Bottle() {
         super("Bottle", 'b', false);
         this.addCapability(Status.FILLABLE);
+        baseAttack = 0;
+    }
+    public void fill(Water water){
+        contents.push(water);
+    }
+    public String drink(Actor actor) {
+       Water water = contents.pop();
+       water.applyEffects(actor);
+       return water.toString();
+    }
+
+    public static void increaseBaseAttack(int value){
+        baseAttack+=value;
     }
 
     @Override
-    public void applyEffects(Actor actor) {
-
-    }
-
-    @Override
-    public Enum<Status> getCapability() {
-        return null;
+    public List<Action> getAllowableActions() {
+        List<Action> actions= new ArrayList<>();
+        if(!contents.isEmpty()){actions.add(new ConsumeWaterAction(this));}
+        return actions;
     }
 
     @Override
@@ -34,15 +50,10 @@ public class Bottle extends Item implements ConsumableItem, TradableItem{
 
     @Override
     public String toString() {
-        String name = "[";
-        for(int i =0; i< contents.size();i++){
-            if(i != contents.size()-1){
-             name += contents.get(i) + ", ";
-            }
-            else{
-                name+= contents.get(i) + "]";
-            }
-        }
-        return super.toString()+name;
+        return super.toString()+contents.toString();
+    }
+
+    public int getBaseAttack(){
+        return baseAttack;
     }
 }

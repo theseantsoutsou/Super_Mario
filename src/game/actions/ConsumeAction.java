@@ -4,8 +4,7 @@ import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.GameMap;
-import game.Status;
-import game.items.ConsumableItem;
+import game.items.Consumable;
 import game.items.ConsumableItemManager;
 import game.items.TradableItemManager;
 
@@ -19,7 +18,7 @@ import game.items.TradableItemManager;
  */
 public class ConsumeAction extends Action {
     //Private attributes
-    private ConsumableItem item;
+    private Consumable item;
 
     /**
      * Constructor for the ConsumeAction class.
@@ -29,7 +28,7 @@ public class ConsumeAction extends Action {
      *
      * @see ConsumableItemManager
      */
-    public ConsumeAction (ConsumableItem item) {
+    public ConsumeAction (Consumable item) {
         this.item = item;
     }
 

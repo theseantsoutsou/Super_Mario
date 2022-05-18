@@ -1,7 +1,6 @@
 package game.items;
 
 import edu.monash.fit2099.engine.actions.Action;
-import edu.monash.fit2099.engine.actions.ActionList;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.Location;
@@ -19,7 +18,7 @@ import java.util.List;
  * @version 2.0
  * @since 02-May-2022
  */
-public class PowerStar extends Item implements TradableItem, ConsumableItem {
+public class PowerStar extends Item implements TradableItem, Consumable {
     //Private attributes
     private int value = 0;
     private int age;
@@ -115,8 +114,4 @@ public class PowerStar extends Item implements TradableItem, ConsumableItem {
         actor.addCapability(capability);
     }
 
-    @Override
-    public Enum<Status> getCapability() {
-        return capability;
-    }
 }
