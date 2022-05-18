@@ -61,7 +61,6 @@ public class TradableItemManager {
             actor.addItemToInventory(new PowerStar(false));
             actor.addItemToInventory(new SuperMushroom(false));
             actor.addItemToInventory(new Wrench());
-            actor.addItemToInventory(new Bottle());
         }
         else {
             int size = actorInventory.size();

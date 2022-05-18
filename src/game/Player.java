@@ -44,6 +44,7 @@ public class Player extends Actor implements Resettable  {
 		this.addCapability(Status.TRADE);
 		this.addCapability(Status.CONVERSES);
 		this.addCapability(Status.RESETTABLE);
+		this.addItemToInventory(new Bottle());
 		this.registerInstance();
 	}
 

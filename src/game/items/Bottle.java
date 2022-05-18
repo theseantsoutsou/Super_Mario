@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
-public final class Bottle extends Item implements TradableItem{
+public final class Bottle extends Item {
     private Stack<Water> contents = new Stack<>();
 
     static int baseAttack = 0;
@@ -20,7 +20,6 @@ public final class Bottle extends Item implements TradableItem{
      */
     public Bottle() {
         super("Bottle", 'b', false);
-        this.addToItemManager();
         baseAttack = 0;
     }
     public void fill(Water water){
@@ -41,11 +40,6 @@ public final class Bottle extends Item implements TradableItem{
         List<Action> actions= new ArrayList<>();
         if(!contents.isEmpty()){actions.add(new ConsumeWaterAction(this));}
         return actions;
-    }
-
-    @Override
-    public int getValue() {
-        return 0;
     }
 
     @Override
