@@ -158,10 +158,6 @@ public class Player extends Actor implements Resettable  {
 	}
 	@Override
 	public IntrinsicWeapon getIntrinsicWeapon() {
-		int baseAttack = 0;
-		for(Item i: this.getInventory()){
-			baseAttack = i instanceof Bottle ? ((Bottle)i).getBaseAttack():0;
-			}
-		return new IntrinsicWeapon(5 + baseAttack, "punches");
+		return new IntrinsicWeapon(5 + Bottle.getBaseAttack(), "punches");
 	}
 }

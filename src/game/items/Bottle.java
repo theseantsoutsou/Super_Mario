@@ -47,7 +47,7 @@ public final class Bottle extends Item {
         return super.toString()+contents.toString();
     }
 
-    public int getBaseAttack(){
+    public static int getBaseAttack(){
         return baseAttack;
     }
 }
