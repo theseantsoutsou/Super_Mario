@@ -1,7 +1,7 @@
 package game.actors;
 
 public interface DrinksWater {
-    default void addToEnhancementsManager(){
+    default void registerDrinks(){
         ActorManager.getInstance().addToBaseAttackList(this);
     }
     void updateBaseAttack(int value);

@@ -14,6 +14,7 @@ import game.actions.ResetAction;
 import game.items.Bottle;
 import game.items.Wallet;
 
+
 /**
  * The Player class is a class that represents a player.
  * The Player class is subclass of the Actor class.
@@ -48,8 +49,9 @@ public class Player extends Actor implements Resettable, DrinksWater {
 		this.addCapability(Status.TRADE);
 		this.addCapability(Status.CONVERSES);
 		this.addCapability(Status.RESETTABLE);
+		this.addCapability(Status.MARIO);
 		this.addItemToInventory(new Bottle());
-		this.addToEnhancementsManager();
+		this.registerDrinks();
 		this.registerInstance();
 	}
 
@@ -173,6 +175,7 @@ public class Player extends Actor implements Resettable, DrinksWater {
 	public void resetInstance(GameMap map) {
 		this.removeCapability(Status.TALL);
 		this.removeCapability(Status.POWER_STAR);
+		this.removeCapability(Status.FIRE_ATTACK);
 		this.heal(this.getMaxHp());
 	}
 	@Override
