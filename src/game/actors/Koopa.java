@@ -10,14 +10,14 @@ import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.weapons.IntrinsicWeapon;
 import game.*;
-import game.actions.AttackAction;
+import game.actions.BasicAttackAction;
 import game.actions.BreakAction;
+import game.actions.FireAttackAction;
+import game.actions.InstakillAction;
 import game.behaviours.*;
 import game.items.SuperMushroom;
 
 import java.util.ArrayList;
-import java.util.Map;
-import java.util.TreeMap;
 
 /**
  * The Koopa class is a class that represents a Koopa in Super Mario, the turtle guy.
@@ -62,36 +62,6 @@ public class Koopa extends Enemy implements Resettable, Speaks{
         this.addCapability(Status.CAN_SLEEP);
         this.addItemToInventory(new SuperMushroom());
         this.registerInstance();
-    }
-
-    /**
-     * Returns a new collection of the Actions that the otherActor can do to Koopa.
-     * If the otherActor is hostile to Koopa, allow the otherActor to attack if Koopa is not DORMANT.
-     * If Koopa is DORMANT and the otherActor can break its shell, allow the otherActor to break his shell.
-     *
-     * @param otherActor the Actor that might be performing attack
-     * @param direction  String representing the direction of the other Actor
-     * @param map        current GameMap
-     * @return A collection of Actions.
-     * @see AttackAction
-     * @see BreakAction
-     * @see Status#DORMANT
-     * @see Status#BREAK_SHELL
-     */
-    @Override
-    public ActionList allowableActions(Actor otherActor, String direction, GameMap map) {
-
-        ActionList actions = new ActionList();
-        if (otherActor.hasCapability(Status.HOSTILE_TO_ENEMY)) {
-            if (!this.hasCapability(Status.DORMANT)) {
-                actions.add(new AttackAction(this, direction));
-            }
-            else if (otherActor.hasCapability(Status.BREAK_SHELL)) {
-                actions.add(new BreakAction(this, direction));
-            }
-        }
-
-        return actions;
     }
 
     /**

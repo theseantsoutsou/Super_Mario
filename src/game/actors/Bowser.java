@@ -3,6 +3,7 @@ package game.actors;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.weapons.IntrinsicWeapon;
 import game.Resettable;
+import game.Status;
 import game.behaviours.SpeechBehaviour;
 import game.items.Key;
 
@@ -26,6 +27,7 @@ public class Bowser extends Enemy implements Resettable {
     public Bowser(int x, int y) {
         super("Bowser", 'B', 500);
         this.addItemToInventory(new Key());
+        this.addCapability(Status.FIRE_ATTACK);
         this.addToMonologues();
         this.x = x;
         this.y = y;

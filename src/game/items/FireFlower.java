@@ -24,13 +24,8 @@ public class FireFlower extends Item implements Consumable{
      * Constructor
      *
      */
-    public FireFlower(boolean portable) {
-        super("Fire Flower", 'f', portable);
-        this.addToConsumablesManager();
-    }
-
-    public FireFlower(){
-        super("Fire Flower", 'f', true);
+    public FireFlower() {
+        super("Fire Flower", 'f', false);
         this.addToConsumablesManager();
     }
 

@@ -1,52 +1,24 @@
 package game.actions;
 
-
-import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.positions.GameMap;
-import edu.monash.fit2099.engine.positions.Ground;
-import game.Status;
-import game.grounds.Fire;
+import game.items.Fire;
 
-import java.util.Random;
+public class FireAttackAction extends AttackAction {
 
-public class FireAttackAction extends Action {
-
-    /**
-     * The Actor that is to be attacked
-     */
-    protected Actor target;
-
-    /**
-     * The direction of incoming attack.
-     */
-    protected String direction;
-
-
-    protected Ground ground;
+    protected Fire fireball;
 
     public FireAttackAction(Actor target, String direction){
-        this.target = target;
-        this.direction = direction;
+        super(target, direction);
+        this.fireball = new Fire();
     }
 
     @Override
     public String execute(Actor actor, GameMap map) {
-        this.ground = map.locationOf(target).getGround();
+        map.locationOf(this.target).addItem(this.fireball);
 
-        if (actor.hasCapability(Status.MARIO)){
-            map.locationOf(target).setGround(new Fire(actor, ground));
-
-        }else{
-            map.locationOf(target).setGround(new Fire(ground));
-        }
-
-        return "fire";
+        return this.result(map);
     }
-
-
-
-
 
     @Override
     public String menuDescription(Actor actor) {

@@ -22,6 +22,7 @@ public enum Status {
 
     CAN_SLEEP,          // use this status to tell that an actor can go to sleep after becoming unconscious
     DORMANT,            // use this status to tell that an actor is asleep
+    ROOTED,
 
     CARRIED,            // use this status to describe an item in the inventory
     BREAK_SHELL,        // use this status to describe an item that can break Koopa's shell.

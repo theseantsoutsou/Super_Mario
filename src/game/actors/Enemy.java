@@ -7,7 +7,7 @@ import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.positions.GameMap;
 import game.Status;
-import game.actions.AttackAction;
+import game.actions.*;
 import game.behaviours.AttackBehaviour;
 import game.behaviours.Behaviour;
 import game.behaviours.FollowBehaviour;
@@ -44,12 +44,14 @@ public abstract class Enemy extends Actor implements Speaks{
 
         ActionList actions = new ActionList();
 
-        if(otherActor.hasCapability(Status.HOSTILE_TO_ENEMY)) {
-            actions.add(new AttackAction(this, direction));
-            if (this.hasCapability(Status.ATTACKED) || this.hasCapability(Status.GOT_ATTACKED)) {
+        if (otherActor.hasCapability(Status.HOSTILE_TO_ENEMY)) {
+            actions.add(this.priorityAllowedAttack(otherActor, direction));
+
+            if (!this.hasCapability(Status.ROOTED)) {
                 this.behaviours.put(2, new FollowBehaviour(otherActor));
             }
         }
+
 
         return actions;
     }
@@ -66,6 +68,26 @@ public abstract class Enemy extends Actor implements Speaks{
 
         return new DoNothingAction();
     }
+
+    public AttackAction priorityAllowedAttack(Actor otherActor, String direction) {
+        AttackAction action = null;
+
+        if (!this.hasCapability(Status.DORMANT)) {
+            if (otherActor.hasCapability(Status.POWER_STAR)) {
+                action = new InstakillAction(this, direction);
+            } else if (otherActor.hasCapability(Status.FIRE_ATTACK)) {
+                action = new FireAttackAction(this, direction);
+            } else {
+                action = new BasicAttackAction(this, direction);
+            }
+        }
+        else if (otherActor.hasCapability(Status.BREAK_SHELL) || otherActor.hasCapability(Status.POWER_STAR)) {
+            action = new BreakAction(this, direction);
+        }
+
+        return action;
+    }
+
     public ArrayList<String> getMonologues(){
         return monologues;
     }

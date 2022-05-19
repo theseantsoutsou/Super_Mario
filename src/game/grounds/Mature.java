@@ -59,7 +59,6 @@ public class Mature extends Tree implements Spawnable, Resettable {
      * Interface method - Trees have a 15 percent chance of spawning a Koopa if an actor is not on it.
      *
      * @param location the location of the Tree
-     * @see Koopa
      */
     @Override
     public void spawn(Location location) {
