@@ -5,8 +5,8 @@ import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Location;
 import game.Resettable;
 import game.Status;
-import game.npcs.FlyingKoopa;
-import game.npcs.Koopa;
+import game.actors.FlyingKoopa;
+import game.actors.Koopa;
 
 import java.util.List;
 import java.util.Random;

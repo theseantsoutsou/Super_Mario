@@ -1,14 +1,12 @@
 package game.grounds;
 
 import edu.monash.fit2099.engine.actions.ActionList;
-import edu.monash.fit2099.engine.actions.MoveActorAction;
 import edu.monash.fit2099.engine.actors.Actor;
-import edu.monash.fit2099.engine.positions.Exit;
 import edu.monash.fit2099.engine.positions.Location;
 import game.Status;
 import game.actions.JumpAction;
 import game.actions.WarpAction;
-import game.npcs.PiranhaPlant;
+import game.actors.PiranhaPlant;
 
 public class WarpPipe extends HighGround implements Spawnable, Teleport{
     //Private Attribute
@@ -31,7 +29,7 @@ public class WarpPipe extends HighGround implements Spawnable, Teleport{
      * @param location The location of the Ground
      */
     public void tick(Location location) {
-        //this.age++; COMMENTED OUT FOR TESTING///////////////////////////////////////////
+        this.age++;
         if (this.age == 2) {
             this.spawn(location);
             this.addCapability(Status.PIRANHA);

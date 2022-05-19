@@ -1,4 +1,4 @@
-package game.npcs;
+package game.actors;
 
 
 import edu.monash.fit2099.engine.actions.Action;
@@ -12,11 +12,12 @@ import edu.monash.fit2099.engine.weapons.IntrinsicWeapon;
 import game.*;
 import game.actions.AttackAction;
 import game.actions.BreakAction;
-import game.behaviours.AttackBehaviour;
-import game.behaviours.Behaviour;
-import game.behaviours.FollowBehaviour;
-import game.behaviours.WanderBehaviour;
+import game.behaviours.*;
 import game.items.SuperMushroom;
+
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * The Koopa class is a class that represents a Koopa in Super Mario, the turtle guy.
@@ -26,7 +27,9 @@ import game.items.SuperMushroom;
  * @version 2.0
  * @since 02-May-2022
  */
-public class Koopa extends Enemy implements Resettable{
+public class Koopa extends Enemy implements Resettable, Speaks{
+
+    private ArrayList<String> monologues = new ArrayList<>();
     /**
      * Constructor for the Koopa class.
      * Calls its parent class Actor class's constructor to set name, display character, and HP attributes.
@@ -44,6 +47,7 @@ public class Koopa extends Enemy implements Resettable{
         this.addCapability(Status.CAN_SLEEP);
         this.addItemToInventory(new SuperMushroom());
         this.registerInstance();
+        this.addToMonologues();
     }
 
     /**
@@ -113,7 +117,6 @@ public class Koopa extends Enemy implements Resettable{
             this.resetMaxHp(50);
             this.getBehaviours().clear();
         }
-
         if (this.hasCapability(Status.DORMANT)) {
             return new DoNothingAction();
         }
@@ -147,5 +150,16 @@ public class Koopa extends Enemy implements Resettable{
             drop.execute(this, map);
         // remove actor
         map.removeActor(this);
+    }
+
+    @Override
+    public ArrayList<String> getMonologues() {
+        return monologues;
+    }
+
+    @Override
+    public void addToMonologues() {
+        this.monologues.add("Never gonna make you cry!");
+        this.monologues.add("Koopi koopi koopii~!");
     }
 }

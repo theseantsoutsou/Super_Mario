@@ -8,10 +8,11 @@ import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.positions.FancyGroundFactory;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.World;
+import game.actors.Player;
 import game.grounds.*;
 
-import game.npcs.Bowser;
-import game.npcs.Toad;
+import game.actors.Bowser;
+import game.actors.Toad;
 
 /**
  * The Application class is the main class that drives the Mario World game.

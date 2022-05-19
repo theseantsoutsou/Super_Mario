@@ -3,7 +3,7 @@ package game.grounds;
 import edu.monash.fit2099.engine.positions.Location;
 import game.Status;
 import game.items.FireFlower;
-import game.npcs.Goomba;
+import game.actors.Goomba;
 
 import java.util.Random;
 

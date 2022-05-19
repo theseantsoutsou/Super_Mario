@@ -1,24 +1,12 @@
-package game.npcs;
+package game.actors;
 
-import edu.monash.fit2099.engine.actions.Action;
-import edu.monash.fit2099.engine.actions.ActionList;
-import edu.monash.fit2099.engine.actions.DoNothingAction;
-import edu.monash.fit2099.engine.actors.Actor;
-import edu.monash.fit2099.engine.displays.Display;
-import edu.monash.fit2099.engine.positions.Exit;
 import edu.monash.fit2099.engine.positions.GameMap;
-import edu.monash.fit2099.engine.positions.Location;
 import edu.monash.fit2099.engine.weapons.IntrinsicWeapon;
 import game.Resettable;
-import game.Status;
-import game.actions.AttackAction;
-import game.behaviours.AttackBehaviour;
-import game.behaviours.Behaviour;
-import game.behaviours.FollowBehaviour;
+import game.behaviours.SpeechBehaviour;
 import game.items.Key;
 
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.ArrayList;
 
 /**
  * The Bowser class is a class that represents the non-playable character Bowser in Super Mario.
@@ -38,6 +26,7 @@ public class Bowser extends Enemy implements Resettable {
     public Bowser(int x, int y) {
         super("Bowser", 'B', 500);
         this.addItemToInventory(new Key());
+        this.addToMonologues();
         this.x = x;
         this.y = y;
         this.registerInstance();
@@ -63,5 +52,16 @@ public class Bowser extends Enemy implements Resettable {
         this.resetMaxHp(this.getMaxHp());
         this.getBehaviours().remove(2);
         map.moveActor(this, map.at(this.x, this.y));
+    }
+
+
+
+    @Override
+    public void addToMonologues() {
+        this.getMonologues().add("What was that sound? Oh, just a fire.");
+        this.getMonologues().add("Princess Peach! You are formally invited... to the creation of my new kingdom!");
+        this.getMonologues().add("Never gonna let you down!");
+        this.getMonologues().add("Wrrrrrrrrrrrrrrrryyyyyyyyyyyyyy!!!!");
+
     }
 }

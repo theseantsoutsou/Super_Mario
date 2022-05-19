@@ -1,4 +1,4 @@
-package game.npcs;
+package game.actors;
 
 import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actions.ActionList;
@@ -11,13 +11,16 @@ import game.actions.AttackAction;
 import game.behaviours.AttackBehaviour;
 import game.behaviours.Behaviour;
 import game.behaviours.FollowBehaviour;
+import game.behaviours.SpeechBehaviour;
 
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
 
-public abstract class Enemy extends Actor {
+public abstract class Enemy extends Actor implements Speaks{
     //Private attribute
     private final Map<Integer, Behaviour> behaviours = new TreeMap<>(); // priority, behaviour
+    private ArrayList<String> monologues = new ArrayList<>();
     /**
      * Constructor.
      *
@@ -28,6 +31,8 @@ public abstract class Enemy extends Actor {
     public Enemy(String name, char displayChar, int hitPoints) {
         super(name, displayChar, hitPoints);
         this.behaviours.put(1, new AttackBehaviour());
+        this.behaviours.put(2, new SpeechBehaviour(this));
+        this.registerSpeech();
     }
 
     public Map<Integer, Behaviour> getBehaviours() {
@@ -60,5 +65,8 @@ public abstract class Enemy extends Actor {
         }
 
         return new DoNothingAction();
+    }
+    public ArrayList<String> getMonologues(){
+        return monologues;
     }
 }

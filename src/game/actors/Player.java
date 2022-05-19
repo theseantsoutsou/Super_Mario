@@ -1,4 +1,4 @@
-package game;
+package game.actors;
 
 import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actions.ActionList;
@@ -8,7 +8,8 @@ import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.displays.Menu;
 import edu.monash.fit2099.engine.weapons.IntrinsicWeapon;
-import edu.monash.fit2099.engine.weapons.Weapon;
+import game.Resettable;
+import game.Status;
 import game.actions.ResetAction;
 import game.items.Bottle;
 import game.items.Wallet;
@@ -21,11 +22,13 @@ import game.items.Wallet;
  * @version 2.0
  * @since 02-May-2022
  */
-public class Player extends Actor implements Resettable  {
+public class Player extends Actor implements Resettable, DrinksWater {
 	//Private attributes
 	private final Menu menu = new Menu();
 	private int invincibleTurns = 0;
 	private int fireTurns = 0;
+
+	private int baseAttack = 0;
 
 	/**
 	 * Constructor for the Player class.
@@ -46,6 +49,7 @@ public class Player extends Actor implements Resettable  {
 		this.addCapability(Status.CONVERSES);
 		this.addCapability(Status.RESETTABLE);
 		this.addItemToInventory(new Bottle());
+		this.addToEnhancementsManager();
 		this.registerInstance();
 	}
 
@@ -173,6 +177,16 @@ public class Player extends Actor implements Resettable  {
 	}
 	@Override
 	public IntrinsicWeapon getIntrinsicWeapon() {
-		return new IntrinsicWeapon(5 + Bottle.getBaseAttack(), "punches");
+		return new IntrinsicWeapon(5 + this.getBaseAttack(), "punches");
+	}
+
+	@Override
+	public void updateBaseAttack(int value) {
+		baseAttack+=value;
+	}
+
+	@Override
+	public int getBaseAttack() {
+		return baseAttack;
 	}
 }

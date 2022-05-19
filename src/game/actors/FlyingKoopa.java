@@ -1,4 +1,4 @@
-package game.npcs;
+package game.actors;
 
 import game.Status;
 
@@ -15,5 +15,10 @@ public class FlyingKoopa extends Koopa{
     public FlyingKoopa() {
         super("Flying Koopa", 'F', 150);
         this.addCapability(Status.FLY);
+
+    }
+    @Override
+    public void addToMonologues() {
+        this.getMonologues().add("Pam pam pam!");
     }
 }

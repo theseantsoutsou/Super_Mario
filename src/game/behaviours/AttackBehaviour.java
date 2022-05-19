@@ -34,6 +34,7 @@ public class AttackBehaviour implements Behaviour {
                     && (!target.hasCapability(Status.ON_HIGH_GROUND) || actor.hasCapability(Status.FLY))) {
                 return new AttackAction(target, exit.getName());
             }
+            map.tick();
         }
         return null;
     }

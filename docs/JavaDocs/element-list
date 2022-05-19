@@ -17,4 +17,4 @@ game.actions
 game.behaviours
 game.grounds
 game.items
-game.npcs
+game.actors

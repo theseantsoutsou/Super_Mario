@@ -1,4 +1,4 @@
-package game.npcs;
+package game.actors;
 
 import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actions.ActionList;
@@ -11,9 +11,11 @@ import game.Resettable;
 import game.Status;
 import game.actions.AttackAction;
 import game.behaviours.Behaviour;
-import game.behaviours.FollowBehaviour;
+import game.behaviours.SpeechBehaviour;
 
-public class PiranhaPlant extends Enemy implements Resettable {
+import java.util.ArrayList;
+
+public class PiranhaPlant extends Enemy implements Resettable, Speaks {
     /**
      * Constructor.
      *
@@ -21,6 +23,7 @@ public class PiranhaPlant extends Enemy implements Resettable {
     public PiranhaPlant() {
         super("Piranha Plant", 'Y', 150);
         this.registerInstance();
+        this.addToMonologues();
     }
 
     @Override
@@ -65,5 +68,12 @@ public class PiranhaPlant extends Enemy implements Resettable {
     @Override
     public void resetInstance(GameMap map) {
         this.resetMaxHp(this.getMaxHp() + 50);
+    }
+
+
+    @Override
+    public void addToMonologues() {
+        this.getMonologues().add("Slsstssthshs~! (Never gonna say goodbye~)");
+        this.getMonologues().add("Ohmnom nom nom nom.");
     }
 }

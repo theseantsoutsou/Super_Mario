@@ -1,20 +1,16 @@
-package game.npcs;
+package game.actors;
 
 
 import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actions.ActionList;
-import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.weapons.IntrinsicWeapon;
 import game.*;
-import game.actions.AttackAction;
 import game.actions.SuicideAction;
-import game.behaviours.AttackBehaviour;
-import game.behaviours.Behaviour;
-import game.behaviours.FollowBehaviour;
-import game.behaviours.WanderBehaviour;
+import game.behaviours.*;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -38,7 +34,7 @@ public class Goomba extends Enemy implements Resettable {
 	public Goomba() {
 		super("Goomba", 'g', 20);
 		this.getBehaviours().put(3, new WanderBehaviour());
-		this.registerInstance();
+		this.addToMonologues();
 	}
 
 
@@ -64,7 +60,6 @@ public class Goomba extends Enemy implements Resettable {
 		if (r.nextInt(100) <= 10) {
 			return new SuicideAction();
 		}
-
 		return super.playTurn(actions, lastAction, map, display);
 	}
 
@@ -85,6 +80,14 @@ public class Goomba extends Enemy implements Resettable {
 	public void resetInstance(GameMap map){
 		map.removeActor(this);
 	}
+
+	@Override
+	public void addToMonologues() {
+		this.getMonologues().add("Mugga mugga!");
+		this.getMonologues().add("Ugha ugha... (Never gonna run around and desert you...)");
+		this.getMonologues().add("Ooga-Chaka Ooga-Ooga!");
+	}
+
 }
 
 
