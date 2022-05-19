@@ -12,6 +12,8 @@ import game.items.ConsumableItemManager;
 import game.items.FireFlower;
 import game.items.TradableItemManager;
 
+import java.util.List;
+
 /**
  * The ConsumeAction class is a special Action for using Magical Items.
  * The ConsumeAction class is a subclass of the Action class.
@@ -54,8 +56,10 @@ public class ConsumeAction extends Action {
             Item consumedItem = actor.getInventory().get(actor.getInventory().indexOf(this.item));
             actor.removeItemFromInventory(consumedItem);
         }else{
+            int physicalItem_index = map.locationOf(actor).getItems().indexOf(this.item);
+            Item physicalItem = map.locationOf(actor).getItems().get(physicalItem_index);
+            map.locationOf(actor).removeItem(physicalItem);
 
-//            map.locationOf(actor).removeItem(item);
     }
         TradableItemManager.getInstance().getTradableItems().remove(this.item);
         this.item.applyEffects(actor);

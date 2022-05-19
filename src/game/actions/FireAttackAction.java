@@ -4,17 +4,11 @@ package game.actions;
 import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.positions.GameMap;
+import edu.monash.fit2099.engine.positions.Ground;
 import game.Status;
 import game.grounds.Fire;
 
 import java.util.Random;
-
-/**
- * Notes:
- * should fire attack be a 'weapon' or an attack by itself
- *
- */
-
 
 public class FireAttackAction extends Action {
 
@@ -28,10 +22,8 @@ public class FireAttackAction extends Action {
      */
     protected String direction;
 
-    /**
-     * Random number generator
-     */
-    protected Random rand = new Random();
+
+    protected Ground ground;
 
     public FireAttackAction(Actor target, String direction){
         this.target = target;
@@ -40,20 +32,24 @@ public class FireAttackAction extends Action {
 
     @Override
     public String execute(Actor actor, GameMap map) {
+        this.ground = map.locationOf(target).getGround();
 
-        if (actor.hasCapability(Status.FIRE_ATTACK)){
-            map.locationOf(target).setGround(new Fire());
-        }
+        if (actor.hasCapability(Status.MARIO)){
+            map.locationOf(target).setGround(new Fire(actor, ground));
 
-        if (map.locationOf(target).getGround().equals('v')){
-            target.hurt(100);
+        }else{
+            map.locationOf(target).setGround(new Fire(ground));
         }
 
         return "fire";
     }
 
+
+
+
+
     @Override
     public String menuDescription(Actor actor) {
-        return null;
+        return actor + " attacks " + target + " with fire";
     }
 }

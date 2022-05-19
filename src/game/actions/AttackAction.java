@@ -91,7 +91,7 @@ public class AttackAction extends Action {
 		}
 
 		if (actor.hasCapability(Status.FIRE_ATTACK)){
-			map.locationOf(target).setGround(new Fire());
+			new FireAttackAction(this.target, this.direction).execute(actor, map);
 
 			return actor + " attacked " + this.target + " with fire.";
 		}
