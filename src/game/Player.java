@@ -9,6 +9,7 @@ import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.displays.Menu;
 import edu.monash.fit2099.engine.weapons.IntrinsicWeapon;
 import edu.monash.fit2099.engine.weapons.Weapon;
+import game.actions.FireAttackAction;
 import game.actions.ResetAction;
 import game.items.Bottle;
 import game.items.Wallet;
@@ -45,6 +46,7 @@ public class Player extends Actor implements Resettable  {
 		this.addCapability(Status.TRADE);
 		this.addCapability(Status.CONVERSES);
 		this.addCapability(Status.RESETTABLE);
+		this.addCapability(Status.MARIO);
 		this.addItemToInventory(new Bottle());
 		this.registerInstance();
 	}
@@ -169,6 +171,7 @@ public class Player extends Actor implements Resettable  {
 	public void resetInstance(GameMap map) {
 		this.removeCapability(Status.TALL);
 		this.removeCapability(Status.POWER_STAR);
+		this.removeCapability(Status.FIRE_ATTACK);
 		this.heal(this.getMaxHp());
 	}
 	@Override

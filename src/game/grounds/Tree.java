@@ -48,7 +48,8 @@ public abstract class Tree extends HighGround implements Spawnable{
     @Override
     public void spawn(Location location) {
         Random r = new Random();
-        if (this.hasCapability(Status.CAN_GROW) && r.nextInt(10) <= 5) {
+        if (this.hasCapability(Status.CAN_GROW) ){
+                //&& r.nextInt(10) <= 5) {
             location.addItem(new FireFlower(true));
         }
     }

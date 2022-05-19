@@ -6,53 +6,42 @@ import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Ground;
 import edu.monash.fit2099.engine.positions.Location;
 import game.Status;
+import game.actions.FireDamage;
 
 public class Fire extends Ground {
     private int age;
+    private Ground ground;
     /**
      * constructor
      */
-    public Fire() {
+    public Fire(Ground ground) {
         super('v');
         this.age = 1;
+        this.ground = ground;
     }
 
-//    public Fire (Actor target){
-//        super('v');
-//        this.target = target;
-//        this.age = 1;
-//
-//    }
+    public Fire(Actor actor, Ground ground){
+        super('v');
+        this.addCapability(Status.MARIO);
+        this.age = 1;
+        this.ground = ground;
+
+    }
+
 
     @Override
     public void tick(Location location){
         if (this.age == 3){
-            location.setGround(new Dirt());
+            location.setGround(ground);
         }
-        if (location.containsAnActor()){
-            this.damage(location);
+        else if (location.containsAnActor()){
+            new FireDamage(location);
 
             }
         this.age++;
     }
 
-    public void damage(Location location){
-        Actor actor = location.getActor();
-        String prompt;
-        if (!actor.hasCapability(Status.FIRE_ATTACK)){
-            actor.hurt(20);
-            prompt = actor + " was hurt by fire and lost " + 20 + " hit points.";
-            if (!actor.isConscious()){
-                GameMap map = location.map();
-                map.removeActor(actor);
-                prompt = actor + " was killed by fire.";
-            }
 
-            System.out.println(prompt);
-
-        }
-
-    }
 }
 
 
