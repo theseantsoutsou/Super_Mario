@@ -9,6 +9,7 @@ import edu.monash.fit2099.engine.positions.GameMap;
 import game.Status;
 import game.actions.RescueAction;
 import game.behaviours.Behaviour;
+import game.behaviours.FollowBehaviour;
 import game.behaviours.SpeechBehaviour;
 
 import java.util.ArrayList;
@@ -32,13 +33,16 @@ public class Peach extends Actor implements Speaks{
     public Peach() {
         super("Peach", 'P', 100);
         this.addCapability(Status.HOSTAGE);
-        this.behaviours.put(1, new SpeechBehaviour(this));
+        this.behaviours.put(2, new SpeechBehaviour(this));
         this.registerSpeech();
         this.addToMonologues();
     }
 
     public ActionList allowableActions(Actor otherActor, String direction, GameMap map) {
         ActionList actions = new ActionList();
+        if (otherActor.hasCapability(Status.ENDGAME)) {
+            this.behaviours.put(1,new FollowBehaviour(otherActor));
+        }
         if (otherActor.hasCapability(Status.HERO)) {
             actions.add(new RescueAction(this, direction));
         }
@@ -47,8 +51,7 @@ public class Peach extends Actor implements Speaks{
 
     @Override
     public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
-        if (!this.hasCapability(Status.HOSTAGE)) {
-        }
+
         for (Behaviour behaviour : behaviours.values()) {
             Action action = behaviour.getAction(this, map);
             if (action != null)

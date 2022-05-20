@@ -8,6 +8,7 @@ import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.positions.FancyGroundFactory;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.World;
+import game.actors.Peach;
 import game.actors.Player;
 import game.grounds.*;
 
@@ -81,7 +82,9 @@ public class Application {
 
 		Actor toad = new Toad();
 		Actor bowser = new Bowser(4, 10);
+		Actor peach = new Peach();
 		gameMap.addActor(bowser, lavaZone.at(4, 10));
+		gameMap.addActor(peach, lavaZone.at(3, 10));
 		gameMap.addActor(toad, gameMap.at(44, 10));
 
 		world.run();

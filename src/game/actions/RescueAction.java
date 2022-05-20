@@ -3,6 +3,7 @@ package game.actions;
 import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.positions.GameMap;
+import game.Status;
 
 public class RescueAction extends Action {
     /**
@@ -27,7 +28,9 @@ public class RescueAction extends Action {
 
     @Override
     public String execute(Actor actor, GameMap map) {
-        return null;
+        this.target.removeCapability(Status.HOSTAGE);
+        map.removeActor(actor);
+        return "Mario successfully rescued Peach!";
     }
 
     /**
