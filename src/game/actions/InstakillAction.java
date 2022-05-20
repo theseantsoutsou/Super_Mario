@@ -12,13 +12,11 @@ public class InstakillAction extends AttackAction {
 
     @Override
     public String execute(Actor actor, GameMap map) {
-        if (!this.target.hasCapability(Status.CAN_SLEEP)) {
-            map.removeActor(this.target);
-        }
-        else {
+        if (this.getTarget().hasCapability(Status.CAN_SLEEP) || this.getTarget().hasCapability(Status.ENDGAME)) {
             this.dropLoot(actor, map);
         }
-        return this.target + " is instakilled.";
+        map.removeActor(this.getTarget());
+        return this.getTarget() + " is instakilled.";
     }
 
     @Override

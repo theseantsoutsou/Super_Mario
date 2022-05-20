@@ -117,7 +117,6 @@ public class Player extends Actor implements Resettable, DrinksWater {
 			this.fireTurns = 0;
 		}
 
-
 		// Handle multi-turn Actions
 		if (lastAction.getNextAction() != null)
 			return lastAction.getNextAction();

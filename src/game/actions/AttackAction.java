@@ -5,7 +5,10 @@ import edu.monash.fit2099.engine.actions.ActionList;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.GameMap;
+import edu.monash.fit2099.engine.weapons.Weapon;
 import game.Status;
+
+import java.util.Random;
 
 public abstract class AttackAction extends Action {
 
@@ -30,10 +33,36 @@ public abstract class AttackAction extends Action {
     }
 
     @Override
-    public abstract String execute(Actor actor, GameMap map);
+    public String execute(Actor actor, GameMap map) {
+        Random rand = new Random();
+
+        Weapon weapon = actor.getWeapon();
+
+        int chance = weapon.chanceToHit();
+
+        if ((rand.nextInt(100) > chance)) {
+            return actor + " misses " + this.target + ".";
+        }
+
+        if (this.getTarget().hasCapability(Status.POWER_STAR)) {
+            return this.target + " is invincible! " + this.target + " takes no damage!";
+        }
+
+        this.implementAttack(actor, map);
+
+        int damage = weapon.damage();
+
+        this.target.hurt(damage);
+
+        return actor + " " + weapon.verb() + " " + this.target + " for " + damage + " damage." + this.result(map);
+    }
 
     @Override
     public abstract String menuDescription(Actor actor);
+
+    public void implementAttack(Actor actor, GameMap map) {
+
+    }
 
     public String result(GameMap map) {
         String result = "";

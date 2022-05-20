@@ -14,14 +14,12 @@ public class FireAttackAction extends AttackAction {
     }
 
     @Override
-    public String execute(Actor actor, GameMap map) {
-        map.locationOf(this.target).addItem(this.fireball);
-
-        return this.result(map);
+    public void implementAttack(Actor actor, GameMap map) {
+        map.locationOf(this.getTarget()).addItem(this.fireball);
     }
 
     @Override
     public String menuDescription(Actor actor) {
-        return actor + " attacks " + target + " with fire";
+        return actor + " attacks " + this.getTarget() + " with fire";
     }
 }

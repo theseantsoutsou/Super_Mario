@@ -17,12 +17,6 @@ import game.Status;
  * @since 02-May-2022
  */
 public class BasicAttackAction extends AttackAction {
-
-	/**
-	 * Random number generator
-	 */
-	protected Random rand = new Random();
-
 	/**
 	 * Constructor.
 	 * 
@@ -32,40 +26,13 @@ public class BasicAttackAction extends AttackAction {
 		super(target, direction);
 	}
 
-	/**
-	 * Execute the AttackAction.
-	 * Retrieves Actor's weapon then calculates the chance to hit opponent.
-	 * Checks to see if Power Star is active for either target and attacker and implements the appropriate attack sequence
-	 * Checks to see if target is unconscious
-	 * If target is unconscious and cannot go to sleep, remove from map.
-	 * If target is unconscious and can go to sleep, make target dormant.
-	 *
-	 * @param actor The actor performing the action
-	 * @param map The map the actor is on.
-	 * @return a String to output to console that describes the result of this attack
-	 * @see BreakAction
-	 * @see Status#CAN_SLEEP
-	 * @see Status#DORMANT
-	 */
 	@Override
-	public String execute(Actor actor, GameMap map) {
-
+	public void implementAttack(Actor actor, GameMap map) {
 		Weapon weapon = actor.getWeapon();
-		int chance = weapon.chanceToHit();
-
-		if ((rand.nextInt(100) > chance)) {
-			return actor + " misses " + this.getTarget() + ".";
-		}
-
-		if (this.getTarget().hasCapability(Status.POWER_STAR)) {
-			return this.getTarget() + " is invincible! " + this.getTarget() + " takes no damage!";
-		}
 
 		int damage = weapon.damage();
 
 		this.getTarget().hurt(damage);
-
-		return actor + " " + weapon.verb() + " " + this.getTarget() + " for " + damage + " damage." + this.result(map);
 	}
 
 	/**

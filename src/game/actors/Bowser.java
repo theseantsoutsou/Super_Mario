@@ -28,6 +28,7 @@ public class Bowser extends Enemy implements Resettable {
         super("Bowser", 'B', 500);
         this.addItemToInventory(new Key());
         this.addCapability(Status.FIRE_ATTACK);
+        this.addCapability(Status.ENDGAME);
         this.addToMonologues();
         this.x = x;
         this.y = y;

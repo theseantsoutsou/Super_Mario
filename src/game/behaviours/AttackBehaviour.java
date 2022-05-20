@@ -7,6 +7,7 @@ import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Location;
 import game.Status;
 import game.actions.BasicAttackAction;
+import game.actions.FireAttackAction;
 import game.actions.FirePunchAction;
 
 /**
@@ -34,7 +35,7 @@ public class AttackBehaviour implements Behaviour {
             if (target != null && target.hasCapability(Status.HOSTILE_TO_ENEMY)
                     && (!target.hasCapability(Status.ON_HIGH_GROUND) || actor.hasCapability(Status.FLY))) {
                 if (actor.hasCapability(Status.FIRE_ATTACK)) {
-                    return new FirePunchAction(target, exit.getName());
+                    return new FireAttackAction(target, exit.getName());
                 }
                 else {
                     return new BasicAttackAction(target, exit.getName());

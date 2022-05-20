@@ -13,6 +13,7 @@ import game.grounds.*;
 
 import game.actors.Bowser;
 import game.actors.Toad;
+import game.items.PowerStar;
 
 /**
  * The Application class is the main class that drives the Mario World game.
@@ -72,10 +73,11 @@ public class Application {
 				".................................L.................#....");
 		GameMap lavaZone = new GameMap(groundFactory, lavaMap);
 		world.addGameMap(lavaZone);
+		lavaZone.at(6,10).addItem(new PowerStar());
 		TeleportManager.getInstance().addGameMap("lavaZone", lavaZone);
 
 		Actor mario = new Player("Player", 'm', 100);
-		world.addPlayer(mario, gameMap.at(42, 10));
+		world.addPlayer(mario, lavaZone.at(6, 10));
 
 		Actor toad = new Toad();
 		Actor bowser = new Bowser(4, 10);

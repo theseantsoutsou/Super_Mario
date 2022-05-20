@@ -31,6 +31,9 @@ public class Fire extends Item {
             Actor target = currentLocation.getActor();
             target.hurt(this.damage);
             System.out.println(target + " burns!");
+            if (!currentLocation.getActor().isConscious()) {
+                currentLocation.map().removeActor(currentLocation.getActor());
+            }
         }
     }
 }
