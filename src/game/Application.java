@@ -74,12 +74,11 @@ public class Application {
 				".................................L.................#....");
 		GameMap lavaZone = new GameMap(groundFactory, lavaMap);
 		world.addGameMap(lavaZone);
-		lavaZone.at(6,10).addItem(new PowerStar());
 		TeleportManager.getInstance().addGameMap("lavaZone", lavaZone);
 
 		Actor mario = new Player("Player", 'm', 100);
 		//world.addPlayer(mario, lavaZone.at(6, 10));
-		world.addPlayer(mario, gameMap.at(40, 10));
+		world.addPlayer(mario, gameMap.at(42, 10));
 
 		Actor toad = new Toad();
 		Actor bowser = new Bowser(4, 10);

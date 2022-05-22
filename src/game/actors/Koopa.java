@@ -117,7 +117,7 @@ public class Koopa extends Enemy implements Resettable {
      */
     @Override
     public void addToMonologues() {
-        this.monologues.add("Never gonna make you cry!");
-        this.monologues.add("Koopi koopi koopii~!");
+        this.getMonologues().add("Never gonna make you cry!");
+        this.getMonologues().add("Koopi koopi koopii~!");
     }
 }
