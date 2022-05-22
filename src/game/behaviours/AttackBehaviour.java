@@ -6,7 +6,9 @@ import edu.monash.fit2099.engine.positions.Exit;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Location;
 import game.Status;
-import game.actions.AttackAction;
+import game.actions.BasicAttackAction;
+import game.actions.FireAttackAction;
+import game.actions.FirePunchAction;
 
 /**
  * The AttackBehaviour class is a class that allows for automated attacks from an actor to another.
@@ -32,9 +34,13 @@ public class AttackBehaviour implements Behaviour {
             Actor target = exit.getDestination().getActor();
             if (target != null && target.hasCapability(Status.HOSTILE_TO_ENEMY)
                     && (!target.hasCapability(Status.ON_HIGH_GROUND) || actor.hasCapability(Status.FLY))) {
-                return new AttackAction(target, exit.getName());
+                if (actor.hasCapability(Status.FIRE_ATTACK)) {
+                    return new FireAttackAction(target, exit.getName());
+                }
+                else {
+                    return new BasicAttackAction(target, exit.getName());
+                }
             }
-            map.tick();
         }
         return null;
     }

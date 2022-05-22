@@ -42,6 +42,7 @@ public class ToadSpeechAction extends SpeechAction {
      */
     @Override
     public String execute(Actor actor, GameMap map) {
+        /**
         int randVal = 0;
         int bound = target.getMonologues().size();
         if(actor.hasCapability(Status.POWER_STAR) && actor.hasCapability(Status.BREAK_SHELL)) {
@@ -54,8 +55,9 @@ public class ToadSpeechAction extends SpeechAction {
             randVal = (1+rand.nextInt(1,bound))%bound;
         }
         else{randVal = rand.nextInt(bound);}
-
-        return this.target.toString() + ": " + this.target.getMonologues().get(randVal);
+        */
+        //return this.target.toString() + ": " + this.target.getMonologues().get(randVal);
+        return this.target.toString() + ": " + this.target.getMonologues().get(0);
     }
 
     /**

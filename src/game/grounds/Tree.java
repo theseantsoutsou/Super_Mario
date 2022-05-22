@@ -3,7 +3,6 @@ package game.grounds;
 import edu.monash.fit2099.engine.positions.Location;
 import game.Status;
 import game.items.FireFlower;
-import game.actors.Goomba;
 
 import java.util.Random;
 
@@ -36,21 +35,19 @@ public abstract class Tree extends HighGround implements Spawnable{
      */
     @Override
     public void tick(Location location) {
-        this.age++;
+        this.age += 1;
     }
 
     /**
      * Interface method - Sprout has a 10% chance of spawning a Goomba on its location if an actor is not on it.
      *
      * @param location the location of the Sprout
-     * @see Goomba
      */
     @Override
     public void spawn(Location location) {
         Random r = new Random();
-        if (this.hasCapability(Status.CAN_GROW) ){
-                //&& r.nextInt(10) <= 5) {
-            location.addItem(new FireFlower(true));
+        if (this.hasCapability(Status.CAN_GROW) && r.nextInt(10) <= 5) {
+            location.addItem(new FireFlower());
         }
     }
 

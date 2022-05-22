@@ -87,8 +87,7 @@ public class Player extends Actor implements Resettable, DrinksWater {
 	 */
 	@Override
 	public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
-		if (!map.locationOf(this).getGround().hasCapability(Status.HIGH_GROUND) &&
-				this.hasCapability(Status.ON_HIGH_GROUND)) {
+		if (!map.locationOf(this).getGround().hasCapability(Status.HIGH_GROUND)) {
 			this.removeCapability(Status.ON_HIGH_GROUND);
 		}
 
@@ -117,7 +116,6 @@ public class Player extends Actor implements Resettable, DrinksWater {
 			System.out.println(this + " can no longer attack with fire");
 			this.fireTurns = 0;
 		}
-
 
 		// Handle multi-turn Actions
 		if (lastAction.getNextAction() != null)

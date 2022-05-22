@@ -22,10 +22,12 @@ public enum Status {
 
     CAN_SLEEP,          // use this status to tell that an actor can go to sleep after becoming unconscious
     DORMANT,            // use this status to tell that an actor is asleep
+    ROOTED,
 
     CARRIED,            // use this status to describe an item in the inventory
     BREAK_SHELL,        // use this status to describe an item that can break Koopa's shell.
     HERO,
+    ENDGAME,
 
     FERTILE,            // use this status to describe fertile grounds that can grow plants (dirt)
     HIGH_GROUND,        // use this status to describe a jumpable ground (e.g., sprouts, saplings, trees, walls)

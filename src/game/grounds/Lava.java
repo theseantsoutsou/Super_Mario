@@ -32,6 +32,10 @@ public class Lava extends Ground {
     public void tick(Location location) {
         if (location.containsAnActor() && location.getActor().hasCapability(Status.HOSTILE_TO_ENEMY)) {
             location.getActor().hurt(damage);
+            System.out.println(location.getActor() + " is burned by lava!");
+            if (!location.getActor().isConscious()) {
+                location.map().removeActor(location.getActor());
+            }
         }
     }
 
@@ -43,11 +47,7 @@ public class Lava extends Ground {
      */
     @Override
     public boolean canActorEnter(Actor actor) {
-        boolean canEnter = true;
-        if (!actor.hasCapability(Status.HOSTILE_TO_ENEMY)) {
-            canEnter = false;
-        }
-        return canEnter;
+        return actor.hasCapability(Status.HOSTILE_TO_ENEMY);
     }
 
 

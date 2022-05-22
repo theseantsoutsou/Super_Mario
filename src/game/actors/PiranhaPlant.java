@@ -9,11 +9,10 @@ import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.weapons.IntrinsicWeapon;
 import game.Resettable;
 import game.Status;
-import game.actions.AttackAction;
+import game.actions.BasicAttackAction;
+import game.actions.FireAttackAction;
+import game.actions.InstakillAction;
 import game.behaviours.Behaviour;
-import game.behaviours.SpeechBehaviour;
-
-import java.util.ArrayList;
 
 public class PiranhaPlant extends Enemy implements Resettable, Speaks {
     /**
@@ -24,18 +23,6 @@ public class PiranhaPlant extends Enemy implements Resettable, Speaks {
         super("Piranha Plant", 'Y', 150);
         this.registerInstance();
         this.addToMonologues();
-    }
-
-    @Override
-    public ActionList allowableActions(Actor otherActor, String direction, GameMap map) {
-
-        ActionList actions = new ActionList();
-
-        if(otherActor.hasCapability(Status.HOSTILE_TO_ENEMY)) {
-            actions.add(new AttackAction(this, direction));
-        }
-
-        return actions;
     }
 
     @Override

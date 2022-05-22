@@ -8,7 +8,7 @@ package game.items;
  * @since 02-May-2022
  */
 public class Wallet {
-    private int credits = 0;
+    private int credits = 100000;
     private static Wallet wallet;
 
     /**
