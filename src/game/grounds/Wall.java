@@ -4,20 +4,17 @@ import game.Status;
 
 /**
  * The Wall class is a class that represents a generic brick wall.
- * The Wall class is a subclass of the Ground class and implements the Jumpable interface.
+ * The Wall class is a subclass of the HighGround class.
  *
  * @author Connor Gibson, Shang-Fu Tsou, Lucus Choy
- * @version 2.0
+ * @version 3.0
  * @since 02-May-2022
  */
 public class Wall extends HighGround {
 
 	/**
 	 * Constructor for the Wall class.
-	 * Calls its parent class Ground class's constructor to set display character.
-	 * Adds a HIGH_GROUND status to its capability.
-	 *
-	 * @see Status#HIGH_GROUND
+	 * Calls its parent class's constructor to set display character, jump success rate, and fall damage.
 	 */
 	public Wall() {
 		super('#', 80, 20);

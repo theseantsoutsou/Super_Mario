@@ -8,13 +8,25 @@ import game.actions.JumpAction;
 import game.actions.WarpAction;
 import game.actors.PiranhaPlant;
 
+/**
+ * The WarpPipe class is an abstract class that represents warp pipes in Super Mario, the green tubes.
+ * The WarpPipe class is a subclass of the HighGround class and implements the Spawnable and Teleport interfaces
+ *
+ * @author Connor Gibson, Shang-Fu Tsou, Lucus Choy
+ * @version 3.0
+ * @since 17-May-2022
+ * @see Spawnable
+ * @see Teleport
+ */
 public class WarpPipe extends HighGround implements Spawnable, Teleport{
     //Private Attribute
     private int age;
     private Location destination;
 
     /**
-     * Constructor.
+     * Constructor for the WarpPipe class.
+     * Calls its parent class's constructor to set display character, jump success rate, and fall damage.
+     * Initializes age to 1.
      */
     public WarpPipe() {
         super('C', 100, 0);
@@ -89,6 +101,12 @@ public class WarpPipe extends HighGround implements Spawnable, Teleport{
         }
         return actions;
     }
+
+    /**
+     * Interface method - set the destination of the warp
+     *
+     * @param destination the destination location
+     */
     @Override
     public void setDestination(Location destination){
         this.destination = destination;

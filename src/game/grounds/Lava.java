@@ -18,7 +18,8 @@ public class Lava extends Ground {
     private int damage = 15;
 
     /**
-     * Constructor.
+     * Constructor for the Lava class
+     * Calls its parent class's constructor to set the display character.
      */
     public Lava() {
         super('L');
@@ -26,11 +27,13 @@ public class Lava extends Ground {
 
     /**
      * Ground can also experience the joy of time.
+     * Checks if there is an actor on this object. If yes, deal damage and check if the actor is still conscious.
      *
      * @param location The location of the Ground
      */
+    @Override
     public void tick(Location location) {
-        if (location.containsAnActor() && location.getActor().hasCapability(Status.HOSTILE_TO_ENEMY)) {
+        if (location.containsAnActor()) {
             location.getActor().hurt(damage);
             System.out.println(location.getActor() + " is burned by lava!");
             if (!location.getActor().isConscious()) {
@@ -40,7 +43,7 @@ public class Lava extends Ground {
     }
 
     /**
-     * Check if actor to-enter is an enemy.
+     * Check if actor to-enter is a player.
      *
      * @param actor the Actor to check
      * @return true if actor is a friendly player; false if the actor is an enemy

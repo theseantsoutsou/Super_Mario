@@ -30,7 +30,7 @@ public class Floor extends Ground {
 	 */
 	@Override
 	public boolean canActorEnter(Actor actor) {
-		Boolean canEnter = true;
+		boolean canEnter = true;
 		if (!actor.hasCapability(Status.HOSTILE_TO_ENEMY)) {
 			canEnter = false;
 		}

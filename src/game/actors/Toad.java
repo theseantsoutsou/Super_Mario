@@ -20,20 +20,21 @@ import java.util.TreeMap;
 
 /**
  * The Toad class is a class that represents the non-playable character Toad in Super Mario.
- * The Toad class is subclass of the Actor class.
+ * The Toad class is subclass of the Actor class and implements the Speaks interface.
  *
  * @author Connor Gibson, Shang-Fu Tsou, Lucus Choy
  * @version 2.0
  * @since 02-May-2022
  */
 public class Toad extends Actor implements Speaks {
-    ArrayList<String> monologues = new ArrayList<>();
     private final Map<Integer, Behaviour> behaviours = new TreeMap<>();
+    private ArrayList<String> monologues = new ArrayList<>();
     int turns = -1;
+
     /**
      * Constructor for the Toad class.
-     * Calls its parent class Actor class's constructor to set name, display character, and HP attributes.
-     * Add instances of tradable items to Toad's inventory upon instantiation
+     * Calls its parent class's constructor to set name, display character, and HP attributes.
+     * Adds Speech behaviour to the object's {@code behaviours} attribute.
      */
     public Toad() {
         super("Toad", 'O', 50);
@@ -44,7 +45,7 @@ public class Toad extends Actor implements Speaks {
 
     /**
      * Returns a new collection of the Actions that the otherActor can do to Toad
-     * If the otherActor has the ability to trade and converse, Toad will allow the actor to trade or talk with him
+     * If the otherActor has the ability to TRADe and CONVERSE, Toad will allow the actor to trade or talk with him
      *
      * @param otherActor the Actor that might be performing attack
      * @param direction  String representing the direction of the other Actor
@@ -86,11 +87,19 @@ public class Toad extends Actor implements Speaks {
         return new DoNothingAction();
     }
 
-        @Override
+    /**
+     * Interface method - Getter for the Toad's monologues
+     *
+     * @return a list of monologues
+     */
+    @Override
     public ArrayList<String> getMonologues() {
         return this.monologues;
     }
 
+    /**
+     * Interface method - stores Toad's monologues
+     */
     @Override
     public void addToMonologues() {
         this.monologues.add("You might need a wrench to smash Koopa's hard shells.");

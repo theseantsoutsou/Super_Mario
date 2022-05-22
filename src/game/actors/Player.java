@@ -17,31 +17,31 @@ import game.items.Wallet;
 
 /**
  * The Player class is a class that represents a player.
- * The Player class is subclass of the Actor class.
+ * The Player class is subclass of the Actor class and implements the Resettable and DrinksWater interfaces.
  *
  * @author Connor Gibson, Shang-Fu Tsou, Lucus Choy
  * @version 2.0
  * @since 02-May-2022
+ * @see Resettable
+ * @see DrinksWater
  */
 public class Player extends Actor implements Resettable, DrinksWater {
 	//Private attributes
 	private final Menu menu = new Menu();
 	private int invincibleTurns = 0;
 	private int fireTurns = 0;
-
 	private int baseAttack = 0;
 
 	/**
 	 * Constructor for the Player class.
 	 * Calls its parent class Actor class's constructor to set name, display character, and HP attributes.
-	 * Adds the HOSTILE_TO_ENEMY, TRADE, and CONVERSES statuses to its capabilities.
+	 * Adds the HOSTILE_TO_ENEMY, TRADE, CONVERSES, RESETTABLE, statuses to its capabilities.
+	 * Adds a new Bottle object to its inventory.
 	 *
 	 * @param name        Name to call the player in the UI
 	 * @param displayChar Character to represent the player in the UI
 	 * @param hitPoints   Player's starting number of hitpoints
-	 * @see Status#HOSTILE_TO_ENEMY
-	 * @see Status#TRADE
-	 * @see Status#CONVERSES
+	 * @see Status
 	 */
 	public Player(String name, char displayChar, int hitPoints) {
 		super(name, displayChar, hitPoints);
@@ -49,7 +49,6 @@ public class Player extends Actor implements Resettable, DrinksWater {
 		this.addCapability(Status.TRADE);
 		this.addCapability(Status.CONVERSES);
 		this.addCapability(Status.RESETTABLE);
-		this.addCapability(Status.MARIO);
 		this.addItemToInventory(new Bottle());
 		this.registerDrinks();
 		this.registerInstance();
@@ -58,7 +57,6 @@ public class Player extends Actor implements Resettable, DrinksWater {
 	/**
 	 * Do some damage to the Player.
 	 * If the player is hurt while under the effects of SuperMushroom, remove its effects.
-	 * If the Player's hitpoints go down to zero, it's game over.
 	 *
 	 * @param points number of hitpoints to deduct.
 	 * @see Actor#hurt(int points)
@@ -73,8 +71,7 @@ public class Player extends Actor implements Resettable, DrinksWater {
 
 	/**
 	 * Select and return an action to perform on the current turn.
-	 * Modifies the Player's ON_HIGH_GROUND status based on player's current location
-	 * Check if Player has POWER_STAR status and how many turns it has been in effect; remove if necessary
+	 * Check if player's current statuses
 	 * Prints Player's HP and show the menu of actions Player can perform on the console
 	 *
 	 * @param actions    collection of possible Actions for this Actor
@@ -87,14 +84,35 @@ public class Player extends Actor implements Resettable, DrinksWater {
 	 */
 	@Override
 	public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
+		this.checkStatuses(map);
+
+		// Handle multi-turn Actions
+		if (lastAction.getNextAction() != null)
+			return lastAction.getNextAction();
+
+		if(this.hasCapability(Status.RESETTABLE)){
+			actions.add(new ResetAction());
+		}
+		// print player hp
+		System.out.println(this.printHp() + " " + Wallet.getInstance().printCredits());
+		// return/print the console menu
+		return menu.showMenu(this, actions, display);
+	}
+
+	/**
+	 * Check the statuses (capabilities) of the player and modify as required
+	 *
+	 * @param map the map containing the Actor
+	 */
+	public void checkStatuses(GameMap map) {
 		if (!map.locationOf(this).getGround().hasCapability(Status.HIGH_GROUND)) {
 			this.removeCapability(Status.ON_HIGH_GROUND);
 		}
 
+		//power star counter
 		if (this.hasCapability(Status.POWER_STAR)) {
 			this.invincibleTurns += 1;
 		}
-
 		if (this.invincibleTurns == 10) {
 			this.removeCapability(Status.POWER_STAR);
 			this.invincibleTurns += 1;
@@ -116,18 +134,6 @@ public class Player extends Actor implements Resettable, DrinksWater {
 			System.out.println(this + " can no longer attack with fire");
 			this.fireTurns = 0;
 		}
-
-		// Handle multi-turn Actions
-		if (lastAction.getNextAction() != null)
-			return lastAction.getNextAction();
-
-		if(this.hasCapability(Status.RESETTABLE)){
-			actions.add(new ResetAction());
-		}
-		// print player hp
-		System.out.println(this.printHp() + " " + Wallet.getInstance().printCredits());
-		// return/print the console menu
-		return menu.showMenu(this, actions, display);
 	}
 
 	/**
@@ -176,18 +182,34 @@ public class Player extends Actor implements Resettable, DrinksWater {
 		this.removeCapability(Status.FIRE_ATTACK);
 		this.heal(this.getMaxHp());
 	}
+
+	/**
+	 * Creates and returns an intrinsic weapon for Player.
+	 *
+	 * @return a freshly-instantiated IntrinsicWeapon
+	 */
 	@Override
 	public IntrinsicWeapon getIntrinsicWeapon() {
-		return new IntrinsicWeapon(5 + this.getBaseAttack(), "punches");
+		return new IntrinsicWeapon(5 + this.baseAttack, "punches");
 	}
 
+	/**
+	 * Updates player's base attack value
+	 *
+	 * @param value the value which the base attack increases by
+	 */
 	@Override
 	public void updateBaseAttack(int value) {
-		baseAttack+=value;
+		this.baseAttack += value;
 	}
 
+	/**
+	 * Interface method - Getter for player's base attack
+	 *
+	 * @return player's base attack value
+	 */
 	@Override
 	public int getBaseAttack() {
-		return baseAttack;
+		return this.baseAttack;
 	}
 }

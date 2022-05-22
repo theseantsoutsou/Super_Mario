@@ -9,20 +9,17 @@ import java.util.Random;
 
 /**
  * The Sapling class is a class that represents the second stage of a tree's life cycle.
- * The Sapling class is a subclass of the Ground class and implements the Jumpable interface.
+ * The Sapling class is a subclass of the Tree class.
  *
  * @author Connor Gibson, Shang-Fu Tsou, Lucus Choy
- * @version 2.0
+ * @version 3.0
  * @since 02-May-2022
  */
 public class Sapling extends Tree {
 
     /**
      * Constructor for the Sapling class.
-     * Calls its parent class Ground class's constructor to set display character.
-     * Initializes its age to 0 and adds a HIGH_GROUND status to its capability.
-     *
-     * @see Status#HIGH_GROUND
+     * Calls its parent class's constructor to set display character, jump success rate, and fall damage
      */
     public Sapling() {
         super('t', 80, 20);
@@ -30,10 +27,12 @@ public class Sapling extends Tree {
 
     /**
      * Ground can also experience the joy of time.
-     * Ran every player turn, increments Sapling's age; grows into a tree after 10 rounds.
-     * Tries to spawn a $20 coin if it does not grow into a Tree.
+     * Ran every player turn, check Sapling's age; grows into a mature tree after 10 rounds and gains the status CAN_GROW
+     * Tries to spawn a $20 coin (and FireFlower if its age == 10).
+     * Increments age by calling the parent class's tick function.
      *
      * @param location The location of the Sapling
+     * @see Status#CAN_GROW
      */
     @Override
     public void tick(Location location) {
@@ -47,6 +46,7 @@ public class Sapling extends Tree {
 
     /**
      * Interface method - Saplings have a 10 percent chance of spawning a coin at its location.
+     * Calls the parent class's spawn function to try and spawn a FireFlower if conditions are met.
      *
      * @param location the sapling's location
      * @see Coin

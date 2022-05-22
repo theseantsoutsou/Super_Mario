@@ -34,8 +34,6 @@ public enum Status {
     PIRANHA,            // use this status to describe a warp pipe with a piranha plant that's alive
     CAN_GROW,
 
-    MARIO,              //status indicating which actor is mario, and what ground objects were placed by him
-
     CAN_BE_CONSUMED
 
 }
