@@ -3,7 +3,8 @@ package game.items;
 import java.util.ArrayList;
 
 /**
- * The TradableItemManager class is a class that manages the consumable items and their specific associated actions.
+ * The ConsumableItemManager class is a singleton class that manages the consumable items and their
+ * specific associated actions.
  *
  * @author Connor Gibson, Shang-Fu Tsou, Lucus Choy
  * @version 2.0
@@ -11,7 +12,13 @@ import java.util.ArrayList;
  */
 public class ConsumableItemManager {
     //Private attributes
+    /**
+     * static Singleton instance
+     */
     private static ConsumableItemManager manager;
+    /**
+     * Array of Consumable type
+     */
 
     public ArrayList<Consumable> consumableItems = new ArrayList<Consumable>();
 
@@ -33,10 +40,11 @@ public class ConsumableItemManager {
         }
         return manager;
     }
-    public void appendItem(Consumable item){this.consumableItems.add(item);}
+
     /**
-     * Replenish actor's inventory with new instances of tradable items.
-     *
-     * @param actor Actor whose inventory is to be replenished (i.e. Toad)
+     * Add item to the ArrayList
+     * @param item
      */
+    public void appendItem(Consumable item){this.consumableItems.add(item);}
+
 }

@@ -40,7 +40,6 @@ public class ConsumeAction extends Action {
     }
 
 
-
     /**
      * Remove the item from the actor's inventory and from the static instance of TradableItemInventory.
      * Gives the actor the associated capability/status.

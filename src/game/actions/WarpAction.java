@@ -6,6 +6,12 @@ import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Location;
 
+/**
+ * The WarpAction class implements the logic that allows an Actor to teleport between maps using WarpPipes
+ * This class extend the MoveActorAction and overrides its execution method.
+ * @author Sean Tsou, Connor McCloud-Gibson
+ * @since 15/05/22
+ */
 public class WarpAction extends MoveActorAction {
 
     public WarpAction(Location moveToLocation) {

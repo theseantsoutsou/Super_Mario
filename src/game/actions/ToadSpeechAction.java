@@ -10,13 +10,13 @@ import java.util.Random;
 import java.util.concurrent.Callable;
 
 /**
- * The SpeakAction class is a special Action for Toad to say random lines based on the player's capabilities
+ * The ToadSpeechAction class is a special Action for Toad to say random lines based on the player's capabilities
  * (i.e. should not say first line if the player has a wrench in their inventory)
  * The SpeakAction class is a subclass of the Action class.
  *
- * @author Connor Gibson, Shang-Fu Tsou, Lucus Choy
+ * @author Connor Gibson
  * @version 2.0
- * @since 02-May-2022
+ * @since 17-May-2022
  */
 public class ToadSpeechAction extends SpeechAction {
     //Private attributes

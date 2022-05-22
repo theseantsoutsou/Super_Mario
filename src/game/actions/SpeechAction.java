@@ -10,13 +10,12 @@ import java.util.Random;
 import java.util.concurrent.Callable;
 
 /**
- * The SpeakAction class is a special Action for Toad to say random lines based on the player's capabilities
- * (i.e. should not say first line if the player has a wrench in their inventory)
- * The SpeakAction class is a subclass of the Action class.
+ * The SpeakAction class is an Action which allows actors that implement the Speaks interface
+ * to have random monologues.
  *
- * @author Connor Gibson, Shang-Fu Tsou, Lucus Choy
+ * @author Connor Gibson
  * @version 2.0
- * @since 02-May-2022
+ * @since 18-May-2022
  */
 public class SpeechAction extends Action {
     //Private attributes
@@ -36,8 +35,7 @@ public class SpeechAction extends Action {
 
     /**
      * Execute SpeakAction.
-     * Checks the capabilities of the player to determine which lines would make sense for the NPC target to say.
-     *
+     * Retrieves list of monologues and randomly selects one.
      * @param actor The actor performing the action.
      * @param map   The map the actor is on.
      * @return A String that provide hints to the player
@@ -57,7 +55,6 @@ public class SpeechAction extends Action {
      */
     @Override
     public String menuDescription(Actor actor) {
-        return String.format("Speak with %s.", target.toString());
+        return null;
     }
-
 }

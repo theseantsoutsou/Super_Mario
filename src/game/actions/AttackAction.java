@@ -10,6 +10,11 @@ import game.Status;
 
 import java.util.Random;
 
+/**
+ * Abstract class which extends the Action class and contains the logic for attacking.
+ * @author Sean Tsou
+ * @since 15/05/22
+ */
 public abstract class AttackAction extends Action {
 
     /**
@@ -33,6 +38,11 @@ public abstract class AttackAction extends Action {
     }
 
     @Override
+    /**
+     * Execute an attack on target on another actor
+     * @param actor, map
+     * @return String
+     */
     public String execute(Actor actor, GameMap map) {
         Random rand = new Random();
 
@@ -64,6 +74,11 @@ public abstract class AttackAction extends Action {
 
     }
 
+    /**
+     * Get result of the attack. Removes deceased Actor, makes Koopa dormant.
+     * @param map
+     * @return String
+     */
     public String result(GameMap map) {
         String result = "";
         if (!this.target.isConscious()) {
@@ -80,6 +95,12 @@ public abstract class AttackAction extends Action {
         return result;
     }
 
+    /**
+     * Defeated Actor drops contents of inventory.
+     * @param actor
+     * @param map
+     */
+
     public void dropLoot(Actor actor, GameMap map) {
         ActionList dropActions = new ActionList();
         // drop all items
@@ -89,9 +110,18 @@ public abstract class AttackAction extends Action {
             drop.execute(this.target, map);
     }
 
+    /**
+     * Return a reference to the target of the attack.
+     * @return Actor
+     */
     public Actor getTarget() {
         return this.target;
     }
+
+    /**
+     * Get the direction of the attack
+     * @return String
+     */
 
     public String getDirection() {
         return this.direction;

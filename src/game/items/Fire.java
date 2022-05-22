@@ -4,8 +4,18 @@ import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.Location;
 
+/**
+ * Fire Item which is spawned during FireAttackAction. Hurts actor at its location.
+ */
 public class Fire extends Item {
+    /**
+     * Used to track the amount of turns since the object was instantiated.
+     */
     private int age;
+    /**
+     *
+     * Damage dealt to Actor
+     */
     private int damage = 20;
 
     /**

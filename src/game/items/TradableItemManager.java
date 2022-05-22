@@ -53,7 +53,11 @@ public class TradableItemManager {
     public void appendItem(TradableItem item){
         tradableItems.add(item);
     }
-
+    /**
+     * Replenish actor's inventory with new instances of tradable items.
+     *
+     * @param actor Actor whose inventory is to be replenished (i.e. Toad)
+     */
     public void replenishInventory(Actor actor){
         List<Item> actorInventory = actor.getInventory();
         Boolean contains = false;

@@ -9,7 +9,8 @@ import edu.monash.fit2099.engine.weapons.Weapon;
 import game.Status;
 
 /**
- * The AttackAction class is a special Action for attacking other Actors.
+ * The BasicAttackAction extends the abstract AttackAction class. It implements simplified logic
+ * for attack another actor.
  * The AttackAction class is a subclass of the Action class.
  *
  * @author Connor Gibson, Shang-Fu Tsou, Lucus Choy
