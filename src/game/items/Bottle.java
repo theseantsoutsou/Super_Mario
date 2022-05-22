@@ -46,7 +46,7 @@ public final class Bottle extends Item {
 
     /**
      * Get allowable actions for the item (ConsumeWaterAction)
-     * @return List<Action>
+     * @return list of actions
      */
     @Override
     public List<Action> getAllowableActions() {

@@ -40,7 +40,7 @@ public class Peach extends Actor implements Speaks{
     public Peach() {
         super("Peach", 'P', 100);
         this.addCapability(Status.HOSTAGE);
-        this.behaviours.put(2, new SpeechBehaviour(this));
+        this.behaviours.put(1, new SpeechBehaviour(this));
         this.registerSpeech();
         this.addToMonologues();
     }

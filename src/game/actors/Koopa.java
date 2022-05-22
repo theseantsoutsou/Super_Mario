@@ -37,11 +37,10 @@ public class Koopa extends Enemy implements Resettable {
      */
     public Koopa() {
         super("Koopa", 'K', 100);
-        this.getBehaviours().put(3, new WanderBehaviour());
+        this.getBehaviours().put(4, new WanderBehaviour());
         this.addCapability(Status.CAN_SLEEP);
         this.addItemToInventory(new SuperMushroom());
         this.registerInstance();
-        this.addToMonologues();
     }
 
     /**
@@ -53,7 +52,7 @@ public class Koopa extends Enemy implements Resettable {
      */
     public Koopa(String name, char displayChar, int hitPoints) {
         super(name, displayChar, hitPoints);
-        this.getBehaviours().put(3, new WanderBehaviour());
+        this.getBehaviours().put(4, new WanderBehaviour());
         this.addCapability(Status.CAN_SLEEP);
         this.addItemToInventory(new SuperMushroom());
         this.registerInstance();

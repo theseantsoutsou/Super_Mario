@@ -29,7 +29,7 @@ import java.util.TreeMap;
 public class Toad extends Actor implements Speaks {
     private final Map<Integer, Behaviour> behaviours = new TreeMap<>();
     private ArrayList<String> monologues = new ArrayList<>();
-    int turns = -1;
+    private int turns = -1;
 
     /**
      * Constructor for the Toad class.

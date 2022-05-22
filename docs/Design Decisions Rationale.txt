@@ -1,9 +1,20 @@
 Assignment 3 Rationale:
 
+//////Update A2 Design//////
+- All enemy characters now extend from an abstract Enemy class.
+    - This is done to follow the DRY principle as many enemy characters' classes implements the same or similar logic.
+- All damaging actions now extend an abstract AttackAction class.
+    - This is done to both follow the DRY principle and to follow the Single-Responsibility principle by avoiding having one class that
+      determines the type of attack generated based on players statuses.
+      Instead, separate classes now handle different attacks, while extending the properties of AttackAction.
+- Tree is now an abstract class extending HighGround. The three stages of Tree's life now extend Tree.
+- The above refactoring also allows the code to better implement OCP. The use of abstraction allow for further developments, should more enemies,
+  more damaging attacks, or more high grounds be added.
+
 //////REQ1//////
 - TeleportManager class is a singleton class that is used to store a reference to the different GameMaps and a reference to
 locations that implement the interface Teleport.
-- The TeleportManager class allows for the access of GameMap types outside of the World class and positions package.
+- The TeleportManager class allows for the access of GameMap types outside the World class and positions package.
 - By storing instances of Teleport objects in the manager, these objects and the Teleport methods can be accessed in sections of the
     code where only objects of the Location class are available. This avoids instanceof and type conversion.
 - The WarpPipe has a destination Location as an attribute, which is the connected WarpPipe to teleport to.
@@ -13,7 +24,18 @@ locations that implement the interface Teleport.
     be able to travel back to the WarpPipe of origin.
 - If an enemy is on top of any WarpPipe that is being teleported to, it is removed from the map prior to the player having teleported.
 
+
 //////REQ2//////
+- Extending from Assignment 2, an abstract Enemy class was created, from which all existing and new enemy characters' classes extend, except Flying Koopa.
+    - This implementation aims to follow the DRY principle and reduce as much repetitive code as possible.
+- Flying Koopa will extend from Koopa instead, as they have nearly identical attributes other than hitpoints and an additional monologue.
+    - This implementation helps fortify the LSP principle as where Koopa is expected, Flying Koopa should be a valid parameter as well.
+- Entry to a HighGround is now done by checking if the actor to enter has the status FLY.
+- Bowser will implement the same FireAttackAction as the player as their FireAttack function is identical based on the requirements.
+- The endgame is checked through the use of statuses. In Peach allowableActions, the status of HERO is checked for the other actor.
+  This status is provided through the acquisition of the Key object dropped by Bowser. This implementation leaves room for the program to grow,
+  as the win-condition is not limited by a specific object/instance.
+
 
 //////REQ3//////
 - The Bottle class extends the Item class. It is added to the Player's inventory at the start of the game.
@@ -34,6 +56,12 @@ locations that implement the interface Teleport.
 - All actors that implement the DrinksWater interface have a reference stored in the ActorManager class.
 
 //////REQ4//////
+- The FireFlower extends Item and allow players to consume it directly from the ground by calling its parent method addAction() in the getAllowableActions() method.
+- FireAttackAction as mentioned above extends the abstract class AttackAction and inherits all the properties of a damaging attack.
+    - This eliminates repetitive code (DRY) and opens the program up for further modification if necessary.
+- The Fire dropped by FireAttackAction is a separate class which extends Item (non-portable) as well.
+- The damage dealt by Fire to actors standing on it is done during the object's tick() method.
+    - Doing so will reduce dependencies as it takes away additional dependencies that would have been checked in FireAttackAction instead.
 
 //////REQ5//////
 - Actors that have monologues implement the Speaks interface. Instances of these Actors are stored in the ActorManager class using the registerSpeech() method.

@@ -32,8 +32,7 @@ public class Goomba extends Enemy implements Resettable {
 	 */
 	public Goomba() {
 		super("Goomba", 'g', 20);
-		this.getBehaviours().put(3, new WanderBehaviour());
-		this.addToMonologues();
+		this.getBehaviours().put(4, new WanderBehaviour());
 	}
 
 	/**

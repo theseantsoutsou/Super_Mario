@@ -14,7 +14,7 @@ public class ConsumeWaterAction extends Action {
     /**
      * The Bottle object which contains the water objects to be consumed
      */
-    Bottle item;
+    private Bottle item;
     /**
      * Constructor for the ConsumeWaterAction class.
      *

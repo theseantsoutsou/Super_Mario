@@ -30,7 +30,6 @@ public class PiranhaPlant extends Enemy implements Resettable {
     public PiranhaPlant() {
         super("Piranha Plant", 'Y', 150);
         this.registerInstance();
-        this.addToMonologues();
     }
 
     /**

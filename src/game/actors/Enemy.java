@@ -42,8 +42,9 @@ public abstract class Enemy extends Actor implements Speaks{
     public Enemy(String name, char displayChar, int hitPoints) {
         super(name, displayChar, hitPoints);
         this.behaviours.put(1, new AttackBehaviour());
-        this.behaviours.put(2, new SpeechBehaviour(this));
+        this.behaviours.put(3, new SpeechBehaviour(this));
         this.registerSpeech();
+        this.addToMonologues();
     }
 
     /**

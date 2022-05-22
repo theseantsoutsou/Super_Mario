@@ -37,7 +37,6 @@ public class Bowser extends Enemy implements Resettable {
         this.addCapability(Status.ENDGAME);
         this.x = x;
         this.y = y;
-        this.addToMonologues();
         this.registerInstance();
     }
 

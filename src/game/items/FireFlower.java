@@ -31,17 +31,20 @@ public class FireFlower extends Item implements Consumable{
         this.addToConsumablesManager();
     }
 
+    /**
+     * Returns new ConsumeAction for player to consume.
+     * @return list of allowable actions
+     */
     @Override
     public List<Action> getAllowableActions(){
-        List<Action> actions = new ArrayList<>();
-        actions.add(new ConsumeAction(this));
+        this.addAction(new ConsumeAction(this));
 
-        return actions;
+        return super.getAllowableActions();
     }
 
     /**
      * Implementation of method from Consumable interface. Applies the effects of FireFlower to the Actor.
-     * @param actor
+     * @param actor the actor to apply effects to
      */
     @Override
     public void applyEffects(Actor actor) {
