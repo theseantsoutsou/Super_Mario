@@ -17,16 +17,27 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
 
+/**
+ * The Enemy class is an abstract class that represents the enemy characters in Super Mario.
+ * The Enemy class is subclass of the Actor class and implements the Speaks interface.
+ *
+ * @author Connor Gibson, Shang-Fu Tsou, Lucus Choy
+ * @version 3.0
+ * @since 19-May-2022
+ */
 public abstract class Enemy extends Actor implements Speaks{
     //Private attribute
     private final Map<Integer, Behaviour> behaviours = new TreeMap<>(); // priority, behaviour
     private ArrayList<String> monologues = new ArrayList<>();
+
     /**
-     * Constructor.
+     * Constructor for the Enemy class.
+     * Calls on its parent class's constructor to register its {@code name}, {@code displayChar}, and {@code hitPoints}
+     * Adds new Attack and Speech behaviours to the object's {@code behaviours} attribute.
      *
-     * @param name        the name of the Actor
-     * @param displayChar the character that will represent the Actor in the display
-     * @param hitPoints   the Actor's starting hit points
+     * @param name        the name of the Enemy
+     * @param displayChar the character that will represent the Enemy in the display
+     * @param hitPoints   the Enemy's starting hit points
      */
     public Enemy(String name, char displayChar, int hitPoints) {
         super(name, displayChar, hitPoints);
@@ -35,10 +46,15 @@ public abstract class Enemy extends Actor implements Speaks{
         this.registerSpeech();
     }
 
-    public Map<Integer, Behaviour> getBehaviours() {
-        return this.behaviours;
-    }
-
+    /**
+     * Returns the allowable actions the otherActor can do this Enemy object based on their capabilities.
+     * Checks if the otherActor is HOSTILE_TO_ENEMY and if THIS object is not ROOTED, make it follow the otherActor.
+     *
+     * @param otherActor the Actor that might be performing attack
+     * @param direction  String representing the direction of the other Actor
+     * @param map        current GameMap
+     * @return A collection of allowable Actions.
+     */
     @Override
     public ActionList allowableActions(Actor otherActor, String direction, GameMap map) {
 
@@ -52,10 +68,18 @@ public abstract class Enemy extends Actor implements Speaks{
             }
         }
 
-
         return actions;
     }
 
+    /**
+     * Select and return an action to perform on the current turn based on its behaviours
+     *
+     * @param actions    collection of possible Actions for this Actor
+     * @param lastAction The Action this Actor took last turn. Can do interesting things in conjunction with Action.getNextAction()
+     * @param map        the map containing the Actor
+     * @param display    the I/O object to which messages may be written
+     * @return the action to be performed during this object's turn.
+     */
     @Override
     public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
 
@@ -69,6 +93,12 @@ public abstract class Enemy extends Actor implements Speaks{
         return new DoNothingAction();
     }
 
+    /**
+     *
+     * @param otherActor the Actor that might be performing attack
+     * @param direction  String representing the direction of the other Actor
+     * @return an {@code AttackAction} based on the otherActor's capabilities
+     */
     public AttackAction priorityAllowedAttack(Actor otherActor, String direction) {
         AttackAction action = null;
 
@@ -88,7 +118,22 @@ public abstract class Enemy extends Actor implements Speaks{
         return action;
     }
 
+    /**
+     * Getter for the {@code behaviours} attribute.
+     *
+     * @return the {@code behaviours} attribute containing the Enemy's behaviours
+     */
+    public Map<Integer, Behaviour> getBehaviours() {
+        return this.behaviours;
+    }
+
+    /**
+     * Interface method - Getter for the Enemy object's monologues
+     *
+     * @return a list of monologues
+     */
+    @Override
     public ArrayList<String> getMonologues(){
-        return monologues;
+        return this.monologues;
     }
 }

@@ -8,13 +8,29 @@ import game.Status;
 import game.actions.FlattenAction;
 import game.actions.JumpAction;
 
+/**
+ * The HighGround class is an abstract class that represents high grounds.
+ * The HighGround class is a subclass of the Ground class
+ *
+ * @author Connor Gibson, Shang-Fu Tsou, Lucus Choy
+ * @version 3.0
+ * @since 17-May-2022
+ */
 public abstract class HighGround extends Ground {
-    private int jumpSuccessRate;
-    private int fallDamage;
+    //Private attributes
+    private final int jumpSuccessRate;
+    private final int fallDamage;
+
     /**
-     * Constructor.
+     * Constructor for the HighGround class.
+     * Calls its parent class's constructor to set display character.
+     * Sets the {@code jumpSuccessRate} and {@code fallDamage} attributes.
+     * Adds the status HIGH_GROUND to the object's capability set.
      *
-     * @param displayChar character to display for this type of terrain
+     * @param displayChar       character to display for this type of terrain
+     * @param jumpSuccessRate   the success rate of jumping onto this terrain
+     * @param fallDamage        the damage taken from falling from this terrain
+     * @see Status#HIGH_GROUND
      */
     public HighGround(char displayChar, int jumpSuccessRate, int fallDamage) {
         super(displayChar);
@@ -23,18 +39,18 @@ public abstract class HighGround extends Ground {
         this.addCapability(Status.HIGH_GROUND);
     }
     /**
-     * Getter method for the static variable JUMP_SUCCESS_RATE.
+     * Getter method for the jumpSuccessRate attribute.
      *
-     * @return the success rate of jumping onto a Sprout object
+     * @return the success rate of jumping onto a HighGround object
      */
     public int getSuccessRate() {
         return this.jumpSuccessRate;
     }
 
     /**
-     * Getter method for the static variable FALL_DAMAGE.
+     * Getter method for the fallDamage attribute.
      *
-     * @return the fall damage from the high grouh
+     * @return the fall damage from the HighGround object
      */
     public int getFallDamage() {
         return this.fallDamage;
@@ -42,9 +58,11 @@ public abstract class HighGround extends Ground {
 
     /**
      * Actors cannot move to high-grounds unconditionally.
+     * Check if the actor has the status FLY to unconditionally move onto high grounds.
      *
      * @param actor the Actor to check
-     * @return false
+     * @return true if the actor can fly; false otherwise
+     * @see Status#FLY
      */
     @Override
     public boolean canActorEnter(Actor actor) {

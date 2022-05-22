@@ -4,34 +4,40 @@ import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.weapons.IntrinsicWeapon;
 import game.Resettable;
 import game.Status;
-import game.behaviours.SpeechBehaviour;
 import game.items.Key;
 
-import java.util.ArrayList;
-
 /**
- * The Bowser class is a class that represents the non-playable character Bowser in Super Mario.
- * The Bowser class is subclass of the Actor class.
+ * The Bowser class is a class that represents the enemy character Bowser in Super Mario.
+ * The Bowser class is subclass of the Enemy class and implements the Resettable interface.
  *
  * @author Connor Gibson, Shang-Fu Tsou, Lucus Choy
- * @version 2.0
- * @since 02-May-2022
+ * @version 3.0
+ * @since 19-May-2022
+ * @see Enemy
+ * @see Resettable
  */
 public class Bowser extends Enemy implements Resettable {
     //Private attributes
     private int x;
     private int y;
+
     /**
      * Constructor.
+     * Calls the constructor from its parent class to implement the basic characteristics of an Enemy character.
+     * Adds the statuses FIRE_ATTACK and ENDGAME to its capability set.
+     * Saves its coordinates as an attribute for reset purposes.
+     *
+     * @param x the x ordinate of where Bowser is placed on the map
+     * @param y the y ordinate of where Bowser is placed on the map
      */
     public Bowser(int x, int y) {
         super("Bowser", 'B', 500);
         this.addItemToInventory(new Key());
         this.addCapability(Status.FIRE_ATTACK);
         this.addCapability(Status.ENDGAME);
-        this.addToMonologues();
         this.x = x;
         this.y = y;
+        this.addToMonologues();
         this.registerInstance();
     }
 
@@ -57,8 +63,9 @@ public class Bowser extends Enemy implements Resettable {
         map.moveActor(this, map.at(this.x, this.y));
     }
 
-
-
+    /**
+     * Interface method - adds Bowser's monologue lines to the private ArrayList attribute {@code monologue}.
+     */
     @Override
     public void addToMonologues() {
         this.getMonologues().add("What was that sound? Oh, just a fire.");

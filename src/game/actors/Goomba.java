@@ -10,25 +10,24 @@ import game.*;
 import game.actions.SuicideAction;
 import game.behaviours.*;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 /**
- * The Goomba class is a class that represents a Goomba in Super Mario, the little fungus guy.
- * The Goomba class is a subclass of the Actor class.
+ * The Goomba class is a class that represents the enemy character Goomba in Super Mario, the little fungus guy.
+ * The Goomba class is a subclass of the Enemy class and implements the Resettable interface.
  *
  * @author Connor Gibson, Shang-Fu Tsou, Lucus Choy
- * @version 2.0
+ * @version 3.0
  * @since 02-May-2022
+ * @see Enemy
+ * @see Resettable
  */
 public class Goomba extends Enemy implements Resettable {
 	/**
 	 * Constructor for the Goomba class.
-	 * Calls its parent class Actor class's constructor to set name, display character, and HP attributes.
-	 * Loads new behaviours to its behaviours attribute in order of priority.
+	 * Calls its parent class's constructor to set all the characteristics of an Enemy character.
+	 * Loads an additional WanderBehaviour to its behaviours as it is able to wander around.
 	 *
-	 * @see FollowBehaviour
-	 * @see AttackBehaviour
 	 * @see WanderBehaviour
 	 */
 	public Goomba() {
@@ -37,22 +36,17 @@ public class Goomba extends Enemy implements Resettable {
 		this.addToMonologues();
 	}
 
-
-
 	/**
 	 * Goomba has a 10 percent chance to commit suicide every turn.
-	 * If Goomba is engaged in a fight, it follows the other actor engaged
+	 * Calls the playTurn function in its parent class to check the valid action based on its behaviours
 	 * Goomba will either follow another actor, attack the other actor, or wander around.
 	 *
 	 * @param actions    collection of possible Actions for this Actor
 	 * @param lastAction The Action this Actor took last turn. Can do interesting things in conjunction with Action.getNextAction()
 	 * @param map        the map containing the Actor
 	 * @param display    the I/O object to which messages may be written
-	 * @return an Action
+	 * @return the action to be performed during this object's turn.
 	 * @see SuicideAction
-	 * @see Behaviour
-	 * @see	Status#ATTACKED
-	 * @see Status#GOT_ATTACKED
 	 */
 	@Override
 	public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
@@ -81,6 +75,9 @@ public class Goomba extends Enemy implements Resettable {
 		map.removeActor(this);
 	}
 
+	/**
+	 * Interface method - stores Goomba's monologues
+	 */
 	@Override
 	public void addToMonologues() {
 		this.getMonologues().add("Mugga mugga!");
