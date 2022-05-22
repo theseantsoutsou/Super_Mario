@@ -17,17 +17,17 @@ public enum Status {
 
     ATTACKED,           // use this status to tell that an actor just attacked (mainly for enemies)
     GOT_ATTACKED,       // use this status to tell that an actor just got attacked (mainly for enemies)
-    HOSTAGE,
-    FLY,
+    HOSTAGE,            // use this status to tell that an actor is held hostage (only for peach currently)
+    FLY,                // use this status to tell that an actor can fly over high grounds (flying koopa only for now)
 
     CAN_SLEEP,          // use this status to tell that an actor can go to sleep after becoming unconscious
     DORMANT,            // use this status to tell that an actor is asleep
-    ROOTED,
+    ROOTED,             // use this status to tell that an actor is rooted (can't move)
+    ENDGAME,            // use this status to describe an actor that's the endgame/boss.
 
     CARRIED,            // use this status to describe an item in the inventory
     BREAK_SHELL,        // use this status to describe an item that can break Koopa's shell.
-    HERO,
-    ENDGAME,
+    HERO,               // use this status to describe an item that makes an actor a hero
 
     FERTILE,            // use this status to describe fertile grounds that can grow plants (dirt)
     HIGH_GROUND,        // use this status to describe a jumpable ground (e.g., sprouts, saplings, trees, walls)
