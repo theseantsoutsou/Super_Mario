@@ -37,4 +37,8 @@ locations that implement the interface Teleport.
 
 //////REQ5//////
 - Actors that have monologues implement the Speaks interface. Instances of these Actors are stored in the ActorManager class using the registerSpeech() method.
-- The Speaks interface implements the setter for monologues
+- The Speaks interface implements the setter for monologues and getter for the ArrayList of monologues.
+- Every actor that has monologues will have speechBehaviour, which supplies that actor with a speechAction every even turn.
+- This speechAction will randomly select a String from the Actor's monologues ArrayList.
+- Toad has the capacity to speak randomly, but can also be engaged with by the player. The ToadSpeechAction allows the player
+    to choose to engage with Toad when next to them, and Toad will respond based upon the players capabilities.
