@@ -13,17 +13,31 @@ import edu.monash.fit2099.engine.positions.Location;
  * @since 15/05/22
  */
 public class WarpAction extends MoveActorAction {
-
+    /**
+     * Constructor
+     * @param moveToLocation
+     */
     public WarpAction(Location moveToLocation) {
         super(moveToLocation, "other map");
     }
     @Override
+    /**
+     * Execute WarpAction
+     * @param actor, map
+     * @return String
+     */
     public String execute(Actor actor, GameMap map) {
         Actor actorAtDestination = moveToLocation.getActor();
         if (actorAtDestination!=null){map.removeActor(actorAtDestination);}
         map.moveActor(actor, moveToLocation);
         return menuDescription(actor);
     }
+    /**
+     * Display description that the actor can reset the game
+     *
+     * @param actor The actor performing the action.
+     * @return A String to add to actor's menu of options.
+     */
     @Override
     public String menuDescription(Actor actor) {
         return actor + " teleports to " + direction;

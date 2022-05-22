@@ -1,146 +1,40 @@
-Assignment 2 Rationale:
+Assignment 3 Rationale:
 
 //////REQ1//////
-- Same as design
-//////REQ2//////
-- Same as design
-//////REQ3//////
-- Added the implementation of a SuicideAction and BreakAction for Goomba and Koopa respectively. SuicideAction specifically
-allows an actor to commit suicide, which is called every Goomba play turn. By making this functionality an independent
-class, instead of directly calling removeActor() in Goomba's playTurn, this implementation follows the Single Responsibility
-Principle. Similarly, by making BreakAction an independent class, the workload and responsibilities of AttackAction would be decreased.
-The BreakAction's sole responsibility now is to break a dormant character's shell.
-
-//////REQ4//////
-- Implemented TradableItemManager to manage ConsumeActions and magical items. TradableItem manager allows for the
-generation of Toads inventory without direct dependencies with each item class. Instead, Toad has a dependency with the
-TradableItemManager, which reduces inter-package dependencies and couplings. Furthermore, it uses a Hashmap to keep
-track of all instance of ConsumeActions to ensure that multiple ConsumeActions cannot be associated with one item and
-that items do not retain ConsumeActions when dropped.
-
-//////REQ5//////
-- If wallet were an attribute of the Player (or any subclass of Actor) as it is in the initial design.
-it would be difficult for a TradeAction to access that attribute through calls to the Actor type. Instead, by making the
-Wallet class a Singleton design pattern with a static getInstance() method, the wallet can be accessed easily from within
-the TradeAction.
-
-- Few changes to variable and method names to make them more descriptive/obvious.
-
-- Implemented a TradableItemInventory. This was forgotten in the initial design, but is necessary to access the methods of the
-TradableItem interface in places where only an Item type can is supplied. Furthermore, the Dependency Inversion Principle in
-not fully realised in the design without the inclusion of this class.
-
-//////REQ6//////
-- Same as design
-
-//////REQ7/////
-- Same as design
-
-
-Assignment 1 Rationale:
-
-//////REQ1//////
-While Sprout, Sapling, and Mature are stages of a tree, they have unique spawning abilities. To obey the Single-Responsibility
-Principle, it was decided to make them separate classes that inherit the Ground Class.
-As Sprout can spawn a Goomba, it implied that it would have a dependency, that is, a method to potentially
-spawn a Goomba when conditions are met.
-Similarly, a Sapling can drop coins every turn, which implies that Sapling knows about Coin, and therefore has
-a dependency on the Coin Class.
-Lastly, a Tree can spawn a Koopa, which is responsible for its dependency on the Koopa Class.
-
-As Sprout grows into Sapling, Sapling grows into Tree, and Tree can spawn Sprouts or become Dirt, Sprout has a
-dependency on Sapling, Sapling has a dependency on Tree, and Tree has dependencies on Sprout and Dirt.
-
+- TeleportManager class is a singleton class that is used to store a reference to the different GameMaps and a reference to
+locations that implement the interface Teleport.
+- The TeleportManager class allows for the access of GameMap types outside of the World class and positions package.
+- By storing instances of Teleport objects in the manager, these objects and the Teleport methods can be accessed in sections of the
+    code where only objects of the Location class are available. This avoids instanceof and type conversion.
+- The WarpPipe has a destination Location as an attribute, which is the connected WarpPipe to teleport to.
+- If no destination exists for the WarpPipe, the destination is set to be the WarpPipe in LavaZone.
+- When the player is standing on top of a WarpPipe a WarpAction is generated for the destination of that WarpPipe.
+- The destination of the WarpPipe that is being teleported to is set to the location of the current WarpPipe. This allows the player to
+    be able to travel back to the WarpPipe of origin.
+- If an enemy is on top of any WarpPipe that is being teleported to, it is removed from the map prior to the player having teleported.
 
 //////REQ2//////
-The JumpAction is implemented similarly to the existing class AttackAction. It also inherits from the base
-class Action. It has an attribute target of class Ground which forms its association with the Ground class.
-This is done to obey the Liskov Substitution Principle. In reality, JumpAction will only target Wall, Sprout,
-Sapling, and Tree which all inherit from the Ground class. Success rates and fall damages will be added as
-attributes to the relevant Ground subclasses as they have unique values. These values will then be retrieved
-when JumpAction.execute() is called. As JumpAction already has an association with the Ground class,
-this design does not add on to the dependencies between classes, and therefore follows the idea of
-reducing dependencies (ReD).
-
-To further implement the ReD principle, JumpAction will check the consumption of SuperMushroom via the
-Actor method hasCapabilities() to check if the Player has the Status TALL. Since Action has an existing
-dependency on Actor, this method does not add more dependencies.
-
 
 //////REQ3//////
-Goomba and Koopa would inherit certain aspects of the Actor class as they both contain attributes that are
-shared amongst other characters such as health and the ability to move around (with the exception of Toad).
-As a result, they would have an inheritance relationship with the Actor class. Additionally, Goomba and Koopa
-have relationships with Sprout and Tree where a Sprout or a Tree have the chance to spawn a Goomba or
-Koopa respectively.
-
-Koopa would have an association with Super Mushroom as when the shell of a Koopa is destroyed, a
-Super Mushroom is dropped.
-
-Futhermore, Goomba and Koopa would implement the Behaviour interface which allows them to have their own
-'objectives' such as killing the player.
-
+- The Bottle class extends the Item class. It is added to the Player's inventory at the start of the game.
+- The Bottle is a container for Water objects, storing them in a stack. Everytime the Bottle is filled, Water is pushed to the top, everytime is drank from
+    a Water object is popped.
+- Both PowerWater and HealthWater classes extend the abstract class Water. Water implements Consumable but is not of the Item type.
+    Having these subclasses extend from the Water class allows them to be contained in the same stack, but also allows for the different logic required for the
+    different effects of each type of water.
+- HealthFountain and PowerFountain extend from the abstract base class of fountain. The allowableActions method is defined in the base class and the abstract method
+    getWater are defined in the subclasses. Each getWater method returns the appropriate type of water for the fountain.
+- When the player is standing on a fountain and has a bottle in their possession, a FillAction is generated. FillActions allow the player to fill their bottle with
+    the Water objects associated with that specific type of fountain.
+- If a player has water in their bottle, a ConsumeWaterAction is generated that allows the player to consume the Water object at the top of the stack.
+- The ConsumeWaterAction.execute() method uses the "drink" method of the Bottle class, which handles the popping of the Water object and applies effects to the
+    actor. Each type of Water object contains the logic required to apply effects to the actor consuming the water.
+- By implementing the DrinksWater interface, baseAttack and associated methods are added to the player class. This allows the effect of PowerWater to be used
+    for the player's intrinsic attack.
+- All actors that implement the DrinksWater interface have a reference stored in the ActorManager class.
 
 //////REQ4//////
-Both Super Mushroom and Power Star are objects that the player can use to gain a benefit/advantage in the game,
-as a result, they would inherit aspects of the Item class.
-
-Super Mushroom and Power Star would implement the TradableItem interface which would list them as
-items Toad has a pontential to carry when the player interacts with him in order to trade.
-
-Koopa would have an association with Super Mushroom as when the shell of a Koopa is destroyed, a
-Super Mushroom is dropped.
-
-A class called FlattenAction would create the functionality where whenever, the player character moves
-to higher ground, instead of a JumpAction, the target position would be flattened and become dirt. This class
-would have an association with the abstract class Ground as it would turn Ground objects (Sapling, Sprout, Tree, Wall)
-into Dirt.
-
-FlattenAction would also inherit attributes of the abstract class Action as it is an action the player
-can make after using a Power Star item.
 
 //////REQ5//////
-Requirement 5 is a more involved example than requirement 6, as it requires multiple actions to be generated simultaneously to
-populate the menu with trading options for the player. Furthermore, to trade items the functionality of certain items will need
-to be extended, such that they can have a value and can be identified as being tradeable.
-This will be implemented through the use of an interface “TradeableItem”, which will add new attributes and methods to certain
-item subclasses. Foremost, the use of an interface allows for the extension of the sub-classes of Item – which will reduce
-code repetition/redundancy through the use of default methods. The use of the interface also enforces a few different SOLID
-design principles. Firstly, it allows for interface segregation – not all subclasses of the Item class will require the
-attributes and methods associated with trading, so an interface allows for the extension of specific Item sub-classes. Using an
-interface in this scenario also ensures that entities derived from the Item class are open for extension, but closed for modification.
-Furthermore, using an interface would allow the methods/classes related to trading mechanics to only accept TradableItems(s) as
-inputs – which could allow for better exception handling.
-In this design the trading mechanics are implemented through the use of the TradeAction class, which is an extension of the
-Action class. TradeAction(s) are generated within the Toad class through the “getAllowableActions'' function. Here, if the
-Toad class has the correct capability, it should generate an ActionList, which contains the TradeAction(s). The inventory of
-the Actor (Toad in this case) trading with the player will be iterated through, and a TradeAction would be generated for each
-TradeableItem in the inventory (each item will lead to different menu prompts and trading outcomes). While it would be possible
- to implement the logic for this process in the “getAllowableActions” function of the Toad class, this could violate some of
- the SOLID principles. Instead, as depicted in the sequence diagram, the proposed implementation uses a static method within
- the TradeAction class to generate an ActionList containing Items, using the “target” Actor class’ inventory.
-Through this design, the static function allows all of the logic required for creating multiple instances of the TradeAction
-class to be encapsulated within the TradeAction class itself, instead of existing externally within a single Actor class’ method.
-This improves the reusability of the trade mechanics – if other trading characters were introduced, they would be able to
-implement trading behavior by using TradeAction methods and having the correct capabilitySet. Furthermore this is a continuation
-of the implementation of the Capability system of the game engine – the behavior of the Actor can be primarily defined by its
-capabilitySet and not necessarily its methods. This design is also an example of the single responsibility principle – by
-implementing all of the trading logic in the TradingAction class, any Actor class is only concerned with the logic required to
-supply actions governed by its capabilityList and Behaviors. All of this leads to reduced dependency as there is lower
-coupling and better organization as all functionality pertinent to trading is centralized.
-
-//////REQ6//////
-Requirement 5 and requirement 6 deal with similar design problems – both require an action to be generated when interacting with Toad
-(when proximate to his location in the game world).
-Requirement 6 will be implemented through the use of the SpeechAction class, which extends the Action class.
-The Action will be created from within Toad’s “getAllowableActions” using the class’ capabilitySet. This class will access the
-capabilitySet of the player to determine whether a player is holding/has activated a particular item. By determining this, the
-SpeechAction class can display the appropriate message when its execute method is called.
-
-
-//////REQ7//////
-The ResetManager class manages a list of objects that implements the Resettable interface.
-For the purpose of resetting the game, Player, Toad, Goomba, Koopa, and Tree will implement the Resettable Interface.
-Doing so supports the Dependency Inversion Principle, as ResetManager does not directly associate with any low-level modules,
-but only associates with the Resettable Interface itself. The list of Resettable in ResetManager would then contain any resettable objects.
-ResetManager would then have a dependency to GameMap via a method such that it would be able to reset the GameMap to its initial state.
+- Actors that have monologues implement the Speaks interface. Instances of these Actors are stored in the ActorManager class using the registerSpeech() method.
+- The Speaks interface implements the setter for monologues
