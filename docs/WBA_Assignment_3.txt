@@ -1,0 +1,38 @@
+﻿Work Breakdown Agreement
+
+
+Lucus Choy - 31859461
+        Assigned Task:
+            * New Sequence Diagram (collaboration)
+            * Main UML Diagrams
+            * REQ4
+            * Java Docs
+
+	Date deliverable: 
+		        Saturday 22/05/2022
+Connor Gibson 32549393
+        Assigned Task:
+            * New Sequence Diagram (collaboration)
+            * Main UML Diagrams
+            * REQ1
+            * REQ3
+            * REQ5
+            * Java Docs
+
+        Date deliverable: 
+                Saturday 22/05/2022
+Shang-Fu Tsou 32444583
+        Assigned Task:
+            * New Sequence Diagram (collaboration)
+            * Main UML Diagrams
+            * REQ1
+            * REQ2
+            * REQ4
+            * Java Docs
+
+        Date deliverable:
+                Saturday 22/05/2022
+ 
+ I accept this WBA - Connor Gibson
+ I accept this WBA - Shang-Fu Tsou
+ I accpet this WBA - Lucus Choy Yong Sheng
